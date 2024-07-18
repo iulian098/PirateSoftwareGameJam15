@@ -15,6 +15,12 @@ public class Projectile : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Enemy")) {
+            //Give damage
+        }
         Destroy(gameObject);
         Instantiate(hitVFX, transform.position, Quaternion.identity);
     }
