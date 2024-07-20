@@ -32,7 +32,7 @@ public class HealthComponent : MonoBehaviour
     public virtual void ReceiveDamage(int dmg) {
         Health -= dmg;
 
-        OnDamageReceived?.Invoke(health);
+        OnDamageReceived?.Invoke(dmg);
 
         if (health <= 0)
             Die();
