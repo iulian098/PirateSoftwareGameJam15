@@ -20,6 +20,11 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Enemy")) {
             //Give damage
+            HealthComponent healthComp = collision.GetComponent<HealthComponent>();
+            if (healthComp != null)
+                healthComp.ReceiveDamage(10);
+            else
+                Debug.LogWarning("Health Component not found");
         }
         Destroy(gameObject);
         Instantiate(hitVFX, transform.position, Quaternion.identity);
