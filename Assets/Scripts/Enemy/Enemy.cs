@@ -10,9 +10,11 @@ public class Enemy : Character {
     [SerializeField] NavMeshAgent agent;
     [SerializeField] float aggroRange;
     [SerializeField] float attackRange;
+    [SerializeField] Vector3 healthBarOffset;
     [SerializeField] LayerMask playerLayerMask;
 
     Collider2D[] detectedColliders = new Collider2D[1];
+    UI_EnemyHealthBar healthBar;
     Player target;
     float attackTime;
     bool isDead;
@@ -28,6 +30,12 @@ public class Enemy : Character {
 
     private void Start() {
         healthComponent.OnDied += OnDied;
+        if (healthBar == null) {
+            healthBar = UIManager.Instance.EnemyHealthBarManager.GetHealthBar();
+            healthBar.SetTarget(transform);
+            healthBar.Init(healthComponent.MaxHealth);
+            HealthComponent.OnHealthChanged += healthBar.SetValue;
+        }
     }
 
     private void OnDied() {
@@ -44,6 +52,10 @@ public class Enemy : Character {
 
         if(attackTime > 0)
             attackTime -= Time.deltaTime;
+
+        if(healthBar != null) {
+            healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + healthBarOffset);
+        }
     }
 
     public bool PlayerDetected() {

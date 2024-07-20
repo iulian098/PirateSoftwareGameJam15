@@ -182,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 400
   lifetime: 5
+  maxDistance: 2
   hitVFX: {fileID: 6672651003196831077, guid: 6421d642b58ac994ca836fc3a857ca14, type: 3}
   rb: {fileID: 1408427491949693804}
 --- !u!58 &-2715147672121897515

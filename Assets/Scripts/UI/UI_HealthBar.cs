@@ -22,7 +22,7 @@ public class UI_HealthBar : MonoBehaviour
         maxWidth = newFillBar.rectTransform.sizeDelta.x;
     }
 
-    private void FixedUpdate() {
+    protected virtual void FixedUpdate() {
 
         if (valueChanged) {
             oldFillSizeTarget = oldFillBar.rectTransform.sizeDelta;
