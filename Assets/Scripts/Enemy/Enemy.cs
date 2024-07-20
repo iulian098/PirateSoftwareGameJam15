@@ -30,12 +30,20 @@ public class Enemy : Character {
 
     private void Start() {
         healthComponent.OnDied += OnDied;
+        healthComponent.OnDamageReceived += OnDamageReceived;
         if (healthBar == null) {
             healthBar = UIManager.Instance.EnemyHealthBarManager.GetHealthBar();
             healthBar.SetTarget(transform);
             healthBar.Init(healthComponent.MaxHealth);
             HealthComponent.OnHealthChanged += healthBar.SetValue;
         }
+    }
+
+    private void OnDamageReceived(int dmg) {
+        UIManager.Instance.DamageNumberManager.ShowText($"-{dmg}",
+            false,
+            Camera.main.WorldToScreenPoint(transform.position + healthBarOffset)
+            );
     }
 
     private void OnDied() {
