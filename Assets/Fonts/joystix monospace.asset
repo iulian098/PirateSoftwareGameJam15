@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: joystix monospace
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 114933229
   material: {fileID: 3355750371783740497}
-  materialHashCode: 0
+  materialHashCode: 624732717
   m_Version: 1.1.0
   m_SourceFontFileGUID: 94dd57709b7c5be4e8e594366a3f89aa
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 94dd57709b7c5be4e8e594366a3f89aa, type: 3}
@@ -2002,7 +2002,8 @@ MonoBehaviour:
   m_FontFeatureTable:
     m_GlyphPairAdjustmentRecords: []
   fallbackFontAssets: []
-  m_FallbackFontAssetTable: []
+  m_FallbackFontAssetTable:
+  - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: 94dd57709b7c5be4e8e594366a3f89aa
