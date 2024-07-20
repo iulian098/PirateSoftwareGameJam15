@@ -19,13 +19,9 @@ public class AttacksController : MonoBehaviour
 
     private void Update() {
         aimDirection = (Camera.main.ScreenToWorldPoint(PlayerInput.actions["AimDirection"].ReadValue<Vector2>()) - transform.position).normalized;
-        if (a)
-            aimDirTransform.rotation = Quaternion.LookRotation(forwardRot, aimDirection);
-        else
-            aimDirTransform.rotation = Quaternion.LookRotation(aimDirection, forwardRot);
-        if (PlayerInput.actions["Attack"].WasPressedThisFrame()) {
+        aimDirTransform.rotation = Quaternion.LookRotation(forwardRot, aimDirection);
 
+        if (PlayerInput.actions["Attack"].WasPressedThisFrame())
             equippedWeapon.Attack();
-        }
     }
 }
