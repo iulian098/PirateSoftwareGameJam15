@@ -9,18 +9,13 @@ public class UI_HealthBar : MonoBehaviour
     [SerializeField] Image oldFillBar;
     [SerializeField] float minXSize;
 
-    float maxWidth;
+    float maxWidth = -1;
     int maxValue;
 
     bool valueChanged;
     Vector2 fillSizeTarget;
     Vector2 oldFillSizeTarget;
 
-
-    void Start()
-    {
-        maxWidth = newFillBar.rectTransform.sizeDelta.x;
-    }
 
     protected virtual void FixedUpdate() {
 
@@ -36,10 +31,15 @@ public class UI_HealthBar : MonoBehaviour
     }
 
     public void Init(int maxVal) {
+        maxWidth = newFillBar.rectTransform.sizeDelta.x;
         maxValue = maxVal;
     }
 
     public void SetValue(int oldVal, int newVal) {
+
+        if(maxWidth == -1)
+            maxWidth = newFillBar.rectTransform.sizeDelta.x;
+
         fillSizeTarget = newFillBar.rectTransform.sizeDelta;
         float xSize = (float)maxWidth * ((float)newVal / maxValue);
 

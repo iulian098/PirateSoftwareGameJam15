@@ -8,6 +8,7 @@ public class Enemy : Character {
     [SerializeField] EnemyData enemyData;
     [SerializeField] EnemyState enemyState;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] SpriteRenderer characterSprite;
     [SerializeField] float aggroRange;
     [SerializeField] float attackRange;
     [SerializeField] Vector3 healthBarOffset;
@@ -17,6 +18,8 @@ public class Enemy : Character {
     UI_EnemyHealthBar healthBar;
     Player target;
     float attackTime;
+    float lastX;
+    float spriteXScale;
     bool isDead;
 
     public EnemyData EnemyData => enemyData;
@@ -31,15 +34,26 @@ public class Enemy : Character {
     private void Start() {
         healthComponent.OnDied += OnDied;
         healthComponent.OnDamageReceived += OnDamageReceived;
-        if (healthBar == null) {
+        /*if (healthBar == null) {
+            //healthBar = UIManager.Instance.EnemyHealthBarManager.GetHealthBar();
+            healthBar.SetTarget(transform);
+            healthBar.Init(healthComponent.MaxHealth);
+            HealthComponent.OnHealthChanged += healthBar.SetValue;
+        }*/
+
+        lastX = transform.position.x;
+        spriteXScale = characterSprite.transform.localScale.x;
+    }
+
+    private void OnDamageReceived(int dmg) {
+        if (healthBar == null && HealthComponent.Health != HealthComponent.MaxHealth) {
             healthBar = UIManager.Instance.EnemyHealthBarManager.GetHealthBar();
             healthBar.SetTarget(transform);
             healthBar.Init(healthComponent.MaxHealth);
             HealthComponent.OnHealthChanged += healthBar.SetValue;
+            healthBar.SetValue(healthComponent.MaxHealth, healthComponent.Health);
         }
-    }
 
-    private void OnDamageReceived(int dmg) {
         UIManager.Instance.DamageNumberManager.ShowText($"-{dmg}",
             false,
             Camera.main.WorldToScreenPoint(transform.position + healthBarOffset)
@@ -48,6 +62,10 @@ public class Enemy : Character {
 
     private void OnDied() {
         isDead = true;
+        if (healthBar != null) {
+            UIManager.Instance.EnemyHealthBarManager.FreeHealthBar(healthBar);
+            healthBar = null;
+        }
     }
 
     void FixedUpdate() {
@@ -58,12 +76,32 @@ public class Enemy : Character {
             if (detectedColliders[0].TryGetComponent<Player>(out var player))
                 target = player;
 
-        if(attackTime > 0)
+        if(target != null && TargetDistance > aggroRange + 2) {
+            target = null;
+            UIManager.Instance.EnemyHealthBarManager.FreeHealthBar(healthBar);
+        }
+
+        if (attackTime > 0)
             attackTime -= Time.deltaTime;
 
-        if(healthBar != null) {
+        if(healthBar != null)
             healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + healthBarOffset);
+
+        ChangeSpriteDirection();
+    }
+
+    void ChangeSpriteDirection() {
+        if(transform.position.x < lastX && characterSprite.transform.localScale.x != -spriteXScale) {
+            Vector3 scale = characterSprite.transform.localScale;
+            scale.x = -spriteXScale;
+            characterSprite.transform.localScale = scale;
         }
+        else if (transform.position.x > lastX && characterSprite.transform.localScale.x != spriteXScale) {
+            Vector3 scale = characterSprite.transform.localScale;
+            scale.x = spriteXScale;
+            characterSprite.transform.localScale = scale;
+        }
+        lastX = transform.position.x;
     }
 
     public bool PlayerDetected() {

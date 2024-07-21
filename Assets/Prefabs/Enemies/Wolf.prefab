@@ -344,6 +344,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: e0b27c7a78d8f3943bc83ca285627da6, type: 2}
   enemyState: {fileID: 6662078327093201453}
   agent: {fileID: 6038656334435187259}
+  characterSprite: {fileID: 958138247180989097}
   aggroRange: 2
   attackRange: 0.8
   healthBarOffset: {x: 0, y: 0.4, z: 0}
