@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33bcf97938ee1244580fa35f0eb7d791, type: 3}
-  m_Name: AcidPotionData
+  m_Name: FirePotionData
   m_EditorClassIdentifier: 
-  id: 101
+  id: 102
   type: 0
-  icon: {fileID: 21300000, guid: eef6490ae06c14c4999988b93fa80003, type: 3}
-  itemName: Acid Potion
-  itemDescription: You should not drink it
+  icon: {fileID: 21300000, guid: 3d401822aad36a94b8df6b511e98befc, type: 3}
+  itemName: Fire potion
+  itemDescription: Set you on fire
