@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Android;
 
 public class Enemy : Character {
     [SerializeField] EnemyData enemyData;
     [SerializeField] EnemyState enemyState;
+    [SerializeField] Animator anim;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] SpriteRenderer characterSprite;
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] Collider2D collider;
     [SerializeField] float aggroRange;
     [SerializeField] float attackRange;
     [SerializeField] Vector3 healthBarOffset;
@@ -28,19 +32,13 @@ public class Enemy : Character {
     public float AttackTime { get => attackTime; set => attackTime = value; }
     public float AttackRate => enemyData.AttackRate;
     public int Damage => enemyData.Damage;
+    public bool IsDead => isDead;
     public bool IsInAttackRange => Vector2.Distance(target.transform.position, transform.position) < attackRange;
     public float TargetDistance => Vector2.Distance(target.transform.position, transform.position);
 
     private void Start() {
         healthComponent.OnDied += OnDied;
         healthComponent.OnDamageReceived += OnDamageReceived;
-        /*if (healthBar == null) {
-            //healthBar = UIManager.Instance.EnemyHealthBarManager.GetHealthBar();
-            healthBar.SetTarget(transform);
-            healthBar.Init(healthComponent.MaxHealth);
-            HealthComponent.OnHealthChanged += healthBar.SetValue;
-        }*/
-
         lastX = transform.position.x;
         spriteXScale = characterSprite.transform.localScale.x;
     }
@@ -62,6 +60,13 @@ public class Enemy : Character {
 
     private void OnDied() {
         isDead = true;
+        enemyState.enabled = false;
+        agent.enabled = false;
+        anim.SetBool("Dead", true);
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+        collider.isTrigger = true;
+        healthComponent.enabled = false;
         if (healthBar != null) {
             UIManager.Instance.EnemyHealthBarManager.FreeHealthBar(healthBar);
             healthBar = null;
@@ -116,6 +121,16 @@ public class Enemy : Character {
             agent.SetDestination(target.transform.position);
         else 
             agent.SetDestination(transform.position);
+    }
+
+    public void Clear() {
+        isDead = false;
+        enemyState.enabled = true;
+        agent.enabled = true;
+        anim.SetBool("Dead", false);
+        rb.isKinematic = false;
+        collider.isTrigger = false;
+        healthComponent.enabled = true;
     }
 
     private void OnDrawGizmosSelected() {

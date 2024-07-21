@@ -7,6 +7,7 @@ public class HealthComponent : MonoBehaviour
 {
     [SerializeField] int maxHealth;
     int health;
+    protected bool isDead;
 
     public int MaxHealth => maxHealth;
     public int Health {
@@ -16,7 +17,7 @@ public class HealthComponent : MonoBehaviour
             health = value;
         }
     }
-
+    
     /// <summary>
     /// param1 OldHealth
     /// param2 NewHealth
@@ -27,6 +28,7 @@ public class HealthComponent : MonoBehaviour
 
     protected virtual void Start() {
         health = maxHealth;
+        isDead = false;
     }
 
     public virtual void ReceiveDamage(int dmg) {
@@ -40,5 +42,18 @@ public class HealthComponent : MonoBehaviour
 
     protected virtual void Die() {
         OnDied?.Invoke();
+        isDead = true;
+        ClearActions();
+    }
+
+    public void ClearActions() {
+        OnHealthChanged = null;
+        OnDamageReceived = null;
+        OnDied = null;
+    }
+
+    public void ClearAll() {
+        ClearActions();
+        Start();
     }
 }
