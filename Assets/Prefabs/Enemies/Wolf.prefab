@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 780692866517317257}
   - component: {fileID: 6662078327093201453}
   - component: {fileID: 6803747754035603378}
+  - component: {fileID: 8220032672873602377}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Enemy
@@ -343,11 +344,32 @@ MonoBehaviour:
   healthComponent: {fileID: 780692866517317257}
   enemyData: {fileID: 11400000, guid: e0b27c7a78d8f3943bc83ca285627da6, type: 2}
   enemyState: {fileID: 6662078327093201453}
+  anim: {fileID: 8300433839822011953}
   agent: {fileID: 6038656334435187259}
   characterSprite: {fileID: 958138247180989097}
+  rb: {fileID: 3316595022527759824}
+  collider: {fileID: 7675726440172023246}
   aggroRange: 2
   attackRange: 0.8
   healthBarOffset: {x: 0, y: 0.4, z: 0}
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &8220032672873602377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386145555287722038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb12fa189a11d24facc2bef6811d776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 6803747754035603378}
+  dropVfx: {fileID: 3577409921732377515, guid: 570a3f715ed5b8d4580ca14c50646c57, type: 3}
+  itemDrops:
+  - item: {fileID: 11400000, guid: 81754e16667c63b41a2ad45c02eaa717, type: 2}
+    amount: 1
+    chance: 100
