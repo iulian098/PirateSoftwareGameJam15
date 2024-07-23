@@ -10,17 +10,30 @@ public abstract class UI_Slot : MonoBehaviour
 
     protected int slotIndex;
     protected ItemData item;
+    protected int amount;
 
     public int SlotIndex => slotIndex;
     public ItemData Item => item;
+    public int Amount => amount;
 
     public virtual void SetItem(ItemData item) {
         this.item = item;
     }
 
+    public virtual void SetItem(ItemData item, int amount) {  
+        this.item = item;
+        this.amount = amount;
+    }
+
     public void SetSlotIndex (int index) {
         Debug.Log("Set slot index " + index);
         slotIndex = index;
+    }
+
+    public virtual void UpdateItem(InventoryContainer inventory, ItemsContainer items) {
+        ItemData item =  items.GetItemByID(inventory.ItemsIDs[slotIndex]);
+        int amount = inventory.Amounts[slotIndex];
+        SetItem(item, amount);
     }
 
     public virtual void UpdateUI() {}

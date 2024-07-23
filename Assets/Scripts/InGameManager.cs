@@ -22,4 +22,13 @@ public class InGameManager : MonoBehaviour
     [SerializeField] PlayerInput playerInput;
 
     public PlayerInput PlayerInput => playerInput;
+
+    private void Update() {
+        if (playerInput.actions["Inventory"].WasPerformedThisFrame()) {
+            if (!InventorySystem.Instance.IsOpen)
+                InventorySystem.Instance.Show();
+            else
+                InventorySystem.Instance.Hide();
+        }
+    }
 }

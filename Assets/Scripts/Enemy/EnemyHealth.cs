@@ -13,8 +13,9 @@ public class EnemyHealth : HealthComponent
     }
 
     protected override void Die() {
+        if (isDead) return;
         base.Die();
-        Destroy(gameObject);
+        
         Instantiate(dieParticles, transform.position, Quaternion.identity);
     }
 }
