@@ -13,8 +13,9 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     [SerializeField] InventoryContainer inventoryContainer;
     [SerializeField] ItemData testItemData;
     [SerializeField] GameObject contents;
-    [SerializeField] GameObject itemDragObject;
-    [SerializeField] Image itemDragImage;
+    [SerializeField] Transform handTransform;
+    [SerializeField] Image handImage;
+    [SerializeField] Sprite[] handSprites;
 
     public Action<ItemData> OnItemAdded;
 
@@ -26,6 +27,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
 
     bool isDrag;
 
+    ItemDragIcon ItemDragIcon => UIManager.Instance.ItemDragIcon;
     public UI_Slot SelectedSlot => selectedSlot;
     public int SelectedSlotIndex => selectedSlotIndex;
     public bool IsOpen => contents.activeSelf;
@@ -35,7 +37,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         //items = new ItemData[slots.Length];
         /*items[0] = testItemData;
         items[slots.Length - 1] = testItemData;*/
-
+        inventoryContainer.OnInventoryUpdated += UpdateInventory;
         for (int i = 0; i < slots.Length; i++) {
             int tmp = i;
             slots[i].SetSlotIndex(tmp);
@@ -43,17 +45,35 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         }
     }
 
+    private void OnDestroy() {
+        inventoryContainer.OnInventoryUpdated -= UpdateInventory;
+    }
+
+    private void Update() {
+        if (IsOpen) {
+            handTransform.position = InGameManager.Instance.PlayerInput.actions["AimDirection"].ReadValue<Vector2>();
+            if (isDrag && handImage.sprite != handSprites[1])
+                handImage.sprite = handSprites[1];
+            else if (!isDrag && handImage.sprite != handSprites[0])
+                handImage.sprite = handSprites[0];
+        }
+
+    }
+
     private void FixedUpdate() {
         if (isDrag)
-            itemDragObject.transform.position = InGameManager.Instance.PlayerInput.actions["AimDirection"].ReadValue<Vector2>();
+            ItemDragIcon.transform.position = InGameManager.Instance.PlayerInput.actions["AimDirection"].ReadValue<Vector2>();
+
     }
 
     public void Show() {
         contents.SetActive(true);
+        Cursor.visible = false;
     }
 
     public void Hide() {
         contents.SetActive(false);
+        Cursor.visible = true;
     }
 
     public bool AddItem(ItemData item, int amount) {
@@ -137,15 +157,19 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         isDrag = true;
         selectedSlot = slot;
         selectedSlotIndex = slot.SlotIndex;
-
-        itemDragObject.SetActive(true);
-        itemDragImage.sprite = slot.Item.Icon;
+        if (selectedSlot.Item == null) return;
+        ItemDragIcon.Show(slot.Item.Icon);
+        HotbarManager.Instance.SetDisabled(slot.Item.Type != Enum_ItemType.Equipment);
     }
 
     public void Drop() {
         isDrag = false;
-        itemDragObject.SetActive(false);
-        if (selectedSlot == null || overSlot == null) return;
+        ItemDragIcon.Hide();
+        HotbarManager.Instance.SetDisabled(false);
+        if (selectedSlot == null || overSlot == null || selectedSlot == overSlot) {
+            Clear();
+            return;
+        }
 
         //Combine items
         /*if(overSlot.Item == selectedSlot.Item) {
@@ -183,8 +207,17 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         selectedSlot.SetItem(items[selectedSlotIndex]);
 
         Debug.Log($"[Inventory] On Item Dropped {selectedSlot.name} - {overSlot.name}");*/
-        UIManager.Instance.ItemInfo.Show(overSlot.Item, overSlot.transform.position - new Vector3(0, (overSlot.transform as RectTransform).sizeDelta.y / 2, 0));
+        if(overSlot.Item != null)
+            UIManager.Instance.ItemInfo.Show(overSlot.Item, overSlot.transform.position - new Vector3(0, (overSlot.transform as RectTransform).sizeDelta.y / 2, 0));
         Clear();
+    }
+
+    public void UpdateInventory() {
+        for (int i = 0; i < slots.Length; i++) {
+            int tmp = i;
+            slots[i].SetSlotIndex(tmp);
+            slots[i].SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[i]), inventoryContainer.Amounts[i]);
+        }
     }
 
     void Clear() {

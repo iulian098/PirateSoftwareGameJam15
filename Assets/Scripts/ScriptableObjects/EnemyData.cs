@@ -11,11 +11,13 @@ public class EnemyData : ScriptableObject
 
     [SerializeField] int damage;
     [SerializeField] float attackRate;
+    [SerializeField] DropData[] drops;
 
     public Sprite EnemyIcon => enemyIcon;
     public string EnemyName => enemyName;
     public string EnemyDescription => enemyDescription;
     public int Damage => damage;
     public float AttackRate => attackRate;
+    public DropData[] Drops => drops;
 
 }

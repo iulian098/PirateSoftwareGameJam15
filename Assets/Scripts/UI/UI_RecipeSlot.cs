@@ -12,17 +12,32 @@ public class UI_RecipeSlot : MonoBehaviour
     [SerializeField] Color lockedColor;
 
     public Action<ItemData> OnSelected;
+    RecipesContainer.Recipe recipe;
     ItemData item;
+    Func<RecipesContainer.Recipe, bool> CanCraft;
 
-    public void Init(ItemData itemData, bool isUnlocked) {
+    public void Init(RecipesContainer.Recipe recipe, ItemData itemData, bool isUnlocked, Action<ItemData> onSelected, Func<RecipesContainer.Recipe, bool> canCraft) {
         item = itemData;
         icon.sprite = itemData.Icon;
+        this.recipe = recipe;
+        CanCraft = canCraft;
         if (isUnlocked) {
-            icon.color = canCraftColor;
+            if(canCraft.Invoke(this.recipe))
+                icon.color = canCraftColor;
+            else
+                icon.color = noResourcesColor;
         }
-        else {
+        else
             icon.color = lockedColor;
-        }
+
+        OnSelected = onSelected;
+    }
+
+    public void UpdateUI() {
+        if (CanCraft.Invoke(recipe))
+            icon.color = canCraftColor;
+        else
+            icon.color = noResourcesColor;
     }
 
     public void OnClick() {

@@ -8,9 +8,11 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] EnemyHealthBarManager enemyHealthBarManager;
     [SerializeField] UI_DamageNumberManager damageNumberManager;
     [SerializeField] ItemInfo itemInfo;
+    [SerializeField] ItemDragIcon itemDragIcon;
 
     public UI_HealthBar PlayerHealthBar => playerHealthBar;
     public EnemyHealthBarManager EnemyHealthBarManager => enemyHealthBarManager;
     public UI_DamageNumberManager DamageNumberManager => damageNumberManager;
     public ItemInfo ItemInfo => itemInfo;
+    public ItemDragIcon ItemDragIcon => itemDragIcon;
 }
