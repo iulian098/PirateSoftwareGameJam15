@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconImage: {fileID: 1323170664334773053}
   amountText: {fileID: 2325048193216215634}
+  selectedObj: {fileID: 1272173194565804230}
 --- !u!114 &4523289714908798490
 MonoBehaviour:
   m_ObjectHideFlags: 0
