@@ -13,6 +13,11 @@ public class UI_HotbarSlot : UI_Slot
         UpdateUI();
     }
 
+    public override void SetItem(ItemData item, int amount) {
+        base.SetItem(item, amount);
+        UpdateUI();
+    }
+
     public override void UpdateUI() {
         base.UpdateUI();
 
@@ -27,6 +32,7 @@ public class UI_HotbarSlot : UI_Slot
         }
 
         iconImage.sprite = item.Icon;
+        amountText.text = $"x{amount}";
     }
 
     public override void OnDrag(BaseEventData eventData) {

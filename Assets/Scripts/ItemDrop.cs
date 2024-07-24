@@ -4,23 +4,17 @@ using UnityEngine;
 
 public class ItemDrop : MonoBehaviour
 {
-    [System.Serializable]
-    public class DropData {
-        public ItemData item;
-        public int amount;
-        public int chance;
-    }
-
     [SerializeField] Enemy enemy;
     [SerializeField] GameObject dropVfx;
-    [SerializeField] DropData[] itemDrops;
 
+    DropData[] itemDrops;
     bool itemPickedUp;
     GameObject spawnedVfx;
     List<DropData> droppedItems = new List<DropData>();
 
     private void Start() {
         enemy.HealthComponent.OnDied += CheckDrop;
+        itemDrops = enemy.EnemyData.Drops;
     }
 
     public void CheckDrop() {

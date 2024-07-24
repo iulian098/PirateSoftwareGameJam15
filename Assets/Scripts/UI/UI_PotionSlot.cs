@@ -41,6 +41,7 @@ public class UI_PotionSlot : UI_Slot
 
     public override void OnDrop(BaseEventData eventData) {
         InventorySystem.Instance.Drop();
+        Debug.Log($"{name} Drop");
     }
 
     public override void OnPointerEnter(BaseEventData eventData) {
@@ -50,8 +51,8 @@ public class UI_PotionSlot : UI_Slot
     }
 
     public override void OnPointerExit(BaseEventData eventData) {
-        if(!InventorySystem.Instance.IsDrag)
-            InventorySystem.Instance.SetOverSlot(null);
+
+        InventorySystem.Instance.SetOverSlot(null);
         UIManager.Instance.ItemInfo.Hide();
     }
 }

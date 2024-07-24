@@ -12,19 +12,35 @@ public class RecipesContainer : ScriptableObject
         public int[] amounts;
     }
 
-    [SerializeField] Recipe[] recipes;
+    [SerializeField] List<Recipe> recipes;
     [SerializeField] bool[] unlocked;
 
     Dictionary<ItemData, Recipe> recipesDict = new Dictionary<ItemData, Recipe>();
+    Dictionary<Recipe, int> recipesIndex = new Dictionary<Recipe, int>();
 
-    public Recipe[] Recipes => recipes;
+    public List<Recipe> Recipes => recipes;
     public bool[] Unlocked => unlocked;
 
     public void Init() {
+        /*for (int i = 0; i < recipes.Length; i++) {
+            if (recipesDict.ContainsKey(recipes[i].result)) continue;
+            recipesDict.Add(recipes[i].result, recipes[i]);
+        }*/
+
         foreach (var recipe in recipes) {
             if (recipesDict.ContainsKey(recipe.result)) continue;
             recipesDict.Add(recipe.result, recipe);
         }
+    }
+
+    public Recipe GetRecipe(ItemData item) {
+        if (recipesDict.ContainsKey(item)) 
+            return recipesDict[item];
+        return null;
+    }
+
+    public int GetRecipeIndex(Recipe recipe) {
+        return recipes.IndexOf(recipe);
     }
 
 }
