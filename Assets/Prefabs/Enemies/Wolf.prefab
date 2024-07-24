@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.047, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6987399376794883789}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: fda9c76f9575d804cb9b8b11157c2a0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -160,7 +160,7 @@ MonoBehaviour:
   - {x: -0.25232112, y: -0.100226045, z: 0}
   m_ShapePathHash: -1093916465
   m_Mesh: {fileID: 0}
-  m_InstanceId: 29788
+  m_InstanceId: 81772
   m_LocalBounds:
     m_Center: {x: -0.0012996197, y: -0.075733125, z: 0}
     m_Extent: {x: 0.35154808, y: 0.2754758, z: 0}
@@ -180,8 +180,7 @@ GameObject:
   - component: {fileID: 780692866517317257}
   - component: {fileID: 6662078327093201453}
   - component: {fileID: 6803747754035603378}
-  - component: {fileID: 8220032672873602377}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wolf
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -355,21 +354,3 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &8220032672873602377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4386145555287722038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcb12fa189a11d24facc2bef6811d776, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 6803747754035603378}
-  dropVfx: {fileID: 3577409921732377515, guid: 570a3f715ed5b8d4580ca14c50646c57, type: 3}
-  itemDrops:
-  - item: {fileID: 11400000, guid: 81754e16667c63b41a2ad45c02eaa717, type: 2}
-    amount: 1
-    chance: 100
