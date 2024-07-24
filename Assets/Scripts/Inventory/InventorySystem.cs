@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class InventorySystem : MonoSingleton<InventorySystem>
 {
+    [SerializeField] HotbarManager hotbarManager;
     [SerializeField] UI_Slot[] slots;
     [SerializeField] ItemsContainer itemsContainer;
     [SerializeField] InventoryContainer inventoryContainer;
@@ -34,15 +35,13 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     public bool IsDrag => isDrag;
 
     private void Start() {
-        //items = new ItemData[slots.Length];
-        /*items[0] = testItemData;
-        items[slots.Length - 1] = testItemData;*/
         inventoryContainer.OnInventoryUpdated += UpdateInventory;
         for (int i = 0; i < slots.Length; i++) {
             int tmp = i;
             slots[i].SetSlotIndex(tmp);
             slots[i].SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[i]), inventoryContainer.Amounts[i]);
         }
+        handImage.gameObject.SetActive(false);
     }
 
     private void OnDestroy() {
@@ -60,18 +59,30 @@ public class InventorySystem : MonoSingleton<InventorySystem>
 
     }
 
-    private void FixedUpdate() {
-        if (isDrag)
-            ItemDragIcon.transform.position = InGameManager.Instance.PlayerInput.actions["AimDirection"].ReadValue<Vector2>();
-
-    }
-
     public void Show() {
+        if (!contents.activeSelf) {
+            MouseHelper.Instance.OnDrag += hotbarManager.Drag;
+            MouseHelper.Instance.OnDrag += Drag;
+            MouseHelper.Instance.OnDrop += hotbarManager.Drop;
+            MouseHelper.Instance.OnDrop += Drop;
+
+        }
+        GlobalData.isPaused = true;
+        handImage.gameObject.SetActive(true);
         contents.SetActive(true);
         Cursor.visible = false;
+
     }
 
     public void Hide() {
+        if (contents.activeSelf) {
+            MouseHelper.Instance.OnDrag -= hotbarManager.Drag;
+            MouseHelper.Instance.OnDrag -= Drag;
+            MouseHelper.Instance.OnDrag -= hotbarManager.Drop;
+            MouseHelper.Instance.OnDrop -= Drop;
+        }
+        GlobalData.isPaused = false;
+        handImage.gameObject.SetActive(false);
         contents.SetActive(false);
         Cursor.visible = true;
     }
@@ -152,14 +163,25 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         overSlotIndex = slot == null ? -1 : slot.SlotIndex;
     }
 
-    public void Drag(UI_Slot slot) {
+    public void Drag() {
         UIManager.Instance.ItemInfo.Hide();
+        if (overSlot == null) return;
+        isDrag = true;
+        selectedSlot = overSlot;
+        selectedSlotIndex = overSlot.SlotIndex;
+        if (selectedSlot.Item == null) return;
+        ItemDragIcon.Show(overSlot.Item.Icon);
+        HotbarManager.Instance.SetDisabled(overSlot.Item.Type != Enum_ItemType.Equipment);
+    }
+
+    public void Drag(UI_Slot slot) {
+        /*UIManager.Instance.ItemInfo.Hide();
         isDrag = true;
         selectedSlot = slot;
         selectedSlotIndex = slot.SlotIndex;
         if (selectedSlot.Item == null) return;
         ItemDragIcon.Show(slot.Item.Icon);
-        HotbarManager.Instance.SetDisabled(slot.Item.Type != Enum_ItemType.Equipment);
+        HotbarManager.Instance.SetDisabled(slot.Item.Type != Enum_ItemType.Equipment);*/
     }
 
     public void Drop() {
@@ -218,6 +240,11 @@ public class InventorySystem : MonoSingleton<InventorySystem>
             slots[i].SetSlotIndex(tmp);
             slots[i].SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[i]), inventoryContainer.Amounts[i]);
         }
+    }
+
+    public void OnEquipItem(int itemId) {
+        EquipmentItemData item = itemsContainer.GetItemByID(itemId) as EquipmentItemData;
+        InGameManager.Instance.Player.EquipWeapon(item.WeaponData);
     }
 
     void Clear() {

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f5330195fd6fc43b858fd78bd165b3, type: 3}
+  m_Name: FireWeapon
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 1455745088827195291, guid: 346db18c1138e324196b5e1fa78788c3, type: 3}
+  projectileConfig:
+    speed: 400
+    maxDistance: 2
+    hitVFX: {fileID: 639068364674881290, guid: 3d6c7ce137f897548a3306e6903db72f, type: 3}
+  damage: 12
+  fireRate: 0.2

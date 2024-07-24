@@ -3,8 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    readonly int RunHash = Animator.StringToHash("Run");
     [SerializeField] float speed;
     [SerializeField] SpriteRenderer playerSprite;
+    [SerializeField] Animator anim;
     float playerSpriteXScale;
     Rigidbody2D rb;
     PlayerInput playerInput;
@@ -20,6 +22,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update() {
         movementVector = playerInput.actions["Movement"].ReadValue<Vector2>();
+
+        anim.SetBool(RunHash, movementVector.magnitude > 0.1f);
 
         if (movementVector.x < 0 && playerSprite.transform.localScale.x != -playerSpriteXScale) {
             Vector3 scale = playerSprite.transform.localScale;

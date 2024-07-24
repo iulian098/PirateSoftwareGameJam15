@@ -36,11 +36,11 @@ public class UI_PotionSlot : UI_Slot
     }
 
     public override void OnDrag(BaseEventData eventData) {
-        InventorySystem.Instance.Drag(this);
+        //InventorySystem.Instance.Drag(this);
     }
 
     public override void OnDrop(BaseEventData eventData) {
-        InventorySystem.Instance.Drop();
+        //InventorySystem.Instance.Drop();
         Debug.Log($"{name} Drop");
     }
 

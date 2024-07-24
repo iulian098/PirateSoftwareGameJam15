@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,8 @@ using UnityEngine.EventSystems;
 public class UI_HotbarSlot : UI_Slot
 {
     [SerializeField] TMP_Text amountText;
+
+    public Action<int> OnClickAction;
 
     public override void SetItem(ItemData item) {
         base.SetItem(item);
@@ -35,19 +38,17 @@ public class UI_HotbarSlot : UI_Slot
         amountText.text = $"x{amount}";
     }
 
-    public override void OnDrag(BaseEventData eventData) {
-        HotbarManager.Instance.Drag(this);
-    }
-
-    public override void OnDrop(BaseEventData eventData) {
-        HotbarManager.Instance.Drop();
-    }
-
     public override void OnPointerEnter(BaseEventData eventData) {
         HotbarManager.Instance.SetOverSlot(this);
     }
 
     public override void OnPointerExit(BaseEventData eventData) {
         HotbarManager.Instance.SetOverSlot(null);
+    }
+
+    public void OnClick() {
+        Debug.Log($"Hotbar slot {slotIndex} clicked");
+        if (item == null) return;
+        OnClickAction?.Invoke(item.ID);
     }
 }

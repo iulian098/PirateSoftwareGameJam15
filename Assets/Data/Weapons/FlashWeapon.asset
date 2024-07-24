@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f5330195fd6fc43b858fd78bd165b3, type: 3}
+  m_Name: FlashWeapon
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 1455745088827195291, guid: d8d14786e0a9b35408c21c2e3115a6d2, type: 3}
+  projectileConfig:
+    speed: 400
+    maxDistance: 2.5
+    hitVFX: {fileID: 5068751214337276044, guid: d55cefd999778494cb51f94bedf064eb, type: 3}
+  damage: 7
+  fireRate: 0.2

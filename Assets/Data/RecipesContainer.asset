@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: RecipesContainer
   m_EditorClassIdentifier: 
   recipes:
-  - result: {fileID: 11400000, guid: 81754e16667c63b41a2ad45c02eaa717, type: 2}
+  - result: {fileID: 11400000, guid: 0498f32fbb6eb2d4382c6abb68a8ff44, type: 2}
     items:
     - {fileID: 11400000, guid: 4e7e8cf63aff6684fbc14f5aeb13f15f, type: 2}
     - {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}
     amounts: 0a00000014000000
-  - result: {fileID: 11400000, guid: b683ebacf93f7a04cb458122edcbfcbd, type: 2}
+  - result: {fileID: 11400000, guid: 65d7f39fdd2fffc4e8555be678895033, type: 2}
     items:
     - {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}
     - {fileID: 11400000, guid: 4e7e8cf63aff6684fbc14f5aeb13f15f, type: 2}
     amounts: 1400000014000000
-  - result: {fileID: 11400000, guid: 9fb7ebf66d43c17459e35203d8c310c3, type: 2}
+  - result: {fileID: 11400000, guid: a90e98631a55df6478e26fee07d74749, type: 2}
     items:
     - {fileID: 11400000, guid: 4e7e8cf63aff6684fbc14f5aeb13f15f, type: 2}
     - {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}
     amounts: 0a00000014000000
-  - result: {fileID: 11400000, guid: 148b7738ae9c5924383a47f37aa0b90a, type: 2}
+  - result: {fileID: 11400000, guid: 17f1a7f8b2fc0cd42a369da55a3fc5b0, type: 2}
     items:
     - {fileID: 11400000, guid: 4e7e8cf63aff6684fbc14f5aeb13f15f, type: 2}
     - {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}
     amounts: 0a00000014000000
-  - result: {fileID: 11400000, guid: bb933cc6d1325044385febf3ea11a60c, type: 2}
+  - result: {fileID: 11400000, guid: 9daef13179bfd3a4fa9983237181e574, type: 2}
     items:
     - {fileID: 11400000, guid: 4e7e8cf63aff6684fbc14f5aeb13f15f, type: 2}
     - {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}

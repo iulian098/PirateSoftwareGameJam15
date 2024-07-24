@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33bcf97938ee1244580fa35f0eb7d791, type: 3}
-  m_Name: FirePotionData
+  m_Script: {fileID: 11500000, guid: 7c82853c50c580b45882c832714b6701, type: 3}
+  m_Name: InGameData
   m_EditorClassIdentifier: 
-  id: 102
-  type: 0
-  icon: {fileID: 21300000, guid: 3d401822aad36a94b8df6b511e98befc, type: 3}
-  itemName: Fire potion
-  itemDescription: Set you on fire
+  bottleShardsVfx: {fileID: 2028227299435802227, guid: 5d8a9026209904e4594868c4b92afbf3, type: 3}

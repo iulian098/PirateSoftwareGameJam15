@@ -4,23 +4,14 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InGameManager : MonoBehaviour
+public class InGameManager : MonoSingleton<InGameManager>
 {
-    #region Singleton
-
-    public static InGameManager Instance;
-
-    private void Awake() {
-        if (Instance != null && Instance != this)
-            Destroy(gameObject);
-        else
-            Instance = this;
-    }
-
-    #endregion
-
+    [SerializeField] InGameData inGameData;
+    [SerializeField] Player player;
     [SerializeField] PlayerInput playerInput;
 
+    public InGameData InGameData => inGameData;
+    public Player Player => player;
     public PlayerInput PlayerInput => playerInput;
 
     private void Update() {

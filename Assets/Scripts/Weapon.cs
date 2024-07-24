@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] WeaponData weaponData;
     [SerializeField] Transform shootingPoint;
-    [SerializeField] Projectile projectile;
-    [SerializeField] float fireRate;
 
-    float lastShootTime;
+    float fireRateTimer;
+
+    public void ChangeWeapon(WeaponData weaponData) {
+        this.weaponData = weaponData;
+    }
+
+    private void FixedUpdate() {
+        if (fireRateTimer > 0)
+            fireRateTimer -= Time.deltaTime;
+    }
+
     public virtual void Attack() {
-        if (Time.time - lastShootTime < fireRate) return;
-        Projectile proj = Instantiate(projectile, shootingPoint.position, shootingPoint.rotation);
-        proj.Init(shootingPoint.right);
-        Debug.Log("Pew"); 
-        lastShootTime = Time.time;
+        if(weaponData == null) {
+            Debug.LogError("Null weapon data");
+            return;
+        }
+
+        if (fireRateTimer > 0) return;
+        Projectile proj = Instantiate(weaponData.Projectile, shootingPoint.position, shootingPoint.rotation);
+        proj.Init(shootingPoint.right, weaponData.ProjectileConfig);
+        fireRateTimer = weaponData.FireRate;
     }
 }

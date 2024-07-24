@@ -7,9 +7,10 @@ using UnityEngine.InputSystem;
 public class Player : Character
 {
     [SerializeField] PlayerController controller;
-    [SerializeField] ItemData testItem;
     [SerializeField] LayerMask enemyLayerMask;
     [SerializeField] float pickupRadius;
+    [SerializeField] Weapon weapon;
+
     PlayerInput playerInput => InGameManager.Instance.PlayerInput;
 
     private void Start() {
@@ -19,6 +20,8 @@ public class Player : Character
     }
 
     private void Update() {
+        if (GlobalData.isPaused) return;
+
         if (playerInput.actions["Use"].WasPerformedThisFrame()) {
             Collider2D[] colls = new Collider2D[1];
             Physics2D.OverlapCircle(transform.position, pickupRadius, new ContactFilter2D() { layerMask = enemyLayerMask, useLayerMask = true, useTriggers = true }, colls);
@@ -32,8 +35,8 @@ public class Player : Character
         }
     }
 
-    private void FixedUpdate() {
-        
+    public void EquipWeapon(WeaponData weaponData) {
+        weapon.ChangeWeapon(weaponData);
     }
 
     private void OnHealthChanged(int oldVal, int newVal) {

@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33bcf97938ee1244580fa35f0eb7d791, type: 3}
-  m_Name: WaterPotionData
+  m_Script: {fileID: 11500000, guid: d2b73877c18a34146b87d1fc2a88f671, type: 3}
+  m_Name: Water
   m_EditorClassIdentifier: 
   id: 105
   type: 0
   icon: {fileID: 21300000, guid: 871c291390248a846979fee72df5ff8c, type: 3}
   itemName: Water
-  itemDescription: Just some water
+  itemDescription: 
+  weaponPrefab: {fileID: 0}

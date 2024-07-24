@@ -18,6 +18,14 @@ public class Projectile : MonoBehaviour
         rb.AddForce(forceDirection * speed);
     }
 
+    public void Init(Vector2 forceDirection, WeaponData.ProjectileData projectileData) {
+        speed = projectileData.speed;
+        maxDistance = projectileData.maxDistance;
+        hitVFX = projectileData.hitVFX;
+        startPos = transform.position;
+        rb.AddForce(forceDirection * speed);
+    }
+
     private void FixedUpdate() {
         if (Vector2.Distance(startPos, transform.position) > maxDistance)
             OnHit(null);

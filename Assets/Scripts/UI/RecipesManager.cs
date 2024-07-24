@@ -101,7 +101,7 @@ public class RecipesManager : MonoBehaviour
 
 
             int inventoryItemIndex = inventoryContainer.ItemsIDs.IndexOf(selectedRecipe.items[i].ID);
-
+            if (inventoryItemIndex == -1) continue;
             amounts.Add(inventoryContainer.Amounts[inventoryItemIndex] / selectedRecipe.amounts[i]);
         }
 

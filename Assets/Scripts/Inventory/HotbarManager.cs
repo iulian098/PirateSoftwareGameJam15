@@ -8,7 +8,6 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     [SerializeField] GameObject disabledObj;
     [SerializeField] ItemsContainer itemsContainer;
     [SerializeField] InventoryContainer inventoryContainer;
-    ItemData[] items;
 
     UI_Slot selectedSlot;
     int selectedSlotIndex = -1;
@@ -16,21 +15,21 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     UI_Slot overSlot;
     int overSlotIndex = -1;
 
+
     ItemDragIcon ItemDragIcon => UIManager.Instance.ItemDragIcon;
 
     private void Start() {
-        items = new ItemData[slots.Length];
         for (int i = 0; i < slots.Length; i++) {
             int tmp = i;
             slots[i].SetSlotIndex(tmp);
-            //slots[i].SetItem(items[i]);
-            ItemData item = itemsContainer.GetItemByID(inventoryContainer.HotbarIDs[i]);
+            EquipmentItemData item = itemsContainer.GetItemByID(inventoryContainer.HotbarIDs[i]) as EquipmentItemData;
             if (item != null) {
                 int amountIndex = inventoryContainer.ItemsIDs.IndexOf(item.ID);
                 slots[i].SetItem(item, inventoryContainer.Amounts[amountIndex]);
             }
             else
                 slots[i].SetItem(null);
+            slots[i].OnClickAction += InventorySystem.Instance.OnEquipItem;
         }
         
     }
@@ -53,8 +52,17 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         ItemDragIcon.Show(selectedSlot.Item.Icon);
     }
 
+    public void Drag() {
+        if (overSlot == null) return;
+
+        selectedSlot = overSlot;
+        selectedSlotIndex = overSlot.SlotIndex;
+
+        if (selectedSlot.Item == null) return;
+        ItemDragIcon.Show(selectedSlot.Item.Icon);
+    }
+
     public void Drop() {
-        //itemDragObject.SetActive(false);
         ItemDragIcon.Hide();
         if (selectedSlot == null && overSlot != null) {
             selectedSlot = InventorySystem.Instance.SelectedSlot;
