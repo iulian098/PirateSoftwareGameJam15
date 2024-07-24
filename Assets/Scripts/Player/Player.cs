@@ -16,7 +16,9 @@ public class Player : Character
     private void Start() {
         HealthComponent.OnHealthChanged += OnHealthChanged;
         HealthComponent.OnDamageReceived += OnDamageReceived;
+        HealthComponent.OnDied += OnDied;
         UIManager.Instance.PlayerHealthBar.Init(HealthComponent.MaxHealth);
+        weapon.Init(this);
     }
 
     private void Update() {
@@ -30,6 +32,10 @@ public class Player : Character
                     drop.OnPickup();
             }
         }
+    }
+
+    private void OnDied() {
+        anim.SetBool("Die", true);
     }
 
     public void EquipWeapon(WeaponData weaponData) {

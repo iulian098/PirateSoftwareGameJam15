@@ -8,6 +8,12 @@ public class Weapon : MonoBehaviour
     [SerializeField] Transform shootingPoint;
 
     float fireRateTimer;
+    Character character;
+
+
+    public void Init(Character character) {
+        this.character = character;
+    }
 
     public void ChangeWeapon(WeaponData weaponData) {
         this.weaponData = weaponData;
@@ -25,6 +31,9 @@ public class Weapon : MonoBehaviour
         }
 
         if (fireRateTimer > 0) return;
+
+        character.Animator.SetTrigger("Attack");
+
         Projectile proj = Instantiate(weaponData.Projectile, shootingPoint.position, shootingPoint.rotation);
         proj.Init(shootingPoint.right, weaponData.ProjectileConfig, weaponData.Damage);
         fireRateTimer = weaponData.FireRate;

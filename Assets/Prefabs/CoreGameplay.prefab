@@ -1151,7 +1151,7 @@ GameObject:
   - component: {fileID: 4297779303406286947}
   - component: {fileID: 1731423194181785850}
   - component: {fileID: 2348231478859555271}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerSprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1486,7 +1486,7 @@ GameObject:
   - component: {fileID: 5963634839513912787}
   - component: {fileID: 4855973455378704242}
   - component: {fileID: 7253563612279366823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmokeParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6680,7 +6680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5251588396945530027}
   - component: {fileID: 7461717833191464833}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6936,6 +6936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: 5525571924905017555}
+  anim: {fileID: 2348231478859555271}
   controller: {fileID: 8156110700394165337}
   enemyLayerMask:
     serializedVersion: 2
@@ -8564,7 +8565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8533747617162750956}
   - component: {fileID: 2256917258567583081}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
