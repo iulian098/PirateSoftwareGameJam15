@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
 
         if (fireRateTimer > 0) return;
         Projectile proj = Instantiate(weaponData.Projectile, shootingPoint.position, shootingPoint.rotation);
-        proj.Init(shootingPoint.right, weaponData.ProjectileConfig);
+        proj.Init(shootingPoint.right, weaponData.ProjectileConfig, weaponData.Damage);
         fireRateTimer = weaponData.FireRate;
     }
 }

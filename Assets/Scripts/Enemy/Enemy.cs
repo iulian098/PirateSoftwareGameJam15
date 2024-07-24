@@ -25,6 +25,7 @@ public class Enemy : Character {
     float lastX;
     float spriteXScale;
     bool isDead;
+    Vector3 targetScale;
 
     public EnemyData EnemyData => enemyData;
     public EnemyState EnemyState => enemyState;
@@ -67,18 +68,35 @@ public class Enemy : Character {
         rb.velocity = Vector3.zero;
         collider.isTrigger = true;
         healthComponent.enabled = false;
+        collider.enabled = false;
         characterSprite.gameObject.SetActive(false);
+
         Instantiate(InGameManager.Instance.InGameData.DeathVFX, transform.position, Quaternion.identity);
+
+        List<DropData> droppedItems = new List<DropData>();
+        foreach (var item in enemyData.Drops) {
+            int drop = UnityEngine.Random.Range(0, 101);
+            if (drop <= item.chance) {
+                droppedItems.Add(item);
+            }
+        }
+
+        if(droppedItems.Count > 0) {
+            ItemDrop dropObj = Instantiate(InGameManager.Instance.InGameData.DropPrefab, transform.position, Quaternion.identity);
+            dropObj.Init(droppedItems);
+        }
+
         if (healthBar != null) {
             UIManager.Instance.EnemyHealthBarManager.FreeHealthBar(healthBar);
             healthBar = null;
         }
+
     }
 
     void FixedUpdate() {
         if (isDead) return;
 
-        Physics2D.OverlapCircle(transform.position, aggroRange, new ContactFilter2D() { layerMask = playerLayerMask, useLayerMask = true }, detectedColliders);
+        Physics2D.OverlapCircle(transform.position, aggroRange, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PlayerMask, useLayerMask = true }, detectedColliders);
         if (target == null && detectedColliders != null && detectedColliders.Length > 0)
             if (detectedColliders[0].TryGetComponent<Player>(out var player))
                 target = player;
@@ -98,17 +116,18 @@ public class Enemy : Character {
     }
 
     void ChangeSpriteDirection() {
-        if(transform.position.x < lastX && characterSprite.transform.localScale.x != -spriteXScale) {
-            Vector3 scale = characterSprite.transform.localScale;
-            scale.x = -spriteXScale;
-            characterSprite.transform.localScale = scale;
+        if(transform.position.x < lastX - 0.05f && characterSprite.transform.localScale.x != -spriteXScale) {
+            targetScale = characterSprite.transform.localScale;
+            targetScale.x = -spriteXScale;
+            characterSprite.transform.localScale = targetScale;
+            lastX = transform.position.x;
         }
-        else if (transform.position.x > lastX && characterSprite.transform.localScale.x != spriteXScale) {
-            Vector3 scale = characterSprite.transform.localScale;
-            scale.x = spriteXScale;
-            characterSprite.transform.localScale = scale;
+        else if (transform.position.x > lastX + 0.05f && characterSprite.transform.localScale.x != spriteXScale) {
+            targetScale = characterSprite.transform.localScale;
+            targetScale.x = spriteXScale;
+            characterSprite.transform.localScale = targetScale;
+            lastX = transform.position.x;
         }
-        lastX = transform.position.x;
     }
 
     public bool PlayerDetected() {
@@ -134,7 +153,7 @@ public class Enemy : Character {
         collider.isTrigger = false;
         healthComponent.enabled = true;
         characterSprite.gameObject.SetActive(true);
-
+        collider.enabled = true;
     }
 
     private void OnDrawGizmosSelected() {

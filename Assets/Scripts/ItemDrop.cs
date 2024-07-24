@@ -4,31 +4,11 @@ using UnityEngine;
 
 public class ItemDrop : MonoBehaviour
 {
-    [SerializeField] Enemy enemy;
-    [SerializeField] GameObject dropVfx;
-
-    DropData[] itemDrops;
     bool itemPickedUp;
-    GameObject spawnedVfx;
     List<DropData> droppedItems = new List<DropData>();
 
-    private void Start() {
-        enemy.HealthComponent.OnDied += CheckDrop;
-        itemDrops = enemy.EnemyData.Drops;
-    }
-
-    public void CheckDrop() {
-        foreach (var item in itemDrops) {
-            int drop = Random.Range(0, 101);
-            if(drop <= item.chance) {
-                droppedItems.Add(item);
-            }
-        }
-
-        if (droppedItems.Count > 0) {
-            spawnedVfx = Instantiate(dropVfx, transform.position, Quaternion.identity);
-            spawnedVfx.transform.SetParent(transform);
-        }
+    public void Init(List<DropData> dropData) {
+        droppedItems = dropData;
     }
 
     public void OnPickup() {
@@ -49,8 +29,7 @@ public class ItemDrop : MonoBehaviour
         pickedUp.Clear();
 
         if (droppedItems.Count == 0) {
-            itemPickedUp = true;
-            Destroy(spawnedVfx.gameObject);
+            Destroy(gameObject);
         }
     }
 

@@ -24,13 +24,10 @@ public class Player : Character
 
         if (playerInput.actions["Use"].WasPerformedThisFrame()) {
             Collider2D[] colls = new Collider2D[1];
-            Physics2D.OverlapCircle(transform.position, pickupRadius, new ContactFilter2D() { layerMask = enemyLayerMask, useLayerMask = true, useTriggers = true }, colls);
-            if(colls.Length > 0 && colls[0] != null) {
-                if(colls[0].TryGetComponent<Enemy>(out Enemy enemy) && colls[0].TryGetComponent<ItemDrop>(out ItemDrop drop)) {
-                    if (enemy.IsDead) {
-                        drop.OnPickup();
-                    }
-                }
+            Physics2D.OverlapCircle(transform.position, pickupRadius, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PickupMask, useLayerMask = true, useTriggers = true }, colls);
+            if (colls.Length > 0 && colls[0] != null) {
+                if (colls[0].TryGetComponent<ItemDrop>(out ItemDrop drop))
+                    drop.OnPickup();
             }
         }
     }

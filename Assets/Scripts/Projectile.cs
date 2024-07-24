@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,11 @@ public class Projectile : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float lifetime;
     [SerializeField] float maxDistance;
+    
     [SerializeField] GameObject hitVFX;
     [SerializeField] Rigidbody2D rb;
 
+    int damage;
     Vector2 startPos;
 
     public void Init(Vector2 forceDirection)
@@ -18,11 +21,12 @@ public class Projectile : MonoBehaviour
         rb.AddForce(forceDirection * speed);
     }
 
-    public void Init(Vector2 forceDirection, WeaponData.ProjectileData projectileData) {
+    public void Init(Vector2 forceDirection, WeaponData.ProjectileData projectileData, int damage) {
         speed = projectileData.speed;
         maxDistance = projectileData.maxDistance;
         hitVFX = projectileData.hitVFX;
         startPos = transform.position;
+        this.damage = damage;
         rb.AddForce(forceDirection * speed);
     }
 
@@ -40,7 +44,7 @@ public class Projectile : MonoBehaviour
             //Give damage
             HealthComponent healthComp = coll.GetComponent<HealthComponent>();
             if (healthComp != null)
-                healthComp.ReceiveDamage(10);
+                healthComp.ReceiveDamage(damage);
             else
                 Debug.LogWarning("Health Component not found");
         }

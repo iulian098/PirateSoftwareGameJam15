@@ -34,6 +34,13 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         
     }
 
+    private void Update() {
+        for (int i = 0; i < slots.Length; i++) {
+            if (InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)].WasPerformedThisFrame())
+                slots[i].OnClick();
+        }
+    }
+
     public void SetDisabled(bool disable) {
         disabledObj.SetActive(disable);
     }

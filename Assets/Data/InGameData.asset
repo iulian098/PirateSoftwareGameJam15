@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c82853c50c580b45882c832714b6701, type: 3}
   m_Name: InGameData
   m_EditorClassIdentifier: 
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 256
+  pickupMask:
+    serializedVersion: 2
+    m_Bits: 512
   bottleShardsVfx: {fileID: 2028227299435802227, guid: 5d8a9026209904e4594868c4b92afbf3, type: 3}
   deathVfx: {fileID: 7965900587943819339, guid: e721b3da598fc864aa36305599f629b8, type: 3}
+  dropPrefab: {fileID: -5327447427233029711, guid: c96e0db027f83034b987d809b24741a7, type: 3}
