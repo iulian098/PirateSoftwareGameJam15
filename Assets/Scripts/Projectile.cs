@@ -46,5 +46,6 @@ public class Projectile : MonoBehaviour
         }
         Destroy(gameObject);
         Instantiate(hitVFX, transform.position, Quaternion.identity);
+        Instantiate(InGameManager.Instance.InGameData.BottleShardsVFX, transform.position, Quaternion.identity);
     }
 }
