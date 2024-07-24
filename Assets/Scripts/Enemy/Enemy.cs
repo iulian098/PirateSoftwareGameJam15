@@ -67,6 +67,8 @@ public class Enemy : Character {
         rb.velocity = Vector3.zero;
         collider.isTrigger = true;
         healthComponent.enabled = false;
+        characterSprite.gameObject.SetActive(false);
+        Instantiate(InGameManager.Instance.InGameData.DeathVFX, transform.position, Quaternion.identity);
         if (healthBar != null) {
             UIManager.Instance.EnemyHealthBarManager.FreeHealthBar(healthBar);
             healthBar = null;
@@ -131,6 +133,8 @@ public class Enemy : Character {
         rb.isKinematic = false;
         collider.isTrigger = false;
         healthComponent.enabled = true;
+        characterSprite.gameObject.SetActive(true);
+
     }
 
     private void OnDrawGizmosSelected() {

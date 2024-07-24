@@ -6,6 +6,8 @@ using UnityEngine;
 public class InGameData : ScriptableObject
 {
     [SerializeField] GameObject bottleShardsVfx;
+    [SerializeField] GameObject deathVfx;
 
     public GameObject BottleShardsVFX => bottleShardsVfx;
+    public GameObject DeathVFX => deathVfx;
 }
