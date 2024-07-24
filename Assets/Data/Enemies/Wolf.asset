@@ -17,3 +17,10 @@ MonoBehaviour:
   enemyDescription: It bites!
   damage: 10
   attackRate: 1
+  drops:
+  - item: {fileID: 11400000, guid: 4e7e8cf63aff6684fbc14f5aeb13f15f, type: 2}
+    amount: 50
+    chance: 50
+  - item: {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}
+    amount: 50
+    chance: 50
