@@ -21,3 +21,7 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}
     amount: 50
     chance: 100
+  defaultThresholdValue: 2
+  statusEffectsModifiers:
+  - type: 0
+    value: 2

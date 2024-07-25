@@ -12,6 +12,8 @@ public class EnemyData : ScriptableObject
     [SerializeField] int damage;
     [SerializeField] float attackRate;
     [SerializeField] DropData[] drops;
+    [SerializeField] float defaultThresholdValue;
+    [SerializeField] StatusEffect[] statusEffectsModifiers;
 
     public Sprite EnemyIcon => enemyIcon;
     public string EnemyName => enemyName;
