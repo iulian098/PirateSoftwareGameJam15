@@ -12,6 +12,7 @@ public class InGameData : ScriptableObject
     [SerializeField] GameObject bottleShardsVfx;
     [SerializeField] GameObject deathVfx;
     [SerializeField] ItemDrop dropPrefab;
+    [SerializeField] UI_ItemPickupInfo pickupInfo;
 
     public LayerMask PlayerMask => playerMask;
     public LayerMask EnemyMask => enemyMask;
@@ -20,4 +21,5 @@ public class InGameData : ScriptableObject
     public GameObject BottleShardsVFX => bottleShardsVfx;
     public GameObject DeathVFX => deathVfx;
     public ItemDrop DropPrefab => dropPrefab;
+    public UI_ItemPickupInfo PickupInfo => pickupInfo;
 }

@@ -17,8 +17,10 @@ public class ItemDrop : MonoBehaviour
         List<DropData> pickedUp = new List<DropData>();
 
         foreach (var item in droppedItems) {
-            if(InventorySystem.Instance.AddItem(item.item, item.amount))
+            if (InventorySystem.Instance.AddItem(item.item, item.amount)) {
                 pickedUp.Add(item);
+                UIManager.Instance.ShowPickupInfo(item.item, item.amount);
+            }
             else
                 break;
         }
