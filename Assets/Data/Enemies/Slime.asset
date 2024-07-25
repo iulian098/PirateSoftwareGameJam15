@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92c2761ddad305a4ea130aea31e988be, type: 3}
-  m_Name: Wolf
+  m_Name: Slime
   m_EditorClassIdentifier: 
-  enemyIcon: {fileID: 21300000, guid: fda9c76f9575d804cb9b8b11157c2a0c, type: 3}
-  enemyName: Wolf
+  enemyIcon: {fileID: 21300000, guid: fbbc073e81e2abb42a129bc7b447d922, type: 3}
+  enemyName: Slime
   enemyDescription: It bites!
-  damage: 10
+  damage: 5
   attackRate: 1
   drops:
-  - item: {fileID: 11400000, guid: 4e7e8cf63aff6684fbc14f5aeb13f15f, type: 2}
+  - item: {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}
     amount: 50
     chance: 100

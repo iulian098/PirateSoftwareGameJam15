@@ -8,6 +8,7 @@ namespace PluggableAI {
             if (controller.IsInAttackRange && controller.AttackTime <= 0) {
                 controller.Target.HealthComponent.ReceiveDamage(controller.Damage);
                 controller.AttackTime = controller.AttackRate;
+                controller.Animator.SetTrigger("Attack");
 
             }
         }

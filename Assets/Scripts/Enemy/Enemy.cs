@@ -37,6 +37,8 @@ public class Enemy : Character {
     public bool IsInAttackRange => Vector2.Distance(target.transform.position, transform.position) < attackRange;
     public float TargetDistance => Vector2.Distance(target.transform.position, transform.position);
 
+    public Animator Amin => anim;
+
     private void Start() {
         healthComponent.OnDied += OnDied;
         healthComponent.OnDamageReceived += OnDamageReceived;
@@ -113,21 +115,23 @@ public class Enemy : Character {
             healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + healthBarOffset);
 
         ChangeSpriteDirection();
+
+        anim.SetBool("Run", agent.speed > 0.1f);
     }
 
     void ChangeSpriteDirection() {
-        if(transform.position.x < lastX - 0.05f && characterSprite.transform.localScale.x != -spriteXScale) {
+        if(transform.position.x < lastX - 0.005f && characterSprite.transform.localScale.x != -spriteXScale) {
             targetScale = characterSprite.transform.localScale;
             targetScale.x = -spriteXScale;
             characterSprite.transform.localScale = targetScale;
-            lastX = transform.position.x;
         }
-        else if (transform.position.x > lastX + 0.05f && characterSprite.transform.localScale.x != spriteXScale) {
+        else if (transform.position.x > lastX + 0.005f && characterSprite.transform.localScale.x != spriteXScale) {
             targetScale = characterSprite.transform.localScale;
             targetScale.x = spriteXScale;
             characterSprite.transform.localScale = targetScale;
-            lastX = transform.position.x;
         }
+        if (transform.position.x > lastX + 0.005f || transform.position.x < lastX - 0.005f)
+            lastX = transform.position.x;
     }
 
     public bool PlayerDetected() {
