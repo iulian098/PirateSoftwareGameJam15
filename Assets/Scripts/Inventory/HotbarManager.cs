@@ -26,14 +26,21 @@ public class HotbarManager : MonoSingleton<HotbarManager>
             EquipmentItemData item = itemsContainer.GetItemByID(inventoryContainer.HotbarIDs[i]) as EquipmentItemData;
             if (item != null) {
                 int amountIndex = inventoryContainer.ItemsIDs.IndexOf(item.ID);
-                slots[i].SetItem(item, inventoryContainer.Amounts[amountIndex]);
+                if (amountIndex == -1)
+                    slots[i].SetItem(null);
+                else
+                    slots[i].SetItem(item, inventoryContainer.Amounts[amountIndex]);
             }
             else
                 slots[i].SetItem(null);
             slots[i].OnClickAction += InventorySystem.Instance.OnEquipItem;
             slots[i].OnSelected += OnSlotClicked;
         }
-        
+        inventoryContainer.OnInventoryUpdated += UpdateUI;
+    }
+
+    private void OnDestroy() {
+        inventoryContainer.OnInventoryUpdated -= UpdateUI;
     }
 
     private void OnSlotClicked(int index) {
@@ -54,6 +61,26 @@ public class HotbarManager : MonoSingleton<HotbarManager>
                 activeSlot = i;
                 slots[activeSlot].SetSelected(true);
             }
+        }
+    }
+
+    public void UpdateUI() {
+        foreach (var slot in slots) {
+            if (slot.Item == null) continue;
+
+            int itemIndex = inventoryContainer.ItemsIDs.IndexOf(slot.Item.ID);
+            if (itemIndex == -1) {
+                slot.SetItem(null);
+                continue;
+            }
+            int amount = inventoryContainer.Amounts[itemIndex];
+
+            if (amount == 0)
+                slot.SetItem(null);
+            else
+                slot.SetItem(slot.Item, amount);
+
+            slot.UpdateUI();
         }
     }
 

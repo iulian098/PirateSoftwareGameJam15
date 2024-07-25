@@ -17,5 +17,6 @@ MonoBehaviour:
     speed: 400
     maxDistance: 2.5
     hitVFX: {fileID: 5068751214337276044, guid: d55cefd999778494cb51f94bedf064eb, type: 3}
-  damage: 7
+  damage: 10
   fireRate: 0.2
+  applyStatusEffect: 2

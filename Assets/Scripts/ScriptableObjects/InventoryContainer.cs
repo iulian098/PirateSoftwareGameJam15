@@ -69,6 +69,18 @@ public class InventoryContainer : ScriptableObject
         OnInventoryUpdated?.Invoke();
     }
 
+    public void RemoveItem(int itemID, int amount = 1) {
+        int itemIndex = itemsIDs.IndexOf(itemID);
+        if (itemIndex == -1) return;
+
+        itemsAmounts[itemIndex] -= amount;
+
+        if (itemsAmounts[itemIndex] == 0)
+            itemsIDs[itemIndex] = 0;
+
+        OnInventoryUpdated?.Invoke();
+    }
+
     public void SetAmountByIndex(int itemIndex, int amount) {
         if (itemIndex == -1) return;
 

@@ -38,8 +38,8 @@ public class Player : Character
         anim.SetBool("Die", true);
     }
 
-    public void EquipWeapon(WeaponData weaponData) {
-        weapon.ChangeWeapon(weaponData);
+    public void EquipWeapon(WeaponData weaponData, ItemData itemData) {
+        weapon.ChangeWeapon(weaponData, itemData);
     }
 
     private void OnHealthChanged(int oldVal, int newVal) {

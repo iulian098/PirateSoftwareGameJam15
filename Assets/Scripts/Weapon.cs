@@ -9,14 +9,16 @@ public class Weapon : MonoBehaviour
 
     float fireRateTimer;
     Character character;
+    ItemData itemData;
 
 
     public void Init(Character character) {
         this.character = character;
     }
 
-    public void ChangeWeapon(WeaponData weaponData) {
+    public void ChangeWeapon(WeaponData weaponData, ItemData itemData) {
         this.weaponData = weaponData;
+        this.itemData = itemData;
     }
 
     private void FixedUpdate() {
@@ -31,11 +33,16 @@ public class Weapon : MonoBehaviour
         }
 
         if (fireRateTimer > 0) return;
+        if (!InventorySystem.Instance.InventoryContainer.ItemsIDs.Contains(itemData.ID)) {
+            ChangeWeapon(null, null);
+            return;
+        }
+        InventorySystem.Instance.RemoveItem(itemData);
 
         character.Animator.SetTrigger("Attack");
 
         Projectile proj = Instantiate(weaponData.Projectile, shootingPoint.position, shootingPoint.rotation);
-        proj.Init(shootingPoint.right, weaponData.ProjectileConfig, weaponData.Damage);
+        proj.Init(shootingPoint.right, weaponData, weaponData.Damage);
         fireRateTimer = weaponData.FireRate;
     }
 }

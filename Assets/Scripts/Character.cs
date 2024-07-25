@@ -9,4 +9,12 @@ public class Character : MonoBehaviour
 
     public HealthComponent HealthComponent => healthComponent;
     public Animator Animator => anim;
+
+    public void ReceiveDamage(int damage) {
+        healthComponent.ReceiveDamage(damage);
+    }
+
+    public virtual void ReceiveDamage(WeaponData weaponData) {
+        healthComponent.ReceiveDamage(weaponData.Damage);
+    }
 }

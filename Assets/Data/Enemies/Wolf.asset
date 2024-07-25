@@ -21,3 +21,11 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 4e7e8cf63aff6684fbc14f5aeb13f15f, type: 2}
     amount: 50
     chance: 100
+  weakness:
+  - type: 0
+    value: 0.7
+  - type: 1
+    value: 0.5
+  strong:
+  - type: 3
+    value: 0.5

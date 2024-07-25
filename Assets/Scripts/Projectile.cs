@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour
 
     int damage;
     Vector2 startPos;
+    WeaponData weaponData;
 
     public void Init(Vector2 forceDirection)
     {
@@ -21,12 +22,14 @@ public class Projectile : MonoBehaviour
         rb.AddForce(forceDirection * speed);
     }
 
-    public void Init(Vector2 forceDirection, WeaponData.ProjectileData projectileData, int damage) {
-        speed = projectileData.speed;
-        maxDistance = projectileData.maxDistance;
-        hitVFX = projectileData.hitVFX;
+    public void Init(Vector2 forceDirection, WeaponData weaponData, int damage) {
+        this.weaponData = weaponData;
+        speed = weaponData.ProjectileConfig.speed;
+        maxDistance = weaponData.ProjectileConfig.maxDistance;
+        hitVFX = weaponData.ProjectileConfig.hitVFX;
         startPos = transform.position;
         this.damage = damage;
+        
         rb.AddForce(forceDirection * speed);
     }
 
@@ -42,9 +45,9 @@ public class Projectile : MonoBehaviour
     private void OnHit(Collider2D coll) {
         if (coll != null && coll.CompareTag("Enemy")) {
             //Give damage
-            HealthComponent healthComp = coll.GetComponent<HealthComponent>();
-            if (healthComp != null)
-                healthComp.ReceiveDamage(damage);
+            Character character = coll.GetComponent<Character>();
+            if (character != null)
+                character.ReceiveDamage(weaponData);
             else
                 Debug.LogWarning("Health Component not found");
         }

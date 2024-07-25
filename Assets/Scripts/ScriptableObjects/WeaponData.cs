@@ -16,10 +16,12 @@ public class WeaponData : ScriptableObject
     [SerializeField] ProjectileData projectileConfig;
     [SerializeField] int damage;
     [SerializeField] float fireRate;
+    [SerializeField] Enum_StatusEffectType applyStatusEffect;
     
 
     public Projectile Projectile => projectile;
     public ProjectileData ProjectileConfig => projectileConfig;
     public int Damage => damage;
     public float FireRate => fireRate;
+    public Enum_StatusEffectType ApplyStatusEffect => applyStatusEffect;
 }

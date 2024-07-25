@@ -27,8 +27,8 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     int overSlotIndex;
 
     bool isDrag;
-
     ItemDragIcon ItemDragIcon => UIManager.Instance.ItemDragIcon;
+    public InventoryContainer InventoryContainer => inventoryContainer;
     public UI_Slot SelectedSlot => selectedSlot;
     public int SelectedSlotIndex => selectedSlotIndex;
     public bool IsOpen => contents.activeSelf;
@@ -158,6 +158,10 @@ public class InventorySystem : MonoSingleton<InventorySystem>
 
     }
 
+    public void RemoveItem(ItemData item, int amount = 1) {
+        inventoryContainer.RemoveItem(item.ID, amount);
+    }
+
     public void SetOverSlot(UI_Slot slot) {
         overSlot = slot;
         overSlotIndex = slot == null ? -1 : slot.SlotIndex;
@@ -244,7 +248,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
 
     public void OnEquipItem(int itemId) {
         EquipmentItemData item = itemsContainer.GetItemByID(itemId) as EquipmentItemData;
-        InGameManager.Instance.Player.EquipWeapon(item.WeaponData);
+        InGameManager.Instance.Player.EquipWeapon(item.WeaponData, item);
     }
 
     void Clear() {

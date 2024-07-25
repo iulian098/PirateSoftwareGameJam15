@@ -148,6 +148,25 @@ public class Enemy : Character {
             agent.SetDestination(transform.position);
     }
 
+    public override void ReceiveDamage(WeaponData weaponData) {
+
+        int tempDamage = weaponData.Damage;
+
+        foreach(var weak in enemyData.Weakness) {
+            if(weak.type == weaponData.ApplyStatusEffect)
+                tempDamage += (int)(weaponData.Damage * weak.value);
+        }
+
+        foreach (var strong in enemyData.Strong) {
+            if (strong.type == weaponData.ApplyStatusEffect)
+                tempDamage -= (int)(weaponData.Damage * strong.value);
+        }
+
+        if (tempDamage < 0) tempDamage = 0;
+
+        healthComponent.ReceiveDamage(tempDamage);
+    }
+
     public void Clear() {
         isDead = false;
         enemyState.enabled = true;
