@@ -17,7 +17,10 @@ MonoBehaviour:
     speed: 400
     maxDistance: 2.5
     hitVFX: {fileID: 1429303568159713589, guid: d5fce65a696f7df4b85c9ae73eb3e559, type: 3}
-    hitSound: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
+    hitSound:
+    - {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
+    useAdditionalSounds: 0
+    additionalHitSounds: []
   damage: 2
   fireRate: 0.5
   applyStatusEffect: 0
