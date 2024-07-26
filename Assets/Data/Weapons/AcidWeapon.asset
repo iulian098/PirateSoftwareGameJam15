@@ -17,6 +17,14 @@ MonoBehaviour:
     speed: 400
     maxDistance: 2
     hitVFX: {fileID: 6672651003196831077, guid: 6421d642b58ac994ca836fc3a857ca14, type: 3}
+    hitSound:
+    - {fileID: 8300000, guid: 96a24a613444b274f9d8ea4034fe2cfd, type: 3}
+    - {fileID: 8300000, guid: 08d2cfbea2de47342a2b256ea9c36f47, type: 3}
+    - {fileID: 8300000, guid: cc913ad8b3e92ca42916156966146475, type: 3}
+    useAdditionalSounds: 1
+    additionalHitSounds:
+    - {fileID: 8300000, guid: 83829ff414f47a048b5387e4ab33571c, type: 3}
   damage: 10
   fireRate: 0.2
-  applyStatusEffect: 1
+  applyStatusEffect: 2
+  attackSound: {fileID: 0}

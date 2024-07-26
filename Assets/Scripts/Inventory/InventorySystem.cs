@@ -12,11 +12,13 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     [SerializeField] UI_Slot[] slots;
     [SerializeField] ItemsContainer itemsContainer;
     [SerializeField] InventoryContainer inventoryContainer;
-    [SerializeField] ItemData testItemData;
     [SerializeField] GameObject contents;
     [SerializeField] Transform handTransform;
     [SerializeField] Image handImage;
     [SerializeField] Sprite[] handSprites;
+
+    [SerializeField] AudioClip itemDragClip;
+    [SerializeField] AudioClip itemDropClip;
 
     public Action<ItemData> OnItemAdded;
 
@@ -42,6 +44,11 @@ public class InventorySystem : MonoSingleton<InventorySystem>
             slots[i].SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[i]), inventoryContainer.Amounts[i]);
         }
         handImage.gameObject.SetActive(false);
+
+        foreach (var item in inventoryContainer.InInventoryByDefault) {
+            if (!inventoryContainer.ItemsIDs.Contains(item.ID))
+                inventoryContainer.AddItem(item, 1);
+        }
     }
 
     private void OnDestroy() {
@@ -176,6 +183,14 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         if (selectedSlot.Item == null) return;
         ItemDragIcon.Show(overSlot.Item.Icon);
         HotbarManager.Instance.SetDisabled(overSlot.Item.Type != Enum_ItemType.Equipment);
+
+        SoundManager.PlaySound(transform.position, new SoundData {
+            clip = itemDragClip,
+            maxDistance = 100,
+            minDistance = 100,
+            pitch = UnityEngine.Random.Range(0.95f, 1.05f),
+            volume = 1
+        });
     }
 
     public void Drag(UI_Slot slot) {
@@ -235,13 +250,21 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         Debug.Log($"[Inventory] On Item Dropped {selectedSlot.name} - {overSlot.name}");*/
         if(overSlot.Item != null)
             UIManager.Instance.ItemInfo.Show(overSlot.Item, overSlot.transform.position - new Vector3(0, (overSlot.transform as RectTransform).sizeDelta.y / 2, 0));
+        
+        SoundManager.PlaySound(transform.position, new SoundData {
+            clip = itemDropClip,
+            maxDistance = 100,
+            minDistance = 100,
+            pitch = UnityEngine.Random.Range(1f, 1.15f),
+            volume = 1
+        });
+
+
         Clear();
     }
 
     public void UpdateInventory() {
         for (int i = 0; i < slots.Length; i++) {
-            int tmp = i;
-            slots[i].SetSlotIndex(tmp);
             slots[i].SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[i]), inventoryContainer.Amounts[i]);
         }
     }

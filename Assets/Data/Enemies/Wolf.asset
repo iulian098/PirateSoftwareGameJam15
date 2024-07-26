@@ -22,10 +22,10 @@ MonoBehaviour:
     amount: 50
     chance: 100
   weakness:
-  - type: 0
-    value: 0.7
   - type: 1
+    value: 0.7
+  - type: 2
     value: 0.5
   strong:
-  - type: 3
+  - type: 4
     value: 0.5

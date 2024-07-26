@@ -9,10 +9,12 @@ public class InventoryContainer : ScriptableObject
     [SerializeField] List<int> itemsIDs = new List<int>();
     [SerializeField] List<int> itemsAmounts = new List<int>();
     [SerializeField] List<int> hotbarIDs = new List<int>();
+    [SerializeField] List<ItemData> inInventoryByDefualt = new List<ItemData>();
 
     public List<int> ItemsIDs => itemsIDs;
     public List<int> Amounts => itemsAmounts;
     public List<int> HotbarIDs => hotbarIDs;
+    public List<ItemData> InInventoryByDefault => inInventoryByDefualt;
 
     public Action OnInventoryUpdated;
 

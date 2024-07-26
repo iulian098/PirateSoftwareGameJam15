@@ -51,6 +51,26 @@ public class Projectile : MonoBehaviour
             else
                 Debug.LogWarning("Health Component not found");
         }
+        SoundManager.PlaySound(transform.position, new SoundData {
+            clip = weaponData.ProjectileConfig.hitSound.Length != 0 ? weaponData.ProjectileConfig.hitSound[UnityEngine.Random.Range(0, weaponData.ProjectileConfig.hitSound.Length)] : null,
+            maxDistance = 15,
+            minDistance = 5,
+            pitch = UnityEngine.Random.Range(0.9f, 1.1f),
+            volume = UnityEngine.Random.Range(0.1f, 0.2f)
+        });
+
+        if (weaponData.ProjectileConfig.useAdditionalSounds) {
+            SoundManager.PlaySound(transform.position, new SoundData {
+                clip = weaponData.ProjectileConfig.hitSound.Length != 0 ? 
+                    weaponData.ProjectileConfig.additionalHitSounds[UnityEngine.Random.Range(0, weaponData.ProjectileConfig.additionalHitSounds.Length)] : null,
+                maxDistance = 15,
+                minDistance = 5,
+                pitch = UnityEngine.Random.Range(0.9f, 1.1f),
+                volume = 0.3f
+            });
+
+        }
+
         Destroy(gameObject);
         Instantiate(hitVFX, transform.position, Quaternion.identity);
         Instantiate(InGameManager.Instance.InGameData.BottleShardsVFX, transform.position, Quaternion.identity);

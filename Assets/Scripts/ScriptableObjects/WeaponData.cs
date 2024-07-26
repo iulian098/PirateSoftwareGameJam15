@@ -10,6 +10,9 @@ public class WeaponData : ScriptableObject
         public float speed;
         public float maxDistance;
         public GameObject hitVFX;
+        public AudioClip[] hitSound;
+        public bool useAdditionalSounds;
+        public AudioClip[] additionalHitSounds;
     }
 
     [SerializeField] Projectile projectile;
@@ -17,6 +20,7 @@ public class WeaponData : ScriptableObject
     [SerializeField] int damage;
     [SerializeField] float fireRate;
     [SerializeField] Enum_StatusEffectType applyStatusEffect;
+    [SerializeField] AudioClip attackSound;
     
 
     public Projectile Projectile => projectile;
@@ -24,4 +28,5 @@ public class WeaponData : ScriptableObject
     public int Damage => damage;
     public float FireRate => fireRate;
     public Enum_StatusEffectType ApplyStatusEffect => applyStatusEffect;
+    public AudioClip AttackSound => attackSound;
 }

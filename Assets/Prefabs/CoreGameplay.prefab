@@ -3576,13 +3576,14 @@ MonoBehaviour:
   - {fileID: 6524033879425802321}
   itemsContainer: {fileID: 11400000, guid: 528a07690ebafee4db909efa61482014, type: 2}
   inventoryContainer: {fileID: 11400000, guid: 40c5ed0822645094bba6b9ba552fb8ee, type: 2}
-  testItemData: {fileID: 11400000, guid: 81754e16667c63b41a2ad45c02eaa717, type: 2}
   contents: {fileID: 281096722712632167}
   handTransform: {fileID: 2220938021821573640}
   handImage: {fileID: 7077765972114138563}
   handSprites:
   - {fileID: 21300000, guid: 29f8af11acc49bc4eacd5019ca8973f9, type: 3}
   - {fileID: 21300000, guid: 38a32173c6fee0545add1792ba959e5e, type: 3}
+  itemDragClip: {fileID: 8300000, guid: 490bfbc72255342408984f60044487de, type: 3}
+  itemDropClip: {fileID: 8300000, guid: 78ad99fd0a0a5144280b07bbdba84815, type: 3}
 --- !u!1 &7321702626312194654
 GameObject:
   m_ObjectHideFlags: 0

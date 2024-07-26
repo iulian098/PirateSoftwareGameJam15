@@ -33,7 +33,10 @@ public class UI_HotbarSlot : UI_Slot
         }
         else {
             iconImage.gameObject.SetActive(true);
-            amountText.gameObject.SetActive(true);
+            if(item is EquipmentItemData && (item as EquipmentItemData).IsInfinite)
+                amountText.gameObject.SetActive(false);
+            else
+                amountText.gameObject.SetActive(true);
         }
 
         iconImage.sprite = item.Icon;

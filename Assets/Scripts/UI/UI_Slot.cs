@@ -26,7 +26,6 @@ public abstract class UI_Slot : MonoBehaviour
     }
 
     public void SetSlotIndex (int index) {
-        Debug.Log("Set slot index " + index);
         slotIndex = index;
     }
 
