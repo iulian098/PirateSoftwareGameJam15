@@ -10,12 +10,18 @@ public class InGameManager : MonoSingleton<InGameManager>
     [SerializeField] Player player;
     [SerializeField] PlayerInput playerInput;
 
+    InputAction inventoryAction;
+
     public InGameData InGameData => inGameData;
     public Player Player => player;
     public PlayerInput PlayerInput => playerInput;
 
+    private void Start() {
+        inventoryAction = playerInput.actions["Inventory"];
+    }
+
     private void Update() {
-        if (playerInput.actions["Inventory"].WasPerformedThisFrame()) {
+        if (inventoryAction.WasPerformedThisFrame()) {
             if (!InventorySystem.Instance.IsOpen)
                 InventorySystem.Instance.Show();
             else

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HotbarManager : MonoSingleton<HotbarManager>
 {
@@ -19,7 +20,10 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     int activeSlot = -1;
     ItemDragIcon ItemDragIcon => UIManager.Instance.ItemDragIcon;
 
+    InputAction[] hotbarActions;
+
     private void Start() {
+        hotbarActions = new InputAction[slots.Length];
         for (int i = 0; i < slots.Length; i++) {
             int tmp = i;
             slots[i].SetSlotIndex(tmp);
@@ -35,6 +39,8 @@ public class HotbarManager : MonoSingleton<HotbarManager>
                 slots[i].SetItem(null);
             slots[i].OnClickAction += InventorySystem.Instance.OnEquipItem;
             slots[i].OnSelected += OnSlotClicked;
+
+            hotbarActions[i] = InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)];
         }
         inventoryContainer.OnInventoryUpdated += UpdateUI;
     }
@@ -54,7 +60,8 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     private void Update() {
         if (GlobalData.isPaused) return;
         for (int i = 0; i < slots.Length; i++) {
-            if (InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)].WasPerformedThisFrame()) {
+            //if (InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)].WasPerformedThisFrame()) {
+            if (hotbarActions[i].WasPerformedThisFrame()) { 
                 slots[i].OnClick();
                 if(activeSlot != -1)
                     slots[activeSlot].SetSelected(false);

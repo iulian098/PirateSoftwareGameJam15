@@ -12,16 +12,19 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
     Vector2 movementVector;
 
+    InputAction movementAction;
+
     void Start()
     {
         playerInput = InGameManager.Instance.PlayerInput;
         if(rb == null) rb = GetComponent<Rigidbody2D>();
         playerSpriteXScale = playerSprite.transform.localScale.x;
+        movementAction = playerInput.actions["Movement"];
     }
 
     // Update is called once per frame
     void Update() {
-        movementVector = playerInput.actions["Movement"].ReadValue<Vector2>();
+        movementVector = movementAction.ReadValue<Vector2>();
 
         anim.SetBool(RunHash, movementVector.magnitude > 0.1f);
 

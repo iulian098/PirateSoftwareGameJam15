@@ -11,6 +11,8 @@ public class Player : Character
     [SerializeField] float pickupRadius;
     [SerializeField] Weapon weapon;
 
+    InputAction useAction;
+
     PlayerInput playerInput => InGameManager.Instance.PlayerInput;
 
     private void Start() {
@@ -19,12 +21,13 @@ public class Player : Character
         HealthComponent.OnDied += OnDied;
         UIManager.Instance.PlayerHealthBar.Init(HealthComponent.MaxHealth);
         weapon.Init(this);
+        useAction = playerInput.actions["Use"];
     }
 
     private void Update() {
         if (GlobalData.isPaused) return;
 
-        if (playerInput.actions["Use"].WasPerformedThisFrame()) {
+        if (useAction.WasPerformedThisFrame()) {
             Collider2D[] colls = new Collider2D[1];
             Physics2D.OverlapCircle(transform.position, pickupRadius, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PickupMask, useLayerMask = true, useTriggers = true }, colls);
             if (colls.Length > 0 && colls[0] != null) {
