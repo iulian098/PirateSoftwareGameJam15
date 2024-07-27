@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class HotbarManager : MonoSingleton<HotbarManager>
 {
     [SerializeField] UI_HotbarSlot[] slots;
-    [SerializeField] GameObject disabledObj;
+    [SerializeField] UI_HotbarSlot consumableSlot;
     [SerializeField] ItemsContainer itemsContainer;
     [SerializeField] InventoryContainer inventoryContainer;
 
@@ -21,12 +18,14 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     ItemDragIcon ItemDragIcon => UIManager.Instance.ItemDragIcon;
 
     InputAction[] hotbarActions;
+    InputAction hotbarConsumable;
 
     private void Start() {
         hotbarActions = new InputAction[slots.Length];
         for (int i = 0; i < slots.Length; i++) {
             int tmp = i;
             slots[i].SetSlotIndex(tmp);
+
             EquipmentItemData item = itemsContainer.GetItemByID(inventoryContainer.HotbarIDs[i]) as EquipmentItemData;
             if (item != null) {
                 int amountIndex = inventoryContainer.ItemsIDs.IndexOf(item.ID);
@@ -42,7 +41,9 @@ public class HotbarManager : MonoSingleton<HotbarManager>
 
             hotbarActions[i] = InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)];
         }
+        consumableSlot.SetItem(null);
         inventoryContainer.OnInventoryUpdated += UpdateUI;
+        slots[inventoryContainer.HotbarSelectedIndex].OnClick();
     }
 
     private void OnDestroy() {
@@ -55,12 +56,12 @@ public class HotbarManager : MonoSingleton<HotbarManager>
             slots[activeSlot].SetSelected(false);
         activeSlot = index;
         slots[activeSlot].SetSelected(true);
+        inventoryContainer.HotbarSelectedIndex = index;
     }
 
     private void Update() {
         if (GlobalData.isPaused) return;
         for (int i = 0; i < slots.Length; i++) {
-            //if (InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)].WasPerformedThisFrame()) {
             if (hotbarActions[i].WasPerformedThisFrame()) { 
                 slots[i].OnClick();
                 if(activeSlot != -1)
@@ -92,7 +93,14 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     }
 
     public void SetDisabled(bool disable) {
-        disabledObj.SetActive(disable);
+        //disabledObj.SetActive(disable);
+        foreach (var slot in slots) {
+            slot.SetDisabled(disable);
+        }
+    }
+
+    public void SetConsumableDisabled(bool disable) {
+        consumableSlot.SetDisabled(disable);
     }
 
     public void SetOverSlot(UI_Slot slot) {
@@ -146,7 +154,6 @@ public class HotbarManager : MonoSingleton<HotbarManager>
             return;
         }else if(selectedSlot != null && overSlot == null) {
             selectedSlot.SetItem(null);
-            //items[selectedSlotIndex] = null;
             inventoryContainer.HotbarIDs[selectedSlotIndex] = 0;
             Clear();
         }

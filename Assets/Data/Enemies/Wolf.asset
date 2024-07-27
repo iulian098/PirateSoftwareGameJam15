@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyIcon: {fileID: 21300000, guid: fda9c76f9575d804cb9b8b11157c2a0c, type: 3}
   enemyName: Wolf
   enemyDescription: It bites!
+  health: 60
   damage: 10
   attackRate: 1
   drops:

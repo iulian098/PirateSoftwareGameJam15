@@ -1,5 +1,6 @@
 public enum Enum_ItemType
 {
     Equipment,
-    Material
+    Material,
+    Consumable
 }

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +7,7 @@ public class UI_HotbarSlot : UI_Slot
 {
     [SerializeField] TMP_Text amountText;
     [SerializeField] GameObject selectedObj;
+    [SerializeField] GameObject disabledObj;
 
     public Action<int> OnClickAction;
     public Action<int> OnSelected;
@@ -45,6 +44,10 @@ public class UI_HotbarSlot : UI_Slot
 
     public void SetSelected(bool selected) {
         selectedObj.SetActive(selected);
+    }
+
+    public void SetDisabled(bool disabled) {
+        disabledObj.SetActive(disabled);
     }
 
     public override void OnPointerEnter(BaseEventData eventData) {

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EquipmentItemData", menuName = "Scriptable Objects/EquipmentItemData")]
+[CreateAssetMenu(fileName = "EquipmentItemData", menuName = "Scriptable Objects/Items/EquipmentItemData")]
 public class EquipmentItemData : ItemData
 {
     [SerializeField] WeaponData weaponData;

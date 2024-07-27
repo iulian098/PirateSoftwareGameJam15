@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item Data", menuName = "Scriptable Objects/New Item Data")]
+[CreateAssetMenu(fileName = "New Item Data", menuName = "Scriptable Objects/Items/New Item Data")]
 public class ItemData : ScriptableObject
 {
     [SerializeField] protected int id;

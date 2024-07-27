@@ -13,13 +13,13 @@ public class RecipesContainer : ScriptableObject
     }
 
     [SerializeField] List<Recipe> recipes;
-    [SerializeField] bool[] unlocked;
+    [SerializeField] List<bool> unlocked;
 
     Dictionary<ItemData, Recipe> recipesDict = new Dictionary<ItemData, Recipe>();
     Dictionary<Recipe, int> recipesIndex = new Dictionary<Recipe, int>();
 
     public List<Recipe> Recipes => recipes;
-    public bool[] Unlocked => unlocked;
+    public List<bool> Unlocked => unlocked;
 
     public void Init() {
         /*for (int i = 0; i < recipes.Length; i++) {
@@ -43,4 +43,20 @@ public class RecipesContainer : ScriptableObject
         return recipes.IndexOf(recipe);
     }
 
+    public void UnlockRecipe(ItemData item) {
+        int index = recipes.FindIndex(x => x.result == item);
+        if (index == -1) return;
+
+        unlocked[index] = true;
+    }
+
+    public void SetSaveData(List<bool> unlockedData) {
+        unlocked = unlockedData;
+
+        if (unlocked.Count == 0) {
+            for (int i = 0; i < recipes.Count; i++) {
+                unlocked.Add(false);
+            }
+        }
+    }
 }

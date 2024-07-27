@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class ItemDrop : MonoBehaviour
+public class ItemDrop : PickUp
 {
     bool itemPickedUp;
     List<DropData> droppedItems = new List<DropData>();
@@ -11,7 +9,7 @@ public class ItemDrop : MonoBehaviour
         droppedItems = dropData;
     }
 
-    public void OnPickup() {
+    public override void OnPickup() {
         if (itemPickedUp) return;
 
         List<DropData> pickedUp = new List<DropData>();

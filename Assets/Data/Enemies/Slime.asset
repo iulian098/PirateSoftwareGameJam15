@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyIcon: {fileID: 21300000, guid: fbbc073e81e2abb42a129bc7b447d922, type: 3}
   enemyName: Slime
   enemyDescription: It bites!
+  health: 50
   damage: 5
   attackRate: 1
   drops:

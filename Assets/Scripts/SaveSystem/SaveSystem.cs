@@ -15,7 +15,8 @@ public class SaveSystem : MonoSingleton<SaveSystem>
 
     const string FILE_NAME = "saveFile.data";
 
-    [SerializeField] InventoryContainer vehiclesContainer;
+    [SerializeField] InventoryContainer inventoryContainer;
+    [SerializeField] RecipesContainer recipesContainer;
 
     JsonSerializerSettings jsonSettings = new JsonSerializerSettings() {
         MaxDepth = null,
@@ -23,7 +24,6 @@ public class SaveSystem : MonoSingleton<SaveSystem>
     };
     string filePath;
     SaveFile saveFile;
-    SaveFile cloudSaveFile;
     Coroutine saveGameCoroutine;
 
     public Action OnSaveFileLoaded;
@@ -33,7 +33,11 @@ public class SaveSystem : MonoSingleton<SaveSystem>
         DontDestroyOnLoad(this);
     }
 
-    public async Task Init() {
+    private void Start() {
+        Init();
+    }
+
+    public void Init() {
         filePath = Path.Combine(Application.persistentDataPath, FILE_NAME);
 
         saveFile = LoadFile();
@@ -46,13 +50,15 @@ public class SaveSystem : MonoSingleton<SaveSystem>
         saveGameCoroutine = StartCoroutine(SaveGameCoroutine());
     }
 
-     async void LoadGameData() {
+     void LoadGameData() {
         if (saveFile == null) {
             Debug.LogError("[SaveSystem] No save file found, creating new one");
             saveFile = new SaveFile();
         }
 
         //TODO: Load data
+        inventoryContainer.SetSaveData(saveFile.inventoryItemsIds, saveFile.inventoryItemsAmounts, saveFile.hotbarItems, saveFile.hotbarSelectedSlot);
+        recipesContainer.SetSaveData(saveFile.unlockedRecipes);
 
         saveGameCoroutine = StartCoroutine(SaveGameCoroutine());
         OnSaveFileLoaded?.Invoke();

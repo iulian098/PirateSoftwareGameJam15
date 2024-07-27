@@ -183,7 +183,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         if (selectedSlot.Item == null) return;
         ItemDragIcon.Show(overSlot.Item.Icon);
         HotbarManager.Instance.SetDisabled(overSlot.Item.Type != Enum_ItemType.Equipment);
-
+        HotbarManager.Instance.SetConsumableDisabled(overSlot.Item.Type != Enum_ItemType.Consumable);
         SoundManager.PlaySound(transform.position, new SoundData {
             clip = itemDragClip,
             maxDistance = 100,
@@ -207,6 +207,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         isDrag = false;
         ItemDragIcon.Hide();
         HotbarManager.Instance.SetDisabled(false);
+        HotbarManager.Instance.SetConsumableDisabled(false);
         if (selectedSlot == null || overSlot == null || selectedSlot == overSlot) {
             Clear();
             return;

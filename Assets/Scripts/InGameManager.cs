@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,12 +6,14 @@ public class InGameManager : MonoSingleton<InGameManager>
     [SerializeField] InGameData inGameData;
     [SerializeField] Player player;
     [SerializeField] PlayerInput playerInput;
+    [SerializeField] RecipesContainer recipesContainer;
 
     InputAction inventoryAction;
 
     public InGameData InGameData => inGameData;
     public Player Player => player;
     public PlayerInput PlayerInput => playerInput;
+    public RecipesContainer RecipesContainer => recipesContainer;
 
     private void Start() {
         inventoryAction = playerInput.actions["Inventory"];

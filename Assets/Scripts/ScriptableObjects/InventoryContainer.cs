@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,11 +8,13 @@ public class InventoryContainer : ScriptableObject
     [SerializeField] List<int> itemsIDs = new List<int>();
     [SerializeField] List<int> itemsAmounts = new List<int>();
     [SerializeField] List<int> hotbarIDs = new List<int>();
+    [SerializeField] int hotbarSelectedIndex;
     [SerializeField] List<ItemData> inInventoryByDefualt = new List<ItemData>();
 
     public List<int> ItemsIDs => itemsIDs;
     public List<int> Amounts => itemsAmounts;
     public List<int> HotbarIDs => hotbarIDs;
+    public int HotbarSelectedIndex { get => hotbarSelectedIndex; set => hotbarSelectedIndex = value; }
     public List<ItemData> InInventoryByDefault => inInventoryByDefualt;
 
     public Action OnInventoryUpdated;
@@ -93,5 +94,30 @@ public class InventoryContainer : ScriptableObject
         }
 
         OnInventoryUpdated?.Invoke();
+    }
+
+    public void SetSaveData(List<int> itemsIDs, List<int> itemsAmounts, List<int> hotbarIDs, int hotbarSelectedIndex) {
+        this.itemsIDs = itemsIDs;
+        this.itemsAmounts = itemsAmounts;
+        this.hotbarIDs = hotbarIDs;
+        this.hotbarSelectedIndex = hotbarSelectedIndex;
+
+        if(itemsIDs.Count == 0 || itemsAmounts.Count == 0) {
+            for(int i = 0; i < 10; i++) {
+                this.itemsIDs.Add(0);
+                this.itemsAmounts.Add(0);
+            }
+        }
+
+        if(hotbarIDs.Count == 0) {
+            for (int i = 0; i < 5; i++) {
+                this.hotbarIDs.Add(0);
+            }
+
+
+            for (int i = 0; i < inInventoryByDefualt.Count; i++) {
+                AddItem(inInventoryByDefualt[i], 1);
+            }
+        }
     }
 }

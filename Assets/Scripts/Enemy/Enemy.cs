@@ -8,7 +8,6 @@ using UnityEngine.InputSystem.Android;
 public class Enemy : Character {
     [SerializeField] EnemyData enemyData;
     [SerializeField] EnemyState enemyState;
-    [SerializeField] Animator anim;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] SpriteRenderer characterSprite;
     [SerializeField] Rigidbody2D rb;
@@ -17,19 +16,26 @@ public class Enemy : Character {
     [SerializeField] float attackRange;
     [SerializeField] Vector3 healthBarOffset;
     [SerializeField] LayerMask playerLayerMask;
+    [SerializeField] Transform[] waypoints;
+    [SerializeField] float waypointChangeTime;
 
     Collider2D[] detectedColliders = new Collider2D[1];
     UI_EnemyHealthBar healthBar;
     Player target;
+    int waypointIndex;
+    float waypointTimer;
     float attackTime;
     float lastX;
     float spriteXScale;
     bool isDead;
+    bool waypointReached;
     Vector3 targetScale;
 
     public EnemyData EnemyData => enemyData;
     public EnemyState EnemyState => enemyState;
     public Player Target => target;
+    public Transform[] Waypoints => waypoints;
+    public int WaypointIndex => waypointIndex;
     public float AttackTime { get => attackTime; set => attackTime = value; }
     public float AttackRate => enemyData.AttackRate;
     public int Damage => enemyData.Damage;
@@ -37,13 +43,19 @@ public class Enemy : Character {
     public bool IsInAttackRange => Vector2.Distance(target.transform.position, transform.position) < attackRange;
     public float TargetDistance => Vector2.Distance(target.transform.position, transform.position);
 
-    public Animator Amin => anim;
+    public Animator Anim => anim;
 
     private void Start() {
         healthComponent.OnDied += OnDied;
         healthComponent.OnDamageReceived += OnDamageReceived;
         lastX = transform.position.x;
         spriteXScale = characterSprite.transform.localScale.x;
+
+        if (waypoints.Length > 0) {
+            agent.SetDestination(waypoints[waypointIndex].position);
+        }
+
+        healthComponent.MaxHealth = enemyData.Health;
     }
 
     private void OnDamageReceived(int dmg) {
@@ -93,26 +105,39 @@ public class Enemy : Character {
             healthBar = null;
         }
 
+        Destroy(gameObject);
     }
 
     void FixedUpdate() {
         if (isDead) return;
 
-        Physics2D.OverlapCircle(transform.position, aggroRange, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PlayerMask, useLayerMask = true }, detectedColliders);
-        if (target == null && detectedColliders != null && detectedColliders.Length > 0)
+        int detected = Physics2D.OverlapCircle(transform.position, aggroRange, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PlayerMask, useLayerMask = true }, detectedColliders);
+        if (detected > 0 && target == null && detectedColliders != null && detectedColliders.Length > 0)
             if (detectedColliders[0].TryGetComponent<Player>(out var player))
                 target = player;
 
         if(target != null && TargetDistance > aggroRange + 2) {
             target = null;
-            UIManager.Instance.EnemyHealthBarManager.FreeHealthBar(healthBar);
+            if(healthBar != null)
+                UIManager.Instance.EnemyHealthBarManager.FreeHealthBar(healthBar);
         }
 
         if (attackTime > 0)
             attackTime -= Time.deltaTime;
 
+        if (waypoints.Length > 0 && Vector2.Distance(waypoints[waypointIndex].position, transform.position) < 0.01f && !waypointReached) {
+            waypointReached = true;
+            waypointTimer = waypointChangeTime;
+        }
+
+        if(waypointTimer > 0)
+            waypointTimer -= Time.deltaTime;
+
+
         if(healthBar != null)
             healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + healthBarOffset);
+
+
 
         ChangeSpriteDirection();
 
@@ -132,6 +157,17 @@ public class Enemy : Character {
         }
         if (transform.position.x > lastX + 0.005f || transform.position.x < lastX - 0.005f)
             lastX = transform.position.x;
+    }
+
+    public void GoToNextWaypoint() {
+        if (waypointTimer > 0 || !waypointReached) return;
+        waypointIndex++;
+        if (waypointIndex >= waypoints.Length)
+            waypointIndex = 0;
+
+        waypointReached = false;
+
+        agent.SetDestination(waypoints[waypointIndex].position);
     }
 
     public bool PlayerDetected() {

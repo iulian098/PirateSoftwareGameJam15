@@ -8,7 +8,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] Sprite enemyIcon;
     [SerializeField] string enemyName;
     [SerializeField, Multiline] string enemyDescription;
-
+    [SerializeField] int health;
     [SerializeField] int damage;
     [SerializeField] float attackRate;
     [SerializeField] DropData[] drops;
@@ -18,6 +18,7 @@ public class EnemyData : ScriptableObject
     public Sprite EnemyIcon => enemyIcon;
     public string EnemyName => enemyName;
     public string EnemyDescription => enemyDescription;
+    public int Health => health;
     public int Damage => damage;
     public float AttackRate => attackRate;
     public DropData[] Drops => drops;

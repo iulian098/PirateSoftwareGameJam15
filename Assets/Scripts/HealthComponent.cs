@@ -9,7 +9,12 @@ public class HealthComponent : MonoBehaviour
     int health;
     protected bool isDead;
 
-    public int MaxHealth => maxHealth;
+    public int MaxHealth { get => maxHealth;
+        set { 
+            maxHealth = value;
+            health = value; 
+        }
+    }
     public int Health {
         get => health; 
         set {
@@ -26,7 +31,7 @@ public class HealthComponent : MonoBehaviour
     public Action<int> OnDamageReceived;
     public Action OnDied;
 
-    protected virtual void Start() {
+    protected virtual void Awake() {
         health = maxHealth;
         isDead = false;
     }
@@ -54,6 +59,6 @@ public class HealthComponent : MonoBehaviour
 
     public void ClearAll() {
         ClearActions();
-        Start();
+        Awake();
     }
 }
