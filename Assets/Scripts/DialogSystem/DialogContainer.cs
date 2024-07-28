@@ -29,11 +29,11 @@ namespace DialogSystem {
 
     [System.Serializable]
     public class DialogText {
-        [SerializeField] string name;
+        [SerializeField] string characterName;
         [SerializeField][TextArea] string text;
         public UnityEvent onShow;
 
-        public string Name => name;
+        public string CharacterName => characterName;
         public string Text => text;
     }
 

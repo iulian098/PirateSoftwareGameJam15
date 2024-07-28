@@ -18,7 +18,7 @@ namespace DialogSystem {
             dialogIndex = 0;
 
             gameObject.SetActive(true);
-            characterName.text = dialog.Dialogs[dialogIndex].Name;
+            characterName.text = dialog.Dialogs[dialogIndex].CharacterName;
             text.text = dialog.Dialogs[dialogIndex].Text;
             dialog.Dialogs[dialogIndex].onShow?.Invoke();
             dialogSystem.OnDialogStart?.Invoke();
@@ -35,7 +35,7 @@ namespace DialogSystem {
                 return;
             }
 
-            characterName.text = dialog.Dialogs[dialogIndex].Name;
+            characterName.text = dialog.Dialogs[dialogIndex].CharacterName;
             text.text = dialog.Dialogs[dialogIndex].Text;
             dialog.Dialogs[dialogIndex].onShow?.Invoke();
         }
