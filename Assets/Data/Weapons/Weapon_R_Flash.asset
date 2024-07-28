@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f5330195fd6fc43b858fd78bd165b3, type: 3}
-  m_Name: FlashWeapon
+  m_Script: {fileID: 11500000, guid: 087e360a6ba53874e9d84abaf03f1c6d, type: 3}
+  m_Name: Weapon_R_Flash
   m_EditorClassIdentifier: 
+  weaponType: 1
+  damage: 10
+  fireRate: 0.2
+  applyStatusEffect: 3
+  attackSound: {fileID: 0}
   projectile: {fileID: 1455745088827195291, guid: d8d14786e0a9b35408c21c2e3115a6d2, type: 3}
   projectileConfig:
     speed: 400
@@ -23,7 +28,3 @@ MonoBehaviour:
     - {fileID: 8300000, guid: cc913ad8b3e92ca42916156966146475, type: 3}
     useAdditionalSounds: 0
     additionalHitSounds: []
-  damage: 10
-  fireRate: 0.2
-  applyStatusEffect: 3
-  attackSound: {fileID: 0}

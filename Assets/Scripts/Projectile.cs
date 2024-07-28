@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
 
     int damage;
     Vector2 startPos;
-    WeaponData weaponData;
+    RangeWeaponData weaponData;
 
     public void Init(Vector2 forceDirection)
     {
@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
         rb.AddForce(forceDirection * speed);
     }
 
-    public void Init(Vector2 forceDirection, WeaponData weaponData, int damage) {
+    public void Init(Vector2 forceDirection, RangeWeaponData weaponData, int damage) {
         this.weaponData = weaponData;
         speed = weaponData.ProjectileConfig.speed;
         maxDistance = weaponData.ProjectileConfig.maxDistance;
@@ -43,13 +43,20 @@ public class Projectile : MonoBehaviour
     }
 
     private void OnHit(Collider2D coll) {
-        if (coll != null && coll.CompareTag("Enemy")) {
+        if (coll != null) {
             //Give damage
-            Character character = coll.GetComponent<Character>();
-            if (character != null)
-                character.ReceiveDamage(weaponData);
-            else
-                Debug.LogWarning("Health Component not found");
+            if (coll.CompareTag("Enemy")) {
+                Character character = coll.GetComponent<Character>();
+                if (character != null)
+                    character.ReceiveDamage(weaponData);
+                else
+                    Debug.LogWarning("Health Component not found");
+            }
+            else if (coll.CompareTag("BreakableProp")) {
+                BreakableProp prop = coll.GetComponent<BreakableProp>();
+                if (prop != null)
+                    prop.ReceiveDamage(weaponData);
+            }
         }
         SoundManager.PlaySound(transform.position, new SoundData {
             clip = weaponData.ProjectileConfig.hitSound.Length != 0 ? weaponData.ProjectileConfig.hitSound[UnityEngine.Random.Range(0, weaponData.ProjectileConfig.hitSound.Length)] : null,

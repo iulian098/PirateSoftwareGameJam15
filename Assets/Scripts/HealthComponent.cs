@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
@@ -45,6 +43,15 @@ public class HealthComponent : MonoBehaviour
         OnDamageReceived?.Invoke(dmg);
 
         if (health <= 0)
+            Die();
+    }
+
+    public virtual void ReceiveDamage(WeaponData weapon) {
+        Health -= weapon.Damage;
+
+        OnDamageReceived?.Invoke(weapon.Damage);
+
+        if(health <= 0) 
             Die();
     }
 

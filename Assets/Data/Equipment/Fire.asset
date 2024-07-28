@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2b73877c18a34146b87d1fc2a88f671, type: 3}
-  m_Name: Acid
+  m_Name: Fire
   m_EditorClassIdentifier: 
-  id: 101
+  id: 102
   type: 0
-  icon: {fileID: 21300000, guid: eef6490ae06c14c4999988b93fa80003, type: 3}
-  itemName: Acid Potion
+  icon: {fileID: 21300000, guid: 3d401822aad36a94b8df6b511e98befc, type: 3}
+  itemName: Fire potion
   itemDescription: 
-  weaponData: {fileID: 11400000, guid: 522ced7bbdf65b643b5757854c41dad6, type: 2}
+  weaponData: {fileID: 11400000, guid: cd41ac3bcab64744dae87b8f459a0253, type: 2}
+  isInfinite: 0

@@ -9,19 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f5330195fd6fc43b858fd78bd165b3, type: 3}
-  m_Name: RockWeapon
+  m_Script: {fileID: 11500000, guid: 087e360a6ba53874e9d84abaf03f1c6d, type: 3}
+  m_Name: Weapon_R_Rock
   m_EditorClassIdentifier: 
-  projectile: {fileID: 7201156788935363923, guid: 32fa30f5bcc644b49a3b0da3e3ddd6b9, type: 3}
-  projectileConfig:
-    speed: 400
-    maxDistance: 2.5
-    hitVFX: {fileID: 1429303568159713589, guid: d5fce65a696f7df4b85c9ae73eb3e559, type: 3}
-    hitSound:
-    - {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
-    useAdditionalSounds: 0
-    additionalHitSounds: []
+  weaponType: 1
   damage: 10
   fireRate: 0.5
   applyStatusEffect: 0
   attackSound: {fileID: 0}
+  projectile: {fileID: 7201156788935363923, guid: 32fa30f5bcc644b49a3b0da3e3ddd6b9, type: 3}
+  projectileConfig:
+    speed: 400
+    maxDistance: 2
+    hitVFX: {fileID: 1429303568159713589, guid: d5fce65a696f7df4b85c9ae73eb3e559, type: 3}
+    hitSound:
+    - {fileID: 8300000, guid: 96a24a613444b274f9d8ea4034fe2cfd, type: 3}
+    - {fileID: 8300000, guid: 08d2cfbea2de47342a2b256ea9c36f47, type: 3}
+    - {fileID: 8300000, guid: cc913ad8b3e92ca42916156966146475, type: 3}
+    useAdditionalSounds: 0
+    additionalHitSounds: []

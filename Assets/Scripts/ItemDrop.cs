@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class ItemDrop : PickUp
 {
+    [SerializeField] List<DropData> droppedItems = new List<DropData>();
     bool itemPickedUp;
-    List<DropData> droppedItems = new List<DropData>();
 
     public void Init(List<DropData> dropData) {
         droppedItems = dropData;

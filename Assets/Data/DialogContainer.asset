@@ -15,17 +15,17 @@ MonoBehaviour:
   dialogs:
   - name: Dialog1
     dialogs:
-    - name: jhkjhkj
+    - characterName: 
       text: jkhkjhkjhkjh
       onShow:
         m_PersistentCalls:
           m_Calls: []
-    - name: nmbmnbmn
+    - characterName: 
       text: ',mnnnnnn'
       onShow:
         m_PersistentCalls:
           m_Calls: []
-    - name: aaaaa
+    - characterName: 
       text: AAAAAAAAAAAA
       onShow:
         m_PersistentCalls:

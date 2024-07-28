@@ -12,6 +12,7 @@ public class InGameData : ScriptableObject
     [SerializeField] LayerMask playerMask;
     [SerializeField] LayerMask enemyMask;
     [SerializeField] LayerMask pickupMask;
+    [SerializeField] LayerMask breakableObjectMask;
 
     [SerializeField] GameObject bottleShardsVfx;
     [SerializeField] GameObject deathVfx;
@@ -20,6 +21,7 @@ public class InGameData : ScriptableObject
 
     public AudioClip DefaultAttackSound => defaultAttackSound;
 
+    public LayerMask BreakableObjectMask => breakableObjectMask;
     public LayerMask PlayerMask => playerMask;
     public LayerMask EnemyMask => enemyMask;
     public LayerMask PickupMask => pickupMask;

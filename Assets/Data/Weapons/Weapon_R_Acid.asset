@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f5330195fd6fc43b858fd78bd165b3, type: 3}
-  m_Name: AcidWeapon
+  m_Script: {fileID: 11500000, guid: 087e360a6ba53874e9d84abaf03f1c6d, type: 3}
+  m_Name: Weapon_R_Acid
   m_EditorClassIdentifier: 
+  weaponType: 0
+  damage: 10
+  fireRate: 0.2
+  applyStatusEffect: 2
+  attackSound: {fileID: 0}
   projectile: {fileID: 3604982827460289569, guid: f76b8b8a1592d6e4eb3644a9253c31eb, type: 3}
   projectileConfig:
     speed: 400
@@ -24,7 +29,3 @@ MonoBehaviour:
     useAdditionalSounds: 1
     additionalHitSounds:
     - {fileID: 8300000, guid: 83829ff414f47a048b5387e4ab33571c, type: 3}
-  damage: 10
-  fireRate: 0.2
-  applyStatusEffect: 2
-  attackSound: {fileID: 0}

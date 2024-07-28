@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2b73877c18a34146b87d1fc2a88f671, type: 3}
-  m_Name: Fire
+  m_Name: Axe
   m_EditorClassIdentifier: 
-  id: 102
+  id: 106
   type: 0
-  icon: {fileID: 21300000, guid: 3d401822aad36a94b8df6b511e98befc, type: 3}
-  itemName: Fire potion
+  icon: {fileID: 554399281, guid: 4bd3068cfc93a754aa0f834a281fe275, type: 3}
+  itemName: Axe
   itemDescription: 
-  weaponData: {fileID: 11400000, guid: c0fd704163b474341bc3fc90e4fb9ae0, type: 2}
+  weaponData: {fileID: 11400000, guid: e7717e95088b3be4d9b32b20bb52708f, type: 2}
+  isInfinite: 1

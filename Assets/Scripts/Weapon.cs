@@ -7,10 +7,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] WeaponData weaponData;
     [SerializeField] Transform shootingPoint;
 
+    bool isRanged;
     float fireRateTimer;
     Character character;
     ItemData itemData;
-
+    RaycastHit2D raycastHit;
 
     public void Init(Character character) {
         this.character = character;
@@ -19,6 +20,7 @@ public class Weapon : MonoBehaviour
     public void ChangeWeapon(WeaponData weaponData, ItemData itemData) {
         this.weaponData = weaponData;
         this.itemData = itemData;
+        isRanged = weaponData.WeaponType == Enum_WeaponType.Ranged;
     }
 
     private void FixedUpdate() {
@@ -37,6 +39,7 @@ public class Weapon : MonoBehaviour
             ChangeWeapon(null, null);
             return;
         }
+
         if(!(itemData as EquipmentItemData).IsInfinite)
             InventorySystem.Instance.RemoveItem(itemData);
 
@@ -50,8 +53,21 @@ public class Weapon : MonoBehaviour
 
         character.Animator.SetTrigger("Attack");
 
-        Projectile proj = Instantiate(weaponData.Projectile, shootingPoint.position, shootingPoint.rotation);
-        proj.Init(shootingPoint.right, weaponData, weaponData.Damage);
+        if (isRanged) {
+            Projectile proj = Instantiate((weaponData as RangeWeaponData).Projectile, shootingPoint.position, shootingPoint.rotation);
+            proj.Init(shootingPoint.right, (weaponData as RangeWeaponData), weaponData.Damage);
+        }
+        else {
+            raycastHit = Physics2D.Raycast(shootingPoint.position,
+                shootingPoint.right,
+                (weaponData as MeleeWeaponData).Range,
+                InGameManager.Instance.InGameData.EnemyMask | InGameManager.Instance.InGameData.BreakableObjectMask
+                );
+            if(raycastHit.collider != null && raycastHit.collider.TryGetComponent<HealthComponent>(out var healthComp)){
+                healthComp.ReceiveDamage(weaponData);
+            }
+        }
+
         fireRateTimer = weaponData.FireRate;
     }
 }
