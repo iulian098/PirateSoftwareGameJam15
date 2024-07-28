@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InGameManager : MonoSingleton<InGameManager>
@@ -7,6 +8,7 @@ public class InGameManager : MonoSingleton<InGameManager>
     [SerializeField] Player player;
     [SerializeField] PlayerInput playerInput;
     [SerializeField] RecipesContainer recipesContainer;
+    [SerializeField] EventSystem eventSystem;
 
     InputAction inventoryAction;
 
@@ -14,6 +16,7 @@ public class InGameManager : MonoSingleton<InGameManager>
     public Player Player => player;
     public PlayerInput PlayerInput => playerInput;
     public RecipesContainer RecipesContainer => recipesContainer;
+    public EventSystem EventSystem => eventSystem;
 
     private void Start() {
         inventoryAction = playerInput.actions["Inventory"];

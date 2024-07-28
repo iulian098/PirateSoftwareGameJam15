@@ -18,8 +18,11 @@ public class HealthComponent : MonoBehaviour
     public int Health {
         get => health; 
         set {
-            OnHealthChanged?.Invoke(health, value);
+            int oldHealth = health;
             health = value;
+            if (health > maxHealth)
+                health = maxHealth;
+            OnHealthChanged?.Invoke(oldHealth, health);
         }
     }
     

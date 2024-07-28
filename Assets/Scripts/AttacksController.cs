@@ -22,6 +22,7 @@ public class AttacksController : MonoBehaviour
     private void Update() {
 
         if (GlobalData.isPaused) return;
+        if (InGameManager.Instance.EventSystem.IsPointerOverGameObject()) return;
 
         aimDirection = (Camera.main.ScreenToWorldPoint(aimDirectionAction.ReadValue<Vector2>()) - transform.position).normalized;
         aimDirTransform.rotation = Quaternion.LookRotation(forwardRot, aimDirection);

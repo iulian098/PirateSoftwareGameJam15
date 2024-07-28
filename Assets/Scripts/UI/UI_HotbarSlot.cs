@@ -64,4 +64,9 @@ public class UI_HotbarSlot : UI_Slot
         OnClickAction?.Invoke(item.ID);
         OnSelected?.Invoke(slotIndex);
     }
+
+    public override void Clear() {
+        OnClickAction = null;
+        OnSelected = null;
+    }
 }

@@ -106,13 +106,22 @@ public class RecipesManager : MonoBehaviour
         }
 
         craftAmount = amounts.Min();
+        if (craftAmount <= 0)
+            craftAmount = 1;
         craftAmountInputField.text = craftAmount.ToString();
         CanCraft();
     }
 
     public void OnCraftAmountChanged(string val) {
         if (selectedRecipe == null) return;
-        craftAmount = int.Parse(val);
+
+        int amount = int.Parse(val);
+        if (amount <= 0) {
+            amount = 1;
+            craftAmountInputField.text = "1";
+        }
+
+        craftAmount = amount;
         CanCraft();
     }
 

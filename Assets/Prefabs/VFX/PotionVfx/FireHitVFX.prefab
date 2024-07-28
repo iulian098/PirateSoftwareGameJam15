@@ -34,15 +34,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6672651003196831077, guid: 6421d642b58ac994ca836fc3a857ca14, type: 3}
       propertyPath: m_Name
-      value: FireHitVFX Variant
+      value: FireHitVFX
       objectReference: {fileID: 0}
     - target: {fileID: 7617361986109161830, guid: 6421d642b58ac994ca836fc3a857ca14, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.05695635
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7617361986109161830, guid: 6421d642b58ac994ca836fc3a857ca14, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3257698
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7617361986109161830, guid: 6421d642b58ac994ca836fc3a857ca14, type: 3}
       propertyPath: m_LocalPosition.z

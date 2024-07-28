@@ -8,6 +8,7 @@ public class InventoryContainer : ScriptableObject
     [SerializeField] List<int> itemsIDs = new List<int>();
     [SerializeField] List<int> itemsAmounts = new List<int>();
     [SerializeField] List<int> hotbarIDs = new List<int>();
+    [SerializeField] int consumableID;
     [SerializeField] int hotbarSelectedIndex;
     [SerializeField] List<ItemData> inInventoryByDefualt = new List<ItemData>();
 
@@ -15,6 +16,7 @@ public class InventoryContainer : ScriptableObject
     public List<int> Amounts => itemsAmounts;
     public List<int> HotbarIDs => hotbarIDs;
     public int HotbarSelectedIndex { get => hotbarSelectedIndex; set => hotbarSelectedIndex = value; }
+    public int ConsumableID { get => consumableID; set => consumableID = value; }
     public List<ItemData> InInventoryByDefault => inInventoryByDefualt;
 
     public Action OnInventoryUpdated;

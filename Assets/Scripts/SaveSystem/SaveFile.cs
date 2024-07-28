@@ -10,6 +10,7 @@ public class SaveFile
     public List<int> hotbarItems;
     public List<bool> unlockedRecipes;
     public int hotbarSelectedSlot;
+    public int consumableSlotItemID;
 
     public SaveFile() {
         playerData = new PlayerData();
@@ -18,5 +19,6 @@ public class SaveFile
         hotbarItems = new List<int>();
         unlockedRecipes = new List<bool>();
         hotbarSelectedSlot = 0;
+        consumableSlotItemID = 0;
     }
 }

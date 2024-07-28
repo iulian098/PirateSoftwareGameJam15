@@ -42,4 +42,6 @@ public abstract class UI_Slot : MonoBehaviour
     public virtual void OnDrop(BaseEventData eventData){ }
     public virtual void OnPointerEnter(BaseEventData eventData){ }
     public virtual void OnPointerExit(BaseEventData eventData){ }
+
+    public virtual void Clear() { }
 }

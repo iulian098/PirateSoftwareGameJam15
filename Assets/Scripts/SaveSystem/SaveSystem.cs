@@ -58,6 +58,7 @@ public class SaveSystem : MonoSingleton<SaveSystem>
 
         //TODO: Load data
         inventoryContainer.SetSaveData(saveFile.inventoryItemsIds, saveFile.inventoryItemsAmounts, saveFile.hotbarItems, saveFile.hotbarSelectedSlot);
+        inventoryContainer.ConsumableID = saveFile.consumableSlotItemID;
         recipesContainer.SetSaveData(saveFile.unlockedRecipes);
 
         saveGameCoroutine = StartCoroutine(SaveGameCoroutine());

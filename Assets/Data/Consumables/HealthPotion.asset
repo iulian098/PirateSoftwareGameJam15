@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2b73877c18a34146b87d1fc2a88f671, type: 3}
-  m_Name: Health
+  m_Script: {fileID: 11500000, guid: 48d4710dbae506943a38f67ba5b520f8, type: 3}
+  m_Name: HealthPotion
   m_EditorClassIdentifier: 
-  id: 104
-  type: 0
+  id: 201
+  type: 2
   icon: {fileID: 21300000, guid: c1ac6d84c6fae9c49a9e3e1fe1d610f8, type: 3}
   itemName: Health Potion
   itemDescription: 
-  weaponPrefab: {fileID: 0}
+  modifiedStat: 0
+  amount: 20
+  onConsumeVFX: {fileID: 6118342738382439805, guid: c29efff80948e284bb4afc172cd35d18, type: 3}
+  onConsumeAudio: {fileID: 0}

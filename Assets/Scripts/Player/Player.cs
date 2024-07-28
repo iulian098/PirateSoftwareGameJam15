@@ -27,13 +27,17 @@ public class Player : Character
     private void Update() {
         if (GlobalData.isPaused) return;
 
-        if (useAction.WasPerformedThisFrame()) {
-            Collider2D[] colls = new Collider2D[1];
-            Physics2D.OverlapCircle(transform.position, pickupRadius, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PickupMask, useLayerMask = true, useTriggers = true }, colls);
-            if (colls.Length > 0 && colls[0] != null) {
+        Collider2D[] colls = new Collider2D[1];
+        Physics2D.OverlapCircle(transform.position, pickupRadius, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PickupMask, useLayerMask = true, useTriggers = true }, colls);
+        if (colls.Length > 0 && colls[0] != null) {
+            UIManager.Instance.ShowInfoText(InfoTextStrings.PickupString);
+            if (useAction.WasPerformedThisFrame()) {
                 if (colls[0].TryGetComponent(out PickUp drop))
                     drop.OnPickup();
             }
+        }
+        else {
+            UIManager.Instance.HideInfo();
         }
     }
 
