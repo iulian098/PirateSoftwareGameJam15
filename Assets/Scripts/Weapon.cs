@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour
             raycastHit = Physics2D.Raycast(shootingPoint.position,
                 shootingPoint.right,
                 (weaponData as MeleeWeaponData).Range,
-                InGameManager.Instance.InGameData.EnemyMask | InGameManager.Instance.InGameData.BreakableObjectMask
+                InGameManager.Instance.InGameData.EnemyMask | InGameManager.Instance.InGameData.BreakableObjectMask | InGameManager.Instance.InGameData.InteractableMask
                 );
             if(raycastHit.collider != null && raycastHit.collider.TryGetComponent<HealthComponent>(out var healthComp)){
                 healthComp.ReceiveDamage(weaponData);

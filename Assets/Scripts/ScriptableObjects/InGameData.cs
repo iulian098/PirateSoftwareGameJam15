@@ -13,6 +13,7 @@ public class InGameData : ScriptableObject
     [SerializeField] LayerMask enemyMask;
     [SerializeField] LayerMask pickupMask;
     [SerializeField] LayerMask breakableObjectMask;
+    [SerializeField] LayerMask interactableMask;
 
     [SerializeField] GameObject bottleShardsVfx;
     [SerializeField] GameObject deathVfx;
@@ -25,6 +26,7 @@ public class InGameData : ScriptableObject
     public LayerMask PlayerMask => playerMask;
     public LayerMask EnemyMask => enemyMask;
     public LayerMask PickupMask => pickupMask;
+    public LayerMask InteractableMask => interactableMask;
 
     public GameObject BottleShardsVFX => bottleShardsVfx;
     public GameObject DeathVFX => deathVfx;

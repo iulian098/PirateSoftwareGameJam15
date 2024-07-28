@@ -1883,6 +1883,7 @@ MonoBehaviour:
   player: {fileID: 435525997078087524}
   playerInput: {fileID: 3961577376309098046}
   recipesContainer: {fileID: 11400000, guid: dac3cf10949bc324e971b6b8c0fd05d2, type: 2}
+  inventoryContainer: {fileID: 11400000, guid: 40c5ed0822645094bba6b9ba552fb8ee, type: 2}
   eventSystem: {fileID: 4806525947478558146}
 --- !u!114 &3961577376309098046
 MonoBehaviour:

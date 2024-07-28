@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ItemPickupInfo : MonoBehaviour
 {
@@ -32,11 +31,12 @@ public class ItemPickupInfo : MonoBehaviour
             entry = entriesPooling.Get();
             item = entriesQueue.Dequeue();
             entry.Init(item.Key, item.Value);
+            entry.OnFadedOut = FreeEntry;
             yield return new WaitForSeconds(1f);
         }
     }
 
-    void FreeEntry(ItemPickupEntry entry) {
+    public void FreeEntry(ItemPickupEntry entry) {
         entriesPooling.Disable(entry);
     }
 }

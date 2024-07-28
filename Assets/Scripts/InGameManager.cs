@@ -8,6 +8,7 @@ public class InGameManager : MonoSingleton<InGameManager>
     [SerializeField] Player player;
     [SerializeField] PlayerInput playerInput;
     [SerializeField] RecipesContainer recipesContainer;
+    [SerializeField] InventoryContainer inventoryContainer;
     [SerializeField] EventSystem eventSystem;
 
     InputAction inventoryAction;
@@ -16,6 +17,7 @@ public class InGameManager : MonoSingleton<InGameManager>
     public Player Player => player;
     public PlayerInput PlayerInput => playerInput;
     public RecipesContainer RecipesContainer => recipesContainer;
+    public InventoryContainer InventoryContainer => inventoryContainer;
     public EventSystem EventSystem => eventSystem;
 
     private void Start() {

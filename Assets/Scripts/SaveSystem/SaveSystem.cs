@@ -2,15 +2,12 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System;
-using System.Threading.Tasks;
 
 
 [DefaultExecutionOrder(-50)]
 public class SaveSystem : MonoSingleton<SaveSystem>
 {
-    public static SaveSystem Instance;
     public static bool stopSaving;
 
     const string FILE_NAME = "saveFile.data";

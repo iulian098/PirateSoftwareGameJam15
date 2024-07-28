@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemDrop : PickUp
-{
+public class ItemDrop : PickUp, IInteractable {
     [SerializeField] List<DropData> droppedItems = new List<DropData>();
     bool itemPickedUp;
 
     public void Init(List<DropData> dropData) {
         droppedItems = dropData;
+    }
+
+    public void OnInteract() {
+        OnPickup();
     }
 
     public override void OnPickup() {

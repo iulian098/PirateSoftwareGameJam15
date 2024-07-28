@@ -2,5 +2,6 @@ public enum Enum_ItemType
 {
     Equipment,
     Material,
-    Consumable
+    Consumable,
+    Key
 }
