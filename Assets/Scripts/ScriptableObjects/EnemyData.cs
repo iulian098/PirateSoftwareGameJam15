@@ -15,6 +15,9 @@ public class EnemyData : ScriptableObject
     [SerializeField] StatusEffect[] weakness;
     [SerializeField] StatusEffect[] strong;
 
+    [SerializeField] SoundData attackSoundData;
+    [SerializeField] SoundData movementSoundData;
+
     public Sprite EnemyIcon => enemyIcon;
     public string EnemyName => enemyName;
     public string EnemyDescription => enemyDescription;
@@ -24,5 +27,7 @@ public class EnemyData : ScriptableObject
     public DropData[] Drops => drops;
     public StatusEffect[] Weakness => weakness;
     public StatusEffect[] Strong => strong;
+    public SoundData AttackSoundData => attackSoundData;
+    public SoundData MovementSoundData => movementSoundData;
 
 }

@@ -18,6 +18,7 @@ public class Door : MonoBehaviour, IInteractable {
             closed.SetActive(false);
             coll.enabled = false;
             gameObject.layer = 0;
+            SoundManager.Instance.PlaySound(transform.position, "DoorOpen");
         }
     }
 

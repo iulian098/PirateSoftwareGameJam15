@@ -29,6 +29,8 @@ public class Chest : MonoBehaviour, IInteractable
             if (dropC <= item.chance)
                 droppedItems.Add(item);
         }
+
+        SoundManager.Instance.PlaySound(transform.position, "ChestOpen");
     }
 
     void Collect() {

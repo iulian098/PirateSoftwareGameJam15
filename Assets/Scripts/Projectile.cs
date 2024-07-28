@@ -58,24 +58,11 @@ public class Projectile : MonoBehaviour
                     prop.ReceiveDamage(weaponData);
             }
         }
-        SoundManager.PlaySound(transform.position, new SoundData {
-            clip = weaponData.ProjectileConfig.hitSound.Length != 0 ? weaponData.ProjectileConfig.hitSound[UnityEngine.Random.Range(0, weaponData.ProjectileConfig.hitSound.Length)] : null,
-            maxDistance = 15,
-            minDistance = 5,
-            pitch = UnityEngine.Random.Range(0.9f, 1.1f),
-            volume = UnityEngine.Random.Range(0.1f, 0.2f)
-        });
+        SoundManager.Instance.PlaySound(transform.position, weaponData.ProjectileConfig.hitSoundName);
 
         if (weaponData.ProjectileConfig.useAdditionalSounds) {
-            SoundManager.PlaySound(transform.position, new SoundData {
-                clip = weaponData.ProjectileConfig.hitSound.Length != 0 ? 
-                    weaponData.ProjectileConfig.additionalHitSounds[UnityEngine.Random.Range(0, weaponData.ProjectileConfig.additionalHitSounds.Length)] : null,
-                maxDistance = 15,
-                minDistance = 5,
-                pitch = UnityEngine.Random.Range(0.9f, 1.1f),
-                volume = 0.3f
-            });
-
+            foreach (var additionalSound in weaponData.ProjectileConfig.additionalHitSoundData)
+                SoundManager.PlaySound(transform.position, additionalSound);
         }
 
         Destroy(gameObject);

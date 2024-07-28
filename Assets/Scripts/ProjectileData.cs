@@ -5,7 +5,7 @@ public class ProjectileData {
     public float speed;
     public float maxDistance;
     public GameObject hitVFX;
-    public AudioClip[] hitSound;
+    public string hitSoundName;
     public bool useAdditionalSounds;
-    public AudioClip[] additionalHitSounds;
+    public SoundData[] additionalHitSoundData;
 }

@@ -1845,6 +1845,7 @@ GameObject:
   - component: {fileID: 1155288709640225983}
   - component: {fileID: 6454027944148261435}
   - component: {fileID: 3961577376309098046}
+  - component: {fileID: 5168445729476368309}
   m_Layer: 0
   m_Name: InGameManager
   m_TagString: Untagged
@@ -1915,6 +1916,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5168445729476368309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284205287581450987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46bc3fd367d66354a89ca7d214f83dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundsContainer: {fileID: 11400000, guid: 789d59140f72d3246854fbbf7abb2f02, type: 2}
 --- !u!1 &2670189567273217341
 GameObject:
   m_ObjectHideFlags: 0

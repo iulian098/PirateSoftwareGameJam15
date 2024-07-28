@@ -254,6 +254,7 @@ public class HotbarManager : MonoSingleton<HotbarManager>
             case Enum_ModifyStat.Health:
                 InGameManager.Instance.Player.HealthComponent.Health += (int)consumable.Amount;
                 Instantiate(consumable.OnConsumeVFX, InGameManager.Instance.Player.transform);
+                SoundManager.Instance.PlaySound(InGameManager.Instance.Player.transform.position, "PotionOpen");
                 break;
             case Enum_ModifyStat.Speed:
                 break;

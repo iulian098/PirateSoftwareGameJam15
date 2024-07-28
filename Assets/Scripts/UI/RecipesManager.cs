@@ -132,6 +132,7 @@ public class RecipesManager : MonoBehaviour
                 inventoryContainer.SetAmountByIndex(inventoryItemIndex, inventoryContainer.Amounts[inventoryItemIndex] - (selectedRecipe.amounts[i] * craftAmount));
             }
             inventoryContainer.AddItem(selectedRecipe.result, craftAmount);
+            SoundManager.Instance.PlaySound(transform.position, "Craft");
         }
         else {
             Debug.Log("Not enough resources");

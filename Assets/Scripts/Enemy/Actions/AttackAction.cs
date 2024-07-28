@@ -9,7 +9,8 @@ namespace PluggableAI {
                 controller.Target.HealthComponent.ReceiveDamage(controller.Damage);
                 controller.AttackTime = controller.AttackRate;
                 controller.Animator.SetTrigger("Attack");
-
+                if(controller.EnemyData.AttackSoundData.clip.Length > 0)
+                    SoundManager.PlaySound(controller.transform.position, controller.EnemyData.AttackSoundData);
             }
         }
     }

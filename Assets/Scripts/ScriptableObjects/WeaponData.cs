@@ -9,11 +9,11 @@ public class WeaponData : ScriptableObject
     [SerializeField] int damage;
     [SerializeField] float fireRate;
     [SerializeField] Enum_StatusEffectType applyStatusEffect;
-    [SerializeField] AudioClip attackSound;
+    [SerializeField] string overrideAttackSound;
 
     public Enum_WeaponType WeaponType => weaponType;
     public int Damage => damage;
     public float FireRate => fireRate;
     public Enum_StatusEffectType ApplyStatusEffect => applyStatusEffect;
-    public AudioClip AttackSound => attackSound;
+    public string OverrideAttackSound => overrideAttackSound;
 }

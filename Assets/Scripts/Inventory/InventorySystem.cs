@@ -184,13 +184,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         ItemDragIcon.Show(overSlot.Item.Icon);
         HotbarManager.Instance.SetDisabled(overSlot.Item.Type != Enum_ItemType.Equipment);
         HotbarManager.Instance.SetConsumableDisabled(overSlot.Item.Type != Enum_ItemType.Consumable);
-        SoundManager.PlaySound(transform.position, new SoundData {
-            clip = itemDragClip,
-            maxDistance = 100,
-            minDistance = 100,
-            pitch = UnityEngine.Random.Range(0.95f, 1.05f),
-            volume = 1
-        });
+        SoundManager.Instance.PlaySound(transform.position, "ItemDrag");
     }
 
     public void Drag(UI_Slot slot) {
@@ -252,13 +246,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         if(overSlot.Item != null)
             UIManager.Instance.ItemInfo.Show(overSlot.Item, overSlot.transform.position - new Vector3(0, (overSlot.transform as RectTransform).sizeDelta.y / 2, 0));
         
-        SoundManager.PlaySound(transform.position, new SoundData {
-            clip = itemDropClip,
-            maxDistance = 100,
-            minDistance = 100,
-            pitch = UnityEngine.Random.Range(1f, 1.15f),
-            volume = 1
-        });
+        SoundManager.Instance.PlaySound(transform.position, "ItemDrop");
 
 
         Clear();

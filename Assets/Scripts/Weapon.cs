@@ -43,13 +43,7 @@ public class Weapon : MonoBehaviour
         if(!(itemData as EquipmentItemData).IsInfinite)
             InventorySystem.Instance.RemoveItem(itemData);
 
-        SoundManager.PlaySound(transform.position, new SoundData {
-            clip = weaponData.AttackSound != null ? weaponData.AttackSound : InGameManager.Instance.InGameData.DefaultAttackSound,
-            maxDistance = 15,
-            minDistance = 5,
-            pitch = Random.Range(0.9f, 1.1f),
-            volume = Random.Range(0.9f, 1f)
-        });
+        SoundManager.Instance.PlaySound(transform.position, weaponData.OverrideAttackSound == string.Empty ? "PotionThrow" : weaponData.OverrideAttackSound);
 
         character.Animator.SetTrigger("Attack");
 

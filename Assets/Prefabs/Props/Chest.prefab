@@ -58,8 +58,8 @@ MonoBehaviour:
     amount: 15
     chance: 50
   spriteRenderer: {fileID: 6406764303291737525}
-  closeSprite: {fileID: 21300000, guid: a346234bd37d46a4bb23d774220a7c7e, type: 3}
-  openSprite: {fileID: 21300000, guid: f7e880021a09d7b47a3d012b7a2d496e, type: 3}
+  closeSprite: {fileID: 21300000, guid: 3ed968c679da2ed4e8a103d6eed2cdac, type: 3}
+  openSprite: {fileID: 21300000, guid: 487bb07debd18d3419a27529d2de881a, type: 3}
   vfx: {fileID: 7275311612817054914}
 --- !u!58 &5389933462184063991
 CircleCollider2D:
@@ -169,7 +169,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: a346234bd37d46a4bb23d774220a7c7e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ed968c679da2ed4e8a103d6eed2cdac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
