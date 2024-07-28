@@ -17,4 +17,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 871c291390248a846979fee72df5ff8c, type: 3}
   itemName: Water
   itemDescription: 
-  weaponPrefab: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 53fc8478cb1075f439b6e3bc2fee2762, type: 2}
+  isInfinite: 0

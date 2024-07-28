@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponType: 1
   damage: 10
   fireRate: 0.2
-  applyStatusEffect: 3
+  applyStatusEffect: 0
   overrideAttackSound: 0
   attackSound:
     name: 
@@ -30,7 +30,7 @@ MonoBehaviour:
   projectileConfig:
     speed: 400
     maxDistance: 2.5
-    hitVFX: {fileID: 5068751214337276044, guid: d55cefd999778494cb51f94bedf064eb, type: 3}
+    hitVFX: {fileID: 5557100833428673050, guid: 47fdfc6b82dfde44cac4e25593c91a6b, type: 3}
     hitSoundName: PotionBreak
     useAdditionalSounds: 0
     additionalHitSoundData: []
