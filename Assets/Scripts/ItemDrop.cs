@@ -35,6 +35,8 @@ public class ItemDrop : PickUp, IInteractable {
         if (droppedItems.Count == 0) {
             Destroy(gameObject);
         }
+
+        SoundManager.Instance.PlaySound(Vector3.zero, "ItemPickup");
     }
 
 

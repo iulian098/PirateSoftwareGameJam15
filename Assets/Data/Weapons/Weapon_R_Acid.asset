@@ -12,11 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087e360a6ba53874e9d84abaf03f1c6d, type: 3}
   m_Name: Weapon_R_Acid
   m_EditorClassIdentifier: 
-  weaponType: 0
+  weaponType: 1
   damage: 10
   fireRate: 0.2
   applyStatusEffect: 2
-  overrideAttackSound: 
+  overrideAttackSound: 0
+  attackSound:
+    name: 
+    clip: []
+    volumeMin: 0
+    volumeMax: 0
+    pitchMin: 0
+    pitchMax: 0
+    maxDistance: 0
+    minDistance: 0
   projectile: {fileID: 3604982827460289569, guid: f76b8b8a1592d6e4eb3644a9253c31eb, type: 3}
   projectileConfig:
     speed: 400

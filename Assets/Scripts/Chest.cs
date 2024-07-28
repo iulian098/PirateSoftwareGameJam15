@@ -40,5 +40,7 @@ public class Chest : MonoBehaviour, IInteractable
         }
         gameObject.layer = 0;
         vfx.SetActive(false);
+        SoundManager.Instance.PlaySound(Vector3.zero, "ItemPickup");
+
     }
 }

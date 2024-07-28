@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 087e360a6ba53874e9d84abaf03f1c6d, type: 3}
-  m_Name: Weapon_R_Rock
+  m_Name: Weapon_R_Water
   m_EditorClassIdentifier: 
   weaponType: 1
   damage: 10
-  fireRate: 0.5
-  applyStatusEffect: 0
+  fireRate: 0.2
+  applyStatusEffect: 3
   overrideAttackSound: 0
   attackSound:
     name: 
@@ -26,11 +26,11 @@ MonoBehaviour:
     pitchMax: 0
     maxDistance: 0
     minDistance: 0
-  projectile: {fileID: 7201156788935363923, guid: 32fa30f5bcc644b49a3b0da3e3ddd6b9, type: 3}
+  projectile: {fileID: 1455745088827195291, guid: d8d14786e0a9b35408c21c2e3115a6d2, type: 3}
   projectileConfig:
     speed: 400
-    maxDistance: 2
-    hitVFX: {fileID: 1429303568159713589, guid: d5fce65a696f7df4b85c9ae73eb3e559, type: 3}
-    hitSoundName: RockBreak
+    maxDistance: 2.5
+    hitVFX: {fileID: 5068751214337276044, guid: d55cefd999778494cb51f94bedf064eb, type: 3}
+    hitSoundName: PotionBreak
     useAdditionalSounds: 0
     additionalHitSoundData: []

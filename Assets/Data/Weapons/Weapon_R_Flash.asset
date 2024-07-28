@@ -16,7 +16,16 @@ MonoBehaviour:
   damage: 10
   fireRate: 0.2
   applyStatusEffect: 3
-  overrideAttackSound: 
+  overrideAttackSound: 0
+  attackSound:
+    name: 
+    clip: []
+    volumeMin: 0
+    volumeMax: 0
+    pitchMin: 0
+    pitchMax: 0
+    maxDistance: 0
+    minDistance: 0
   projectile: {fileID: 1455745088827195291, guid: d8d14786e0a9b35408c21c2e3115a6d2, type: 3}
   projectileConfig:
     speed: 400

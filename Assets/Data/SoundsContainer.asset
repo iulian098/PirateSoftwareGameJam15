@@ -15,7 +15,7 @@ MonoBehaviour:
   soundEffects:
   - name: PotionThrow
     clip:
-    - {fileID: 8300000, guid: 875193d5dcb688045abf474e7c1b7163, type: 3}
+    - {fileID: 8300000, guid: d89ae33835662ea4795c601c755d9d80, type: 3}
     volumeMin: 0.9
     volumeMax: 1
     pitchMin: 0.9
@@ -111,6 +111,15 @@ MonoBehaviour:
   - name: ButtonClick
     clip:
     - {fileID: 8300000, guid: 60ba0d72e381ffd41b522bd69f5ef159, type: 3}
+    volumeMin: 0.3
+    volumeMax: 0.3
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5
+  - name: ItemPickup
+    clip:
+    - {fileID: 8300000, guid: 3c362d8047304f149977535ed9b2a3a9, type: 3}
     volumeMin: 0.3
     volumeMax: 0.3
     pitchMin: 1
