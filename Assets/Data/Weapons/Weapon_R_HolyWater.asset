@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 087e360a6ba53874e9d84abaf03f1c6d, type: 3}
-  m_Name: Weapon_R_Water
+  m_Name: Weapon_R_HolyWater
   m_EditorClassIdentifier: 
   weaponType: 1
   damage: 10
