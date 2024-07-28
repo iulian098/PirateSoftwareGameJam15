@@ -16,6 +16,7 @@ public class SoundManager : MonoSingleton<SoundManager>
 {
     [SerializeField] SoundsContainer soundsContainer;
     public static void PlaySound(Vector2 position, SoundData data) {
+        if (data.clip.Length == 0) return;
         AudioClip clip = data.clip.Length > 1 ? data.clip[Random.Range(0, data.clip.Length)] : data.clip[0];
         GameObject go = new GameObject(data.clip != null ? clip.name : "New AudioSource");
         go.transform.position = position;
@@ -24,7 +25,7 @@ public class SoundManager : MonoSingleton<SoundManager>
         audioSource.playOnAwake = true;
         audioSource.loop = false;
         audioSource.volume = Random.Range(data.volumeMin, data.volumeMax);
-        audioSource.pitch = Random.Range(data.pitchMin, data.volumeMax);
+        audioSource.pitch = Random.Range(data.pitchMin, data.pitchMax);
         audioSource.maxDistance = data.maxDistance;
         audioSource.minDistance = data.minDistance;
         audioSource.rolloffMode = AudioRolloffMode.Linear;

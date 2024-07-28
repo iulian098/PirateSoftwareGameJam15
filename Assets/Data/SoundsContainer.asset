@@ -108,3 +108,12 @@ MonoBehaviour:
     pitchMax: 1
     maxDistance: 15
     minDistance: 5
+  - name: ButtonClick
+    clip:
+    - {fileID: 8300000, guid: 60ba0d72e381ffd41b522bd69f5ef159, type: 3}
+    volumeMin: 0.3
+    volumeMax: 0.3
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5

@@ -282,3 +282,26 @@ MonoBehaviour:
   receiveDamageFrom:
   - {fileID: 11400000, guid: e7717e95088b3be4d9b32b20bb52708f, type: 2}
   drops: []
+  receiveDamageSound:
+    name: 
+    clip:
+    - {fileID: 8300000, guid: 2852f5972266bcc40976e578e09f6d28, type: 3}
+    - {fileID: 8300000, guid: 665afd511707d744ebe438115140fc7f, type: 3}
+    - {fileID: 8300000, guid: 4b38024d6b2c83d46bdd48209a0cddf1, type: 3}
+    volumeMin: 0.2
+    volumeMax: 0.2
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5
+  destroySound:
+    name: 
+    clip:
+    - {fileID: 8300000, guid: ef1166e8445e6a9469df2218952c84a2, type: 3}
+    - {fileID: 8300000, guid: 08949d52a64aaf34d85a07ac35f8e230, type: 3}
+    volumeMin: 0.3
+    volumeMax: 0.3
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5

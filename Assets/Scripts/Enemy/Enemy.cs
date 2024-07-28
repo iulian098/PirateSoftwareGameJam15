@@ -145,17 +145,17 @@ public class Enemy : Character {
     }
 
     void ChangeSpriteDirection() {
-        if(transform.position.x < lastX - 0.005f && characterSprite.transform.localScale.x != -spriteXScale) {
+        if(transform.position.x < lastX - 0.01f && characterSprite.transform.localScale.x != -spriteXScale) {
             targetScale = characterSprite.transform.localScale;
             targetScale.x = -spriteXScale;
             characterSprite.transform.localScale = targetScale;
         }
-        else if (transform.position.x > lastX + 0.005f && characterSprite.transform.localScale.x != spriteXScale) {
+        else if (transform.position.x > lastX + 0.01f && characterSprite.transform.localScale.x != spriteXScale) {
             targetScale = characterSprite.transform.localScale;
             targetScale.x = spriteXScale;
             characterSprite.transform.localScale = targetScale;
         }
-        if (transform.position.x > lastX + 0.005f || transform.position.x < lastX - 0.005f)
+        if (transform.position.x > lastX + 0.01f || transform.position.x < lastX - 0.01f)
             lastX = transform.position.x;
     }
 

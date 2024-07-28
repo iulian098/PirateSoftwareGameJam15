@@ -112,6 +112,29 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: d1ea734f4e899e84fb415c1ff17453d5, type: 2}
     amount: 10
     chance: 20
+  receiveDamageSound:
+    name: 
+    clip:
+    - {fileID: 8300000, guid: 2852f5972266bcc40976e578e09f6d28, type: 3}
+    - {fileID: 8300000, guid: 665afd511707d744ebe438115140fc7f, type: 3}
+    - {fileID: 8300000, guid: 4b38024d6b2c83d46bdd48209a0cddf1, type: 3}
+    volumeMin: 0.2
+    volumeMax: 0.2
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5
+  destroySound:
+    name: 
+    clip:
+    - {fileID: 8300000, guid: ef1166e8445e6a9469df2218952c84a2, type: 3}
+    - {fileID: 8300000, guid: 08949d52a64aaf34d85a07ac35f8e230, type: 3}
+    volumeMin: 0.3
+    volumeMax: 0.3
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5
 --- !u!58 &1151629572791358642
 CircleCollider2D:
   m_ObjectHideFlags: 0

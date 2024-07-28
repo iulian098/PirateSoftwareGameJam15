@@ -7,10 +7,16 @@ public class BreakableProp : HealthComponent
 {
     [SerializeField] List<WeaponData> receiveDamageFrom = new List<WeaponData>();
     [SerializeField] List<DropData> drops = new List<DropData>();
-    
+    [SerializeField] SoundData receiveDamageSound;
+    [SerializeField] SoundData destroySound;
 
     private void Start() {
         OnDied += OnDestroyed;
+        OnDamageReceived += OnDamaged;
+    }
+
+    private void OnDamaged(int obj) {
+        SoundManager.PlaySound(transform.position, receiveDamageSound);
     }
 
     public override void ReceiveDamage(WeaponData weapon) {
@@ -33,6 +39,7 @@ public class BreakableProp : HealthComponent
             ItemDrop drop = Instantiate(InGameManager.Instance.InGameData.DropPrefab, transform.position, Quaternion.identity);
             drop.Init(droppedItems);
         }
+        SoundManager.PlaySound(transform.position, destroySound);
         Instantiate(InGameManager.Instance.InGameData.DeathVFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
