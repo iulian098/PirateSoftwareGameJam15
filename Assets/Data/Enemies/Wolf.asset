@@ -30,3 +30,24 @@ MonoBehaviour:
   strong:
   - type: 4
     value: 0.5
+  attackSoundData:
+    name: 
+    clip:
+    - {fileID: 8300000, guid: 2aa3575a8fa6d454ea27b08513c208cf, type: 3}
+    - {fileID: 8300000, guid: d6afcda237b003c4db0087ad82ad79ab, type: 3}
+    - {fileID: 8300000, guid: 5e057df3f4f73284495aa0d2e79b4859, type: 3}
+    volumeMin: 0.2
+    volumeMax: 0.3
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5
+  movementSoundData:
+    name: 
+    clip: []
+    volumeMin: 0
+    volumeMax: 0
+    pitchMin: 0
+    pitchMax: 0
+    maxDistance: 0
+    minDistance: 0

@@ -97,3 +97,14 @@ MonoBehaviour:
     pitchMax: 1
     maxDistance: 15
     minDistance: 5
+  - name: MeleeSwordAttack
+    clip:
+    - {fileID: 8300000, guid: 84bf883ae5b66844c8176d5700b229dd, type: 3}
+    - {fileID: 8300000, guid: 91eb64f67d60ad04bbb97f4226c4f2bc, type: 3}
+    - {fileID: 8300000, guid: 97e4ad93edc8b874983be6bbce098a31, type: 3}
+    volumeMin: 0.3
+    volumeMax: 0.3
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5

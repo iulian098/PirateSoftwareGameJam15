@@ -16,5 +16,5 @@ MonoBehaviour:
   damage: 5
   fireRate: 0.3
   applyStatusEffect: 0
-  attackSound: {fileID: 0}
+  overrideAttackSound: MeleeSwordAttack
   range: 0.5

@@ -16,16 +16,21 @@ MonoBehaviour:
   damage: 10
   fireRate: 0.2
   applyStatusEffect: 2
-  attackSound: {fileID: 0}
+  overrideAttackSound: 
   projectile: {fileID: 3604982827460289569, guid: f76b8b8a1592d6e4eb3644a9253c31eb, type: 3}
   projectileConfig:
     speed: 400
     maxDistance: 2
     hitVFX: {fileID: 6672651003196831077, guid: 6421d642b58ac994ca836fc3a857ca14, type: 3}
-    hitSound:
-    - {fileID: 8300000, guid: 96a24a613444b274f9d8ea4034fe2cfd, type: 3}
-    - {fileID: 8300000, guid: 08d2cfbea2de47342a2b256ea9c36f47, type: 3}
-    - {fileID: 8300000, guid: cc913ad8b3e92ca42916156966146475, type: 3}
+    hitSoundName: PotionBreak
     useAdditionalSounds: 1
-    additionalHitSounds:
-    - {fileID: 8300000, guid: 83829ff414f47a048b5387e4ab33571c, type: 3}
+    additionalHitSoundData:
+    - name: Poison
+      clip:
+      - {fileID: 8300000, guid: 83829ff414f47a048b5387e4ab33571c, type: 3}
+      volumeMin: 0.3
+      volumeMax: 0.3
+      pitchMin: 0.9
+      pitchMax: 1.1
+      maxDistance: 15
+      minDistance: 5
