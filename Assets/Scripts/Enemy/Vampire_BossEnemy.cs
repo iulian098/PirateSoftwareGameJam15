@@ -28,6 +28,9 @@ public class Vampire_BossEnemy : BossEnemy
         if(changePositionTimer > 0)
             changePositionTimer -= Time.deltaTime;
 
+        if (AttackTime > 0)
+            AttackTime -= Time.deltaTime;
+
         changingPosition = agent.isStopped;
         ChangeSpriteDirection();
     }

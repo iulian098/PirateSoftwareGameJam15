@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BatWave
+  m_Name: Ranged
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -64,13 +64,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -9211054863111855405}
-    m_Position: {x: 380, y: 40, z: 0}
+    m_Position: {x: 710, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7061962683021341144}
     m_Position: {x: 400, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2541181999586918251}
-    m_Position: {x: 850, y: -20, z: 0}
+    m_Position: {x: 1000, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8288052719102655523}
     m_Position: {x: 630, y: 120, z: 0}
