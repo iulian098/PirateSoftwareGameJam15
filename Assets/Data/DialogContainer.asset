@@ -140,3 +140,70 @@ MonoBehaviour:
       onShow:
         m_PersistentCalls:
           m_Calls: []
+  - name: Thombstone1
+    dialogs:
+    - characterName: 
+      text: "WASD for movement.\r\nI for inventory.\r"
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Thombstone2
+    dialogs:
+    - characterName: 
+      text: 'You can craft items with materials.
+
+'
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Thombstone3
+    dialogs:
+    - characterName: 
+      text: "Here lies Julian.\r\n198-224\r\nDied of exhaustion.\r"
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Thombstone4
+    dialogs:
+    - characterName: 
+      text: Koko.....
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: EmptyGrave
+    dialogs:
+    - characterName: 
+      text: Hopefully this isn't for you.
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: EmptyGrave2
+    dialogs:
+    - characterName: 
+      text: Someone dug up this grave. Likely to obtain some sort of riches...
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Thombstone5
+    dialogs:
+    - characterName: 
+      text: 'Click to drag and drop items in the hotbar to use them.
+
+'
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Thombstone6
+    dialogs:
+    - characterName: 
+      text: Use items in the hotbar with click.
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Thombstone7
+    dialogs:
+    - characterName: 
+      text: Make sure you keep an eye on your item amount!
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
