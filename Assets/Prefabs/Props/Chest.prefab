@@ -58,6 +58,7 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: a1769f5fa90da6a4fa514bca3bcb7b2f, type: 2}
     amount: 15
     chance: 50
+  unlockRecipes: []
   spriteRenderer: {fileID: 6406764303291737525}
   closeSprite: {fileID: 21300000, guid: 3ed968c679da2ed4e8a103d6eed2cdac, type: 3}
   openSprite: {fileID: 21300000, guid: 487bb07debd18d3419a27529d2de881a, type: 3}

@@ -52,7 +52,7 @@ public class Weapon : MonoBehaviour
 
         if (isRanged) {
             Projectile proj = Instantiate((weaponData as RangeWeaponData).Projectile, shootingPoint.position, shootingPoint.rotation);
-            proj.Init(shootingPoint.right, (weaponData as RangeWeaponData), weaponData.Damage);
+            proj.Init(character.gameObject, shootingPoint.right, (weaponData as RangeWeaponData), weaponData.Damage);
         }
         else {
             raycastHit = Physics2D.Raycast(shootingPoint.position,
