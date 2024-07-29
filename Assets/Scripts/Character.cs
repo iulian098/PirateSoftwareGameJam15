@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
     public HealthComponent HealthComponent => healthComponent;
     public Animator Animator => anim;
 
+    protected virtual void Start() { }
+
     public void ReceiveDamage(int damage) {
         healthComponent.ReceiveDamage(damage);
     }

@@ -30,3 +30,27 @@ MonoBehaviour:
       onShow:
         m_PersistentCalls:
           m_Calls: []
+  - name: DialogName
+    dialogs:
+    - characterName: Player
+      text: Test1
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+    - characterName: Vampire
+      text: Something
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+    - characterName: Player
+      text: jkhkjhkhk
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Dialog2
+    dialogs:
+    - characterName: Vampirejkhkj
+      text: jkhjkhh
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []

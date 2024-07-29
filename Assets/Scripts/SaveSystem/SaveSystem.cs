@@ -14,6 +14,7 @@ public class SaveSystem : MonoSingleton<SaveSystem>
 
     [SerializeField] InventoryContainer inventoryContainer;
     [SerializeField] RecipesContainer recipesContainer;
+    [SerializeField] GameObject continueButtonObj;
 
     JsonSerializerSettings jsonSettings = new JsonSerializerSettings() {
         MaxDepth = null,
@@ -24,9 +25,11 @@ public class SaveSystem : MonoSingleton<SaveSystem>
     Coroutine saveGameCoroutine;
 
     public Action OnSaveFileLoaded;
+    public Action OnNewGameBegin;
 
     protected override void Awake()
     {
+        base.Awake();
         DontDestroyOnLoad(this);
     }
 
@@ -34,11 +37,29 @@ public class SaveSystem : MonoSingleton<SaveSystem>
         Init();
     }
 
+    public void NewGame() {
+        if (File.Exists(filePath))
+            CommonPopup.Instance.Show("Are you sure you want to start a new game?", BeginNewGame, true);
+        else
+            BeginNewGame();
+    }
+
+    void BeginNewGame() {
+        saveFile = new SaveFile();
+        saveGameCoroutine = StartCoroutine(SaveGameCoroutine());
+        OnNewGameBegin?.Invoke();
+    }
+
+    public void ContinueGame() {
+        saveFile = LoadFile();
+
+        LoadGameData();
+    }
+
     public void Init() {
         filePath = Path.Combine(Application.persistentDataPath, FILE_NAME);
 
-        saveFile = LoadFile();
-        LoadGameData();
+        continueButtonObj.SetActive(File.Exists(filePath));
     }
 
     IEnumerator SaveGameCoroutine() {

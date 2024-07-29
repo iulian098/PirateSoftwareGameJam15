@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : Character {
-    [SerializeField] EnemyData enemyData;
-    [SerializeField] EnemyState enemyState;
-    [SerializeField] NavMeshAgent agent;
+    [SerializeField] protected EnemyData enemyData;
+    [SerializeField] protected EnemyState enemyState;
+    [SerializeField] protected NavMeshAgent agent;
     [SerializeField] SpriteRenderer characterSprite;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Collider2D collider;
@@ -20,7 +20,7 @@ public class Enemy : Character {
 
     Collider2D[] detectedColliders = new Collider2D[1];
     UI_EnemyHealthBar healthBar;
-    Player target;
+    protected Player target;
     int waypointIndex;
     float waypointTimer;
     float attackTime;
@@ -44,7 +44,7 @@ public class Enemy : Character {
 
     public Animator Anim => anim;
 
-    private void Start() {
+    protected override void Start() {
         healthComponent.OnDied += OnDied;
         healthComponent.OnDamageReceived += OnDamageReceived;
         lastX = transform.position.x;
@@ -107,7 +107,7 @@ public class Enemy : Character {
         Destroy(gameObject);
     }
 
-    void FixedUpdate() {
+    protected virtual void FixedUpdate() {
         if (isDead) return;
 
         int detected = Physics2D.OverlapCircle(transform.position, aggroRange, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PlayerMask, useLayerMask = true }, detectedColliders);
@@ -143,7 +143,7 @@ public class Enemy : Character {
         anim.SetBool("Run", agent.speed > 0.1f);
     }
 
-    void ChangeSpriteDirection() {
+    protected void ChangeSpriteDirection() {
         if(transform.position.x < lastX - 0.01f && characterSprite.transform.localScale.x != -spriteXScale) {
             targetScale = characterSprite.transform.localScale;
             targetScale.x = -spriteXScale;
@@ -181,6 +181,10 @@ public class Enemy : Character {
             agent.SetDestination(target.transform.position);
         else 
             agent.SetDestination(transform.position);
+    }
+
+    public void SetTargetLocation(Vector2 position) {
+        agent.SetDestination(position);
     }
 
     public override void ReceiveDamage(WeaponData weaponData) {

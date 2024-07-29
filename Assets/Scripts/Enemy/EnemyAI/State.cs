@@ -9,6 +9,7 @@ namespace PluggableAI
         public Action[] actions;
         public Transition[] transitions;
         public Color sceneGizmosColor = Color.gray;
+        public bool breakOnFirstSuccess;
 
         public void UpdateState(Enemy controller)
         {
@@ -28,8 +29,11 @@ namespace PluggableAI
             {
                 bool decisionSucceeded = transitions[i].decision.Decide(controller);
 
-                if (decisionSucceeded)
+                if (decisionSucceeded) {
                     controller.EnemyState.TransitionToState(transitions[i].trueState);
+                    if (breakOnFirstSuccess)
+                        break;
+                }
                 else
                     controller.EnemyState.TransitionToState(transitions[i].falseState);
             }
