@@ -29,6 +29,7 @@ public class Vampire_BossEnemy : BossEnemy
             changePositionTimer -= Time.deltaTime;
 
         changingPosition = agent.isStopped;
+        ChangeSpriteDirection();
     }
 
     public void SetTarget(Player player) {
