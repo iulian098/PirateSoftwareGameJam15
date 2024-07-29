@@ -28,8 +28,22 @@ public class PoolingSystem<T> where T : Component
         return GetObject();
     }
 
+    public T Get(Vector3 position, Quaternion rotation) {
+        if (objects.Count == 0)
+            SpawnObjects(1);
+        return GetObject(position, rotation);
+    }
+
     T GetObject() {
         T obj = objects.Dequeue();
+        obj.gameObject.SetActive(true);
+        return obj;
+    }
+
+    T GetObject(Vector3 position, Quaternion rotation) {
+        T obj = objects.Dequeue();
+        obj.transform.position = position;
+        obj.transform.rotation = rotation;
         obj.gameObject.SetActive(true);
         return obj;
     }

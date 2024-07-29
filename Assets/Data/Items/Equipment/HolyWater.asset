@@ -17,5 +17,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 3a017ec2e74b4534da39e868f7673e20, type: 3}
   itemName: Holy Water
   itemDescription: 
-  weaponData: {fileID: 11400000, guid: 53fc8478cb1075f439b6e3bc2fee2762, type: 2}
+  weaponData: {fileID: 11400000, guid: 8e443fd3aec50024882fa20e4e8ac240, type: 2}
   isInfinite: 0

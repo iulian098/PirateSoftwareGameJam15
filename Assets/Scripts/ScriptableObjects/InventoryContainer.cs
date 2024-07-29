@@ -119,6 +119,8 @@ public class InventoryContainer : ScriptableObject
 
             for (int i = 0; i < inInventoryByDefualt.Count; i++) {
                 AddItem(inInventoryByDefualt[i], 1);
+                if (i < this.hotbarIDs.Count)
+                    this.hotbarIDs[i] = inInventoryByDefualt[i].ID;
             }
         }
     }

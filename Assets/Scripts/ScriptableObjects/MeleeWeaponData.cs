@@ -6,7 +6,9 @@ using UnityEngine;
 public class MeleeWeaponData : WeaponData
 {
     [SerializeField] float range;
+    [SerializeField] VFX attackVfx;
 
 
     public float Range => range;
+    public VFX AttackVFX => attackVfx;
 }

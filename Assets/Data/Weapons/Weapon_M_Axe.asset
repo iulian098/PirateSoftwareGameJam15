@@ -30,3 +30,4 @@ MonoBehaviour:
     maxDistance: 15
     minDistance: 5
   range: 0.5
+  attackVfx: {fileID: -2816402475671136974, guid: cba391485367b034c82512f8ff6b962d, type: 3}

@@ -26,11 +26,11 @@ MonoBehaviour:
     pitchMax: 0
     maxDistance: 0
     minDistance: 0
-  projectile: {fileID: 1455745088827195291, guid: 5355fa7037ef3c74bb2443edc353d0c7, type: 3}
+  projectile: {fileID: 750408821989439722, guid: 2b8b738318a36b447a62ee71f86e99c2, type: 3}
   projectileConfig:
     speed: 400
     maxDistance: 2.5
-    hitVFX: {fileID: 5557100833428673050, guid: 47fdfc6b82dfde44cac4e25593c91a6b, type: 3}
+    hitVFX: {fileID: 4996510931895861619, guid: b23b5a4182925c046b42d5ccf2df3d32, type: 3}
     hitSoundName: PotionBreak
     useAdditionalSounds: 1
     additionalHitSoundData:

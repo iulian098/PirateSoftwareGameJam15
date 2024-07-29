@@ -35,8 +35,8 @@ public class Chest : MonoBehaviour, IInteractable
 
     void Collect() {
         foreach (var item in droppedItems) {
-            if (InventorySystem.Instance.AddItem(item.item, item.amount)) 
-                UIManager.Instance.ShowPickupInfo(item.item, item.amount);
+            InventorySystem.Instance.AddItem(item.item, item.amount);
+                //UIManager.Instance.ShowPickupInfo(item.item, item.amount);
         }
         gameObject.layer = 0;
         vfx.SetActive(false);

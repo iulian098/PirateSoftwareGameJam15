@@ -21,7 +21,7 @@ public class ItemDrop : PickUp, IInteractable {
         foreach (var item in droppedItems) {
             if (InventorySystem.Instance.AddItem(item.item, item.amount)) {
                 pickedUp.Add(item);
-                UIManager.Instance.ShowPickupInfo(item.item, item.amount);
+                //UIManager.Instance.ShowPickupInfo(item.item, item.amount);
             }
             else
                 break;

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class Player : Character
 {
     [SerializeField] PlayerController controller;
+    [SerializeField] AttacksController attacksController;
     [SerializeField] LayerMask enemyLayerMask;
     [SerializeField] float pickupRadius;
     [SerializeField] Weapon weapon;
@@ -14,6 +15,7 @@ public class Player : Character
     InputAction useAction;
 
     PlayerInput playerInput => InGameManager.Instance.PlayerInput;
+    public AttacksController AttacksController => attacksController;
 
     private void Start() {
         HealthComponent.OnHealthChanged += OnHealthChanged;
@@ -21,6 +23,7 @@ public class Player : Character
         HealthComponent.OnDied += OnDied;
         UIManager.Instance.PlayerHealthBar.Init(HealthComponent.MaxHealth);
         weapon.Init(this);
+        controller.Init(this);
         useAction = playerInput.actions["Use"];
     }
 

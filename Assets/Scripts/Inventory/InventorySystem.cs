@@ -153,6 +153,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         if (itemIndex == -1) {
             inventoryContainer.ItemsIDs.Add(item.ID);
             inventoryContainer.Amounts.Add(amount);
+            UIManager.Instance.ShowPickupInfo(item, amount);
 
             return true;
         }
@@ -161,6 +162,8 @@ public class InventorySystem : MonoSingleton<InventorySystem>
             inventoryContainer.ItemsIDs[itemIndex] = item.ID; 
         inventoryContainer.Amounts[itemIndex] += amount;
         slots[itemIndex].UpdateItem(inventoryContainer, itemsContainer);
+        UIManager.Instance.ShowPickupInfo(item, amount);
+
         return true;
 
     }

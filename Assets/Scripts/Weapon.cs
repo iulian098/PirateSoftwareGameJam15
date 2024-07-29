@@ -63,6 +63,8 @@ public class Weapon : MonoBehaviour
             if(raycastHit.collider != null && raycastHit.collider.TryGetComponent<HealthComponent>(out var healthComp)){
                 healthComp.ReceiveDamage(weaponData);
             }
+            VFXManager.ShowVFX((weaponData as MeleeWeaponData).AttackVFX.VFXName, shootingPoint.position, shootingPoint.rotation);
+
         }
 
         fireRateTimer = weaponData.FireRate;
