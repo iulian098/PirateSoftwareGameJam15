@@ -16,4 +16,4 @@ MonoBehaviour:
   type: 1
   icon: {fileID: 21300000, guid: c8cfe22d9a1b943489b8f57f1ba23dc6, type: 3}
   itemName: Slime
-  itemDescription: 
+  itemDescription: A weird substance. Very toxic if mised with other ingredients.
