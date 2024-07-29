@@ -4,6 +4,7 @@ using UnityEngine;
 public class Chest : MonoBehaviour, IInteractable
 {
     [SerializeField] DropData[] items;
+    [SerializeField] ItemData[] unlockRecipes;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Sprite closeSprite;
     [SerializeField] Sprite openSprite;
@@ -38,6 +39,10 @@ public class Chest : MonoBehaviour, IInteractable
             InventorySystem.Instance.AddItem(item.item, item.amount);
                 //UIManager.Instance.ShowPickupInfo(item.item, item.amount);
         }
+        foreach (var recipe in unlockRecipes) {
+            InGameManager.Instance.RecipesContainer.UnlockRecipe(recipe);
+        }
+
         gameObject.layer = 0;
         vfx.SetActive(false);
         SoundManager.Instance.PlaySound(Vector3.zero, "ItemPickup");
