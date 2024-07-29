@@ -7,9 +7,12 @@ public class Vampire_BossEnemy : BossEnemy
     [SerializeField] float meeleAttackRange;
     [SerializeField] float rangedAttackRange;
     [SerializeField] float changePositionTime;
+    [SerializeField] RangeWeaponData batWeapon;
+    [SerializeField] Transform aimDirTransform;
 
     float changePositionTimer;
     bool changingPosition;
+    Vector2 aimDirection;
 
     public float MeeleAttackRange => meeleAttackRange;
     public float RangedAttackRange => rangedAttackRange;
@@ -33,6 +36,28 @@ public class Vampire_BossEnemy : BossEnemy
 
         changingPosition = agent.isStopped;
         ChangeSpriteDirection();
+    }
+
+    public IEnumerator SpawnBats(int amount) {
+        for (int i = 0; i < amount; i++) {
+            yield return new WaitForSeconds(0.2f);
+            aimDirection = (target.transform.position - transform.position).normalized;
+            aimDirTransform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1), aimDirection);
+
+            Projectile proj = Instantiate(batWeapon.Projectile, aimDirTransform.position, aimDirTransform.rotation);
+            Debug.Log("Spawned at pos " + aimDirTransform.position);
+            float dotProduct = Vector3.Dot(Vector2.right, aimDirection);
+
+            if (dotProduct < 0) {
+                Vector3 scale = proj.transform.localScale;
+                scale.y = -1;
+                proj.transform.localScale = scale;
+            }
+
+            proj.Init(gameObject, aimDirTransform.up, batWeapon, batWeapon.Damage);
+
+
+        }
     }
 
     public void SetTarget(Player player) {

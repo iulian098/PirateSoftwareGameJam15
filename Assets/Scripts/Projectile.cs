@@ -15,22 +15,26 @@ public class Projectile : MonoBehaviour
     int damage;
     Vector2 startPos;
     RangeWeaponData weaponData;
+    GameObject caster;
 
-    public void Init(Vector2 forceDirection)
+    public void Init(GameObject caster, Vector2 forceDirection, int damage)
     {
         startPos = transform.position;
+        this.damage = damage;
         rb.AddForce(forceDirection * speed);
+        this.caster = caster;
     }
 
-    public void Init(Vector2 forceDirection, RangeWeaponData weaponData, int damage) {
+    public void Init(GameObject caster, Vector2 forceDirection, RangeWeaponData weaponData, int damage) {
         this.weaponData = weaponData;
         speed = weaponData.ProjectileConfig.speed;
         maxDistance = weaponData.ProjectileConfig.maxDistance;
         hitVFX = weaponData.ProjectileConfig.hitVFX;
         startPos = transform.position;
         this.damage = damage;
-        
+        this.caster = caster;
         rb.AddForce(forceDirection * speed);
+        Debug.Log(transform.position);
     }
 
     private void FixedUpdate() {
@@ -42,10 +46,11 @@ public class Projectile : MonoBehaviour
         OnHit(collision);
     }
 
-    private void OnHit(Collider2D coll) {
+    protected virtual void OnHit(Collider2D coll) {
         if (coll != null) {
             //Give damage
-            if (coll.CompareTag("Enemy")) {
+            if (coll.CompareTag("Enemy") || coll.CompareTag("Player")) {
+                if (coll.gameObject == caster) return;
                 Character character = coll.GetComponent<Character>();
                 if (character != null)
                     character.ReceiveDamage(weaponData);
