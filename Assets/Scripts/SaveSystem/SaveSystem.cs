@@ -46,6 +46,7 @@ public class SaveSystem : MonoSingleton<SaveSystem>
 
     void BeginNewGame() {
         saveFile = new SaveFile();
+        LoadGameData();
         saveGameCoroutine = StartCoroutine(SaveGameCoroutine());
         OnNewGameBegin?.Invoke();
     }
