@@ -16,6 +16,7 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 21300000, guid: 80997e3da5e3577459be9fae492699cd, type: 3}
   itemName: Rock
-  itemDescription: 
+  itemDescription: A rock with peculiar runes in it. Whenever it breaks, it forms
+    right back in your pocket!
   weaponData: {fileID: 11400000, guid: de2a3603facef4c4387f76466e967dc2, type: 2}
   isInfinite: 1

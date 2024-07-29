@@ -16,6 +16,6 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 21300000, guid: 3d401822aad36a94b8df6b511e98befc, type: 3}
   itemName: Fire potion
-  itemDescription: 
+  itemDescription: Careful, when exposed to air, the liquid explodes.
   weaponData: {fileID: 11400000, guid: cd41ac3bcab64744dae87b8f459a0253, type: 2}
   isInfinite: 0

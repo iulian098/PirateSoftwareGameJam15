@@ -16,6 +16,6 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 21300000, guid: eef6490ae06c14c4999988b93fa80003, type: 3}
   itemName: Acid Potion
-  itemDescription: 
+  itemDescription: A vial of acid that can melt almost anything!
   weaponData: {fileID: 11400000, guid: 55df73ae887b5d6468eef95659966b93, type: 2}
   isInfinite: 0
