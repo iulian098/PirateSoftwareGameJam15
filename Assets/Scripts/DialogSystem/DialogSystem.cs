@@ -10,6 +10,10 @@ namespace DialogSystem {
         public Action OnDialogStart;
         public Action OnDialogEnd;
 
+        private void Start() {
+            dialogBox.Init(this);
+        }
+
         public void ShowDialog(string name) {
             Dialog diag = container.GetDialogByName(name);
             if (diag == null) {

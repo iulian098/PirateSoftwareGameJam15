@@ -9,8 +9,8 @@ namespace DialogSystem {
         Dialog dialog;
         int dialogIndex = 0;
 
-        public void Init() {
-            dialogSystem = DialogSystem.Instance;
+        public void Init(DialogSystem dialogSystem) {
+            this.dialogSystem = dialogSystem;
         }
 
         public void ShowBox(Dialog dialog) {
