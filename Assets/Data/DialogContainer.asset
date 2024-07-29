@@ -54,3 +54,17 @@ MonoBehaviour:
       onShow:
         m_PersistentCalls:
           m_Calls: []
+  - name: LockedGate
+    dialogs:
+    - characterName: Metal Gate
+      text: Gate is locked. You couldn't possibly force it open.
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: LockedWoodenDoor
+    dialogs:
+    - characterName: Wooden Door
+      text: Door is locked, you might be able to open it with a key. Or a weapon.
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []

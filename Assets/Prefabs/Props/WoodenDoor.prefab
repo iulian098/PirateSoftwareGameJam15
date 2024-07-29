@@ -221,6 +221,7 @@ MonoBehaviour:
   requiredItem: {fileID: 11400000, guid: 31437c95a2cd3984da85b630f80f1cf4, type: 2}
   opened: {fileID: 1124665376166726020}
   closed: {fileID: 484595596826734287}
+  noItemDialogName: LockedWoodenDoor
 --- !u!61 &3985471208144350793
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -294,6 +295,7 @@ MonoBehaviour:
     pitchMax: 1
     maxDistance: 15
     minDistance: 5
+    spatialBlend: 0
   destroySound:
     name: 
     clip:
@@ -305,3 +307,4 @@ MonoBehaviour:
     pitchMax: 1
     maxDistance: 15
     minDistance: 5
+    spatialBlend: 0

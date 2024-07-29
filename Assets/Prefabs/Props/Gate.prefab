@@ -52,6 +52,7 @@ MonoBehaviour:
   requiredItem: {fileID: 11400000, guid: 415236576ec1baf4491ad2228cdecb4a, type: 2}
   opened: {fileID: 8160671717127447626}
   closed: {fileID: 5435649512796324307}
+  noItemDialogName: LockedGate
 --- !u!61 &2568418947372839093
 BoxCollider2D:
   m_ObjectHideFlags: 0

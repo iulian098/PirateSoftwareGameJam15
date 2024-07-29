@@ -10,6 +10,7 @@ public class Door : MonoBehaviour, IInteractable {
     [SerializeField] ItemData requiredItem;
     [SerializeField] GameObject opened;
     [SerializeField] GameObject closed;
+    [SerializeField] string noItemDialogName;
 
     public void OnInteract() {
         if (InGameManager.Instance.InventoryContainer.ItemsIDs.Contains(requiredItem.ID)) {
@@ -19,6 +20,9 @@ public class Door : MonoBehaviour, IInteractable {
             coll.enabled = false;
             gameObject.layer = 0;
             SoundManager.Instance.PlaySound(transform.position, "DoorOpen");
+        }
+        else {
+            DialogSystem.DialogSystem.Instance.ShowDialog(noItemDialogName);
         }
     }
 
