@@ -8,9 +8,16 @@ public class VFX : MonoBehaviour
     [SerializeField] string vfxName;
     [SerializeField] float duration;
 
+    Vector3 defaultScale;
+
+    public Vector3 DefaultScale => defaultScale;
     public string VFXName => vfxName;
 
     Action<VFX> EndCallback;
+
+    private void Awake() {
+        defaultScale = transform.localScale;
+    }
 
     public void Show(Action<VFX> endCallback) {
         EndCallback = endCallback;

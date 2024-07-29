@@ -15,13 +15,14 @@ public class SoundsContainer : ScriptableObject
     }
 
     private void GenerateDictionary() {
+        soundEffectsDict.Clear();
         foreach (var item in soundEffects) {
             soundEffectsDict.Add(item.name, item);
         }
     }
 
     public SoundData GetSound(string soundName) {
-        if (soundEffectsDict.Count == 0)
+        if (soundEffects.Length != soundEffectsDict.Count)
             GenerateDictionary();
         if(soundEffectsDict.TryGetValue(soundName, out var result))
             return result;

@@ -10,6 +10,7 @@ public class SoundData {
     public float pitchMax;
     public float maxDistance;
     public float minDistance;
+    public bool spatialBlend;
 }
 
 public class SoundManager : MonoSingleton<SoundManager>
@@ -29,6 +30,7 @@ public class SoundManager : MonoSingleton<SoundManager>
         audioSource.maxDistance = data.maxDistance;
         audioSource.minDistance = data.minDistance;
         audioSource.rolloffMode = AudioRolloffMode.Linear;
+        audioSource.spatialBlend = data.spatialBlend ? 1 : 0;
         audioSource.Play();
         Destroy(go, clip.length);
     }
@@ -48,6 +50,7 @@ public class SoundManager : MonoSingleton<SoundManager>
         audioSource.maxDistance = data.maxDistance;
         audioSource.minDistance = data.minDistance;
         audioSource.rolloffMode = AudioRolloffMode.Linear;
+        audioSource.spatialBlend = data.spatialBlend ? 1 : 0;
         audioSource.Play();
         Destroy(go, clip.length);
         return audioSource;

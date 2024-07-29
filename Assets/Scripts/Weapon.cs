@@ -63,7 +63,17 @@ public class Weapon : MonoBehaviour
             if(raycastHit.collider != null && raycastHit.collider.TryGetComponent<HealthComponent>(out var healthComp)){
                 healthComp.ReceiveDamage(weaponData);
             }
-            VFXManager.ShowVFX((weaponData as MeleeWeaponData).AttackVFX.VFXName, shootingPoint.position, shootingPoint.rotation);
+            VFX vfx = VFXManager.ShowVFX((weaponData as MeleeWeaponData).AttackVFX.VFXName, shootingPoint.position, shootingPoint.rotation);
+            if((character as Player).AttacksController.FacingRight) {
+                Vector3 newScale = vfx.transform.localScale;
+                newScale.y = vfx.DefaultScale.y;
+                vfx.transform.localScale = newScale;
+            }
+            else {
+                Vector3 newScale = vfx.transform.localScale;
+                newScale.y = -vfx.DefaultScale.y;
+                vfx.transform.localScale = newScale;
+            }
 
         }
 
