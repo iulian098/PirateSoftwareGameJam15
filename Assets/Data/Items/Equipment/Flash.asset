@@ -16,6 +16,6 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 21300000, guid: 9cfdd31d0fe417e428e601a205298d8c, type: 3}
   itemName: Flash Potion
-  itemDescription: 
+  itemDescription: Ought to be useful for an escape.
   weaponData: {fileID: 11400000, guid: 43ccc6f9b94b4a94ea3d120f350beb08, type: 2}
   isInfinite: 0

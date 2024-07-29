@@ -16,4 +16,4 @@ MonoBehaviour:
   type: 1
   icon: {fileID: 21300000, guid: ab0ed295fa774de4aa45210dd0c3b49d, type: 3}
   itemName: Bat Wing
-  itemDescription: 
+  itemDescription: Can be crushed and used as an ingredient in potions.
