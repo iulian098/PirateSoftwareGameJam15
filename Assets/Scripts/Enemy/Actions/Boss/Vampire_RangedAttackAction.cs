@@ -8,7 +8,7 @@ namespace PluggableAI {
         readonly int RangegAttackHash = Animator.StringToHash("Ranged");
 
         public override void Act(Enemy controller) {
-            if(controller.AttackTime < 0) {
+            if(controller.AttackTime < 0 ) {
                 controller.Target.HealthComponent.ReceiveDamage(controller.Damage);
                 controller.Anim.Play(RangegAttackHash);
                 controller.AttackTime = controller.AttackRate;
