@@ -6,6 +6,9 @@ public class BossEnemy : Enemy
 {
     Dictionary<string, object> customData = new Dictionary<string, object>();
     List<Timer> timers = new List<Timer>();
+    bool activated;
+
+    public bool Activated { get => activated; set => activated = value; }
 
     protected override void Start() {
         base.Start();
@@ -32,5 +35,7 @@ public class BossEnemy : Enemy
             customData.Add(key, val);
     }
 
-
+    public void SetPlayerTarget(Player target) {
+        this.target = target;
+    }
 }

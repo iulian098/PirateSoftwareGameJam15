@@ -14,12 +14,14 @@ namespace DialogSystem {
             dialogBox.Init(this);
         }
 
-        public void ShowDialog(string name) {
+        public void ShowDialog(string name, Action onDialogStart = null, Action onDialogEnd = null) {
             Dialog diag = container.GetDialogByName(name);
             if (diag == null) {
                 Debug.LogError("No dialog with name " + name + " found");
                 return;
             }
+            OnDialogStart = onDialogStart;
+            OnDialogEnd = onDialogEnd;
             dialogBox.ShowBox(diag);
         }
     }

@@ -7,7 +7,7 @@ namespace PluggableAI {
 
     public class Vampire_MeleeAttackDecision : Decision {
         public override bool Decide(Enemy controller) {
-            return controller.TargetDistance < (controller as Vampire_BossEnemy).MeeleAttackRange;
+            return controller.Target != null && controller.TargetDistance < (controller as Vampire_BossEnemy).MeeleAttackRange;
         }
     }
 }

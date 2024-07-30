@@ -11,7 +11,7 @@ namespace PluggableAI {
             float rightDist = controller.transform.position.x + Physics2D.Raycast(controller.transform.position, Vector2.right, 10, LayerMask.GetMask("Default")).distance;
             float leftDist = controller.transform.position.y - Physics2D.Raycast(controller.transform.position, Vector2.left, 10, LayerMask.GetMask("Default")).distance;
 
-            controller.SetTargetLocation(new Vector2(Random.Range(leftDist, rightDist), Random.Range(downDist, upDist)));
+            controller.SetTargetLocation(controller.transform.position + new Vector3(Random.Range(-leftDist, rightDist), Random.Range(-downDist, upDist)));
 
             (controller as Vampire_BossEnemy).ChangePositionTimer = (controller as Vampire_BossEnemy).ChangePositionTime;
         }

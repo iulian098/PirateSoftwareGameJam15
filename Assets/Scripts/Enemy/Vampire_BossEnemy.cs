@@ -26,7 +26,6 @@ public class Vampire_BossEnemy : BossEnemy
 
     protected override void Start() {
         base.Start();
-        SetTarget(InGameManager.Instance.Player);
         changePositionTimer = changePositionTime;
         rangeAttackTimer = rangeAttackTime;
     }
@@ -67,10 +66,6 @@ public class Vampire_BossEnemy : BossEnemy
 
 
         }
-    }
-
-    public void SetTarget(Player player) {
-        target = player;
     }
 
     private void OnDrawGizmosSelected() {

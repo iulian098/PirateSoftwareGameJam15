@@ -16,6 +16,7 @@ public class Enemy : Character {
     [SerializeField] Vector3 healthBarOffset;
     [SerializeField] LayerMask playerLayerMask;
     [SerializeField] Transform[] waypoints;
+    [SerializeField] bool useRandomWaypointPosition;
     [SerializeField] float waypointChangeTime;
 
     Collider2D[] detectedColliders = new Collider2D[1];
@@ -29,6 +30,7 @@ public class Enemy : Character {
     bool isDead;
     bool waypointReached;
     Vector3 targetScale;
+    Vector3 targetMovePosition;
 
     public EnemyData EnemyData => enemyData;
     public EnemyState EnemyState => enemyState;
@@ -55,6 +57,8 @@ public class Enemy : Character {
         }
 
         healthComponent.MaxHealth = enemyData.Health;
+        targetMovePosition = transform.position;
+        waypointReached = true;
     }
 
     private void OnDamageReceived(int dmg) {
@@ -124,7 +128,7 @@ public class Enemy : Character {
         if (attackTime > 0)
             attackTime -= Time.deltaTime;
 
-        if (waypoints.Length > 0 && Vector2.Distance(waypoints[waypointIndex].position, transform.position) < 0.01f && !waypointReached) {
+        if ((waypoints.Length > 0 || useRandomWaypointPosition) && Vector2.Distance(targetMovePosition, transform.position) < 0.01f && !waypointReached) {
             waypointReached = true;
             waypointTimer = waypointChangeTime;
         }
@@ -159,14 +163,26 @@ public class Enemy : Character {
     }
 
     public void GoToNextWaypoint() {
+
         if (waypointTimer > 0 || !waypointReached) return;
-        waypointIndex++;
-        if (waypointIndex >= waypoints.Length)
-            waypointIndex = 0;
 
-        waypointReached = false;
-
-        agent.SetDestination(waypoints[waypointIndex].position);
+        if (useRandomWaypointPosition) {
+            LayerMask layer = LayerMask.GetMask("Default");
+            float upDist = Physics2D.Raycast(transform.position, Vector2.up, 10, layer).distance - 0.5f;
+            float downDist = Physics2D.Raycast(transform.position, Vector2.down, 10, layer).distance - 0.5f;
+            float rightDist = Physics2D.Raycast(transform.position, Vector2.right, 10, layer).distance - 0.5f;
+            float leftDist = Physics2D.Raycast(transform.position, Vector2.left, 10, layer).distance - 0.5f;
+            waypointReached = false;
+            targetMovePosition = transform.position + new Vector3(UnityEngine.Random.Range(-leftDist, rightDist), UnityEngine.Random.Range(-downDist, upDist));
+        }
+        else {
+            waypointIndex++;
+            if (waypointIndex >= waypoints.Length)
+                waypointIndex = 0;
+            targetMovePosition = waypoints[waypointIndex].position;
+            waypointReached = false;
+        }
+        agent.SetDestination(targetMovePosition);
     }
 
     public bool PlayerDetected() {
@@ -224,5 +240,8 @@ public class Enemy : Character {
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, targetMovePosition);
     }
 }
