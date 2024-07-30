@@ -27,10 +27,8 @@ namespace DialogSystem {
         public void ShowNext() {
             dialogIndex++;
 
-            if (dialogIndex == dialog.Dialogs.Length - 1) {
+            if(dialogIndex >= dialog.Dialogs.Length) {
                 dialogSystem.OnDialogEnd?.Invoke();
-                return;
-            }else if(dialogIndex >= dialog.Dialogs.Length) {
                 HideBox();
                 return;
             }

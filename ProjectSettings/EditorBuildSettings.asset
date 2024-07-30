@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TestingGround.unity
     guid: b37355dac1aef7b4f9c0589bbfd0ad2e
   - enabled: 1
+    path: Assets/Scenes/graveyard.unity
+    guid: 79f3eed774eaa544fbba3eda7ec8030a
+  - enabled: 1
     path: Assets/Scenes/lvl1.unity
     guid: 8ff52d0e465e7a0479fe1add2a064a93
   m_configObjects: {}

@@ -73,27 +73,27 @@ MonoBehaviour:
     - characterName: Notes
       text: 'Manufacturing slime was easier than expected.
 
-        
+
+
+        It was a fairly
+        random discovery, because Warden Nettle did not bother to bury those he executed.
+
+
 
         It
-        was a fairly random discovery, because Warden Nettle did not bother to bury
-        those he executed.
+        appears as though the sludge leaking out of the bodies eventually gathered
+        and sprung to life.
 
-        
 
-        It appears as though the sludge leaking
-        out of the bodies eventually gathered and sprung to life.
 
-        
+        We don''t know how it lives, but it appears
+        as though it requires a certain amount for it to move at all.
 
-        We
-        don''t know how it lives, but it appears as though it requires a certain
-        amount for it to move at all.
 
-        
 
-        The slime, in combination
-        with water, creates acid, which sells for a decent amount of gold per vial.'
+        The
+        slime, in combination with water, creates acid, which sells for a decent
+        amount of gold per vial.'
       onShow:
         m_PersistentCalls:
           m_Calls: []
@@ -204,6 +204,25 @@ MonoBehaviour:
     dialogs:
     - characterName: 
       text: Make sure you keep an eye on your item amount!
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: LeaveEnding
+    dialogs:
+    - characterName: 
+      text: "You ended up not going through with your journey, deciding to return
+        home and spend as much time with your daughter as possible.\r"
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+    - characterName: 
+      text: Unfortunately, the sickness spread quickly. First it was your wife that
+        caught it, then you.
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+    - characterName: 
+      text: You witnessed your loved ones suffer 'till the very end.
       onShow:
         m_PersistentCalls:
           m_Calls: []
