@@ -39,7 +39,7 @@ public class SaveSystem : MonoSingleton<SaveSystem>
 
     public void NewGame() {
         if (File.Exists(filePath))
-            CommonPopup.Instance.Show("Are you sure you want to start a new game?", BeginNewGame, true);
+            CommonPopup.Instance.Show("Are you sure you want to start a new game?", BeginNewGame, "Yes", true, cancelButtonText: "No");
         else
             BeginNewGame();
     }

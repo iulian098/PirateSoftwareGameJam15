@@ -974,3 +974,5 @@ MonoBehaviour:
   body: {fileID: 6723579818912773741}
   okButton: {fileID: 3538843258885688904}
   cancelButton: {fileID: 3917036721579839883}
+  okButtonText: {fileID: 6951650313046110006}
+  cancelButtonText: {fileID: 3573049522358703123}

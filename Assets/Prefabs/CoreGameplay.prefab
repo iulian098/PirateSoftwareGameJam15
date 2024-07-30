@@ -6516,15 +6516,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_AnchorMin.y
@@ -6532,11 +6532,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 664.5669
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 244.7608
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6572,7 +6572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 151.41269
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6584,6 +6584,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300694680899248247, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677780190537164763, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4761796456666815358, guid: f0ab5cfe06f8e064297625fb03b0e9b6, type: 3}

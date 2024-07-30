@@ -90,6 +90,8 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         }
         GlobalData.isPaused = false;
         handImage.gameObject.SetActive(false);
+        ItemDragIcon.Hide();
+        UIManager.Instance.ItemInfo.Hide();
         contents.SetActive(false);
         Cursor.visible = true;
     }

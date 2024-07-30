@@ -12,10 +12,14 @@ public class CommonPopup : MonoSingleton<CommonPopup>
     [SerializeField] Button okButton;
     [SerializeField] Button cancelButton;
 
-    public void Show(string bodyText, UnityAction okAction = null, bool showCancel = false, UnityAction cancelAction = null) {
+    [SerializeField] TMP_Text okButtonText;
+    [SerializeField] TMP_Text cancelButtonText;
+
+    public void Show(string bodyText, UnityAction okAction = null, string okButtonText = "OK", bool showCancel = false, UnityAction cancelAction = null, string cancelButtonText = "Cancel") {
         contents.SetActive(true);
         body.text = bodyText;
-
+        this.okButtonText.text = okButtonText;
+        this.cancelButtonText.text = cancelButtonText;
         cancelButton.gameObject.SetActive(showCancel);
 
         if (okButton != null && okAction != null) {
