@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class TeleporterInteractable : MonoBehaviour, IInteractable {
     [SerializeField] int levelIndex;
+    [SerializeField] string popupText;
     public void OnInteract() {
-        CommonPopup.Instance.Show("Proceed to the dungeon?", GoToLevel, "Yes", true, cancelButtonText: "No");
+        CommonPopup.Instance.Show(popupText, GoToLevel, "Yes", true, cancelButtonText: "No");
     }
 
     void GoToLevel() {
