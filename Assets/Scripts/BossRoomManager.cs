@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossRoomManager : MonoBehaviour
 {
     [SerializeField] BossEnemy boss;
-    [SerializeField] BossDoor door;
+    [SerializeField] BossDoor[] doors;
     [SerializeField] string dialog;
     [SerializeField] string bossBeatenDialog;
     [SerializeField] string playerLostDialog;
@@ -38,6 +38,8 @@ public class BossRoomManager : MonoBehaviour
         boss.SetPlayerTarget(player);
         boss.HealthComponent.OnDied += ShowBeatenDialog;
         player.HealthComponent.OnDied += PlayerBeatenDialog;
+        foreach (var door in doors)
+            door.Close();
 
     }
 
@@ -56,5 +58,7 @@ public class BossRoomManager : MonoBehaviour
     void OnFightEnded() {
         player.HealthComponent.OnDied -= PlayerBeatenDialog;
         boss.HealthComponent.OnDied -= ShowBeatenDialog;
+        foreach (var door in doors)
+            door.Open();
     }
 }
