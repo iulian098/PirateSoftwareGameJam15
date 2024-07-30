@@ -2065,7 +2065,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 119264954}
-  door: {fileID: 8782029251209702619}
+  doors:
+  - {fileID: 8782029251209702619}
   dialog: 
   bossBeatenDialog: 
   playerLostDialog: 
