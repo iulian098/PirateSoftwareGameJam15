@@ -2037,51 +2037,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 537484841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1123900916
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1123900918}
-  - component: {fileID: 1123900917}
-  m_Layer: 0
-  m_Name: VFXManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1123900917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1123900916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c779cc044d011c640a381ca8785d17ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  container: {fileID: 11400000, guid: 85b4bfbcd47567e41b85c910c9660b71, type: 2}
---- !u!4 &1123900918
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1123900916}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6141615, y: -0.06293452, z: -0.0073011834}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1327140569
 GameObject:
   m_ObjectHideFlags: 0
@@ -5153,7 +5108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4386145555287722038, guid: 09e46da222a2207459e141980feb32d3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6542872792371884201, guid: 09e46da222a2207459e141980feb32d3, type: 3}
       propertyPath: m_Mesh
@@ -5560,7 +5515,7 @@ MonoBehaviour:
   characterSprite: {fileID: 886885946}
   rb: {fileID: 9028477210160519127}
   collider: {fileID: 9020389189223972129}
-  aggroRange: 5
+  aggroRange: 6
   attackRange: 0.8
   healthBarOffset: {x: 0, y: 0.4, z: 0}
   playerLayerMask:
@@ -5569,8 +5524,9 @@ MonoBehaviour:
   waypoints: []
   waypointChangeTime: 0
   meeleAttackRange: 1
-  rangedAttackRange: 4
+  rangedAttackRange: 5
   changePositionTime: 5
+  rangeAttackTime: 3
   batWeapon: {fileID: 11400000, guid: 6d4d3692075415946b19266620580d1d, type: 2}
   aimDirTransform: {fileID: 1466033893}
 --- !u!1660057539 &9223372036854775807
@@ -5599,5 +5555,4 @@ SceneRoots:
   - {fileID: 1670123946}
   - {fileID: 1793930828}
   - {fileID: 52564013}
-  - {fileID: 1123900918}
   - {fileID: 7184122889607838366}

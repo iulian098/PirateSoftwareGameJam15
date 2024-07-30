@@ -34,7 +34,6 @@ public class Projectile : MonoBehaviour
         this.damage = damage;
         this.caster = caster;
         rb.AddForce(forceDirection * speed);
-        Debug.Log(transform.position);
     }
 
     private void FixedUpdate() {
