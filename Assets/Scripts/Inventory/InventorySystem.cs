@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class InventorySystem : MonoSingleton<InventorySystem>
 {
     [SerializeField] HotbarManager hotbarManager;
-    [SerializeField] UI_Slot[] slots;
+    [SerializeField] UI_Slot slotPrefab;
+    [SerializeField] Transform slotsContainer;
     [SerializeField] ItemsContainer itemsContainer;
     [SerializeField] InventoryContainer inventoryContainer;
     [SerializeField] GameObject contents;
@@ -20,6 +21,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     [SerializeField] AudioClip itemDragClip;
     [SerializeField] AudioClip itemDropClip;
 
+    [SerializeField] UI_Slot[] slots;
     public Action<ItemData> OnItemAdded;
 
     UI_Slot selectedSlot;
@@ -37,6 +39,11 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     public bool IsDrag => isDrag;
 
     private void Start() {
+        slots = new UI_Slot[inventoryContainer.ItemsIDs.Count];
+        for (int i = 0; i < inventoryContainer.ItemsIDs.Count; i++) {
+            slots[i] = Instantiate(slotPrefab, slotsContainer);
+        }
+
         inventoryContainer.OnInventoryUpdated += UpdateInventory;
         for (int i = 0; i < slots.Length; i++) {
             int tmp = i;

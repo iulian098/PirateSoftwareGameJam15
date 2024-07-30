@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoSingleton<UIManager>
 {
@@ -12,6 +14,8 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] ItemDragIcon itemDragIcon;
     [SerializeField] ItemPickupInfo itemPickupInfo;
     [SerializeField] TMP_Text infoText;
+    [SerializeField] GameObject deathScreen;
+    [SerializeField] InGameMenu inGameMenu;
 
     public UI_HealthBar PlayerHealthBar => playerHealthBar;
     public EnemyHealthBarManager EnemyHealthBarManager => enemyHealthBarManager;
@@ -19,6 +23,21 @@ public class UIManager : MonoSingleton<UIManager>
     public ItemInfo ItemInfo => itemInfo;
     public ItemDragIcon ItemDragIcon => itemDragIcon;
     public ItemPickupInfo ItemPickupInfo => itemPickupInfo;
+
+    InputAction backAction;
+
+    private void Start() {
+        backAction = InGameManager.Instance.PlayerInput.actions["Back"];
+    }
+
+    private void Update() {
+        if (backAction.WasPerformedThisFrame()) {
+            if (inGameMenu.IsActive)
+                inGameMenu.Hide();
+            else
+                inGameMenu.Show();
+        }
+    }
 
     public void ShowPickupInfo(ItemData item, int amount) {
         ItemPickupInfo.AddItemInfo(item, amount);
@@ -31,5 +50,14 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void HideInfo() {
         infoText.gameObject.SetActive(false);
+    }
+
+    public void ShowDheathScreen() {
+        GlobalData.isPaused = true;
+        deathScreen.SetActive(true);
+    }
+
+    public void GoToMainMenu() {
+        SceneManager.LoadScene(0);
     }
 }

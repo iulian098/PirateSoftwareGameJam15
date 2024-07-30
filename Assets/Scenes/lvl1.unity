@@ -3324,7 +3324,7 @@ GameObject:
   - component: {fileID: 456940938}
   - component: {fileID: 456940937}
   m_Layer: 11
-  m_Name: GameObject
+  m_Name: Finish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3388,7 +3388,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 3
-  popupText: 
+  popupText: 'You proceed deeper into the Dungeon, engulfed by the shadows that promise
+    your demise.
+
+    But you''ve no time to give in to fear. You''re the only one
+    who can save your daughter.
+
+    And you will save your daughter. Even if it
+    costs you your sanity.'
 --- !u!4 &456940939
 Transform:
   m_ObjectHideFlags: 0
@@ -108333,6 +108340,6 @@ SceneRoots:
   - {fileID: 5975371436268869718}
   - {fileID: 415589121}
   - {fileID: 433978347}
-  - {fileID: 456940939}
   - {fileID: 1757549089}
   - {fileID: 858071961}
+  - {fileID: 456940939}

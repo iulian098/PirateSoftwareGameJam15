@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        if (player.IsDead) return;
         movementVector = movementAction.ReadValue<Vector2>();
 
         anim.SetBool(RunHash, movementVector.magnitude > 0.1f);

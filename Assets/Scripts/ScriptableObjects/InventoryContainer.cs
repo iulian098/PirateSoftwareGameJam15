@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "InventoryContainer", menuName = "Scriptable Objects/Inventory Container")]
 public class InventoryContainer : ScriptableObject
 {
+    [SerializeField] int maxSlots = 30;
     [SerializeField] List<int> itemsIDs = new List<int>();
     [SerializeField] List<int> itemsAmounts = new List<int>();
     [SerializeField] List<int> hotbarIDs = new List<int>();
@@ -105,9 +106,13 @@ public class InventoryContainer : ScriptableObject
         this.hotbarSelectedIndex = hotbarSelectedIndex;
 
         if(itemsIDs.Count == 0 || itemsAmounts.Count == 0) {
-            for(int i = 0; i < 10; i++) {
+            for(int i = 0; i < maxSlots; i++) {
                 this.itemsIDs.Add(0);
                 this.itemsAmounts.Add(0);
+            }
+        }else if(itemsIDs.Count != maxSlots) {
+            for (int i = itemsIDs.Count; i < maxSlots; i++) {
+                itemsIDs.Add(0);
             }
         }
 

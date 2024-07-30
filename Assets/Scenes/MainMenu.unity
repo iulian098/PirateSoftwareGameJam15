@@ -1747,7 +1747,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hermatic's Descent
+  m_text: Hermetic's Descent
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3cc6027479e19eb4c93f073ca754af93, type: 2}
   m_sharedMaterial: {fileID: 3355750371783740497, guid: 3cc6027479e19eb4c93f073ca754af93, type: 2}

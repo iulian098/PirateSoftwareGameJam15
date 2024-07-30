@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
     }
 
     void LoadNextScene() {
-        CommonPopup.Instance.Show("You're an Alchemist from the far South on a journey to gather a special medicianl plant.\r\n" +
+        CommonPopup.Instance.Show("You're an Alchemist from the far South on a journey to gather a special medicinal plant.\r\n" +
             "You need that plant in order to produce a cure for your daughter which had fallen sick after the Lych in the North was slain.\r\n" +
             "Albeit the potency of this plant was just a rumor, you're willing to take your chances for the sake of your family.\r\n" +
             "These rumors led you to the Dungeon in the far North and now you find yourself on a path through a graveyard before said dungeon.",

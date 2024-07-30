@@ -13,11 +13,12 @@ public class Player : Character
     [SerializeField] Weapon weapon;
 
     InputAction useAction;
-
+    bool isDead;
+    public bool IsDead => isDead;
     PlayerInput playerInput => InGameManager.Instance.PlayerInput;
     public AttacksController AttacksController => attacksController;
 
-    private void Start() {
+    protected override void Start() {
         HealthComponent.OnHealthChanged += OnHealthChanged;
         HealthComponent.OnDamageReceived += OnDamageReceived;
         HealthComponent.OnDied += OnDied;
@@ -50,6 +51,8 @@ public class Player : Character
 
     private void OnDied() {
         anim.SetBool("Die", true);
+        isDead = true;
+        UIManager.Instance.ShowDheathScreen();
     }
 
     public void EquipWeapon(WeaponData weaponData, ItemData itemData) {
