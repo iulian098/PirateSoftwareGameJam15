@@ -140,7 +140,7 @@ public class Enemy : Character {
 
         ChangeSpriteDirection();
 
-        anim.SetBool("Run", agent.speed > 0.1f);
+        anim.SetBool("Run", agent.velocity.magnitude > 0.1f);
     }
 
     protected void ChangeSpriteDirection() {
