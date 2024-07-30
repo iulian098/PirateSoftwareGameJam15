@@ -21,7 +21,7 @@ public class AltarInteractable : MonoBehaviour, IInteractable {
         InGameManager.Instance.InventoryContainer.RemoveItem(requiredItem.ID, amount);
         InGameManager.Instance.InventoryContainer.AddItem(changeIn, amount);
 
-        CommonPopup.Instance.Show($"Your {requiredItem.ItemName} have turned into {changeIn.ItemName}");
+        CommonPopup.Instance.Show($"Your {requiredItem.ItemName} has turned into {changeIn.ItemName}");
 
     }
 }
