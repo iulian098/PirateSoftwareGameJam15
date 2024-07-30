@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_R_Fire
   m_EditorClassIdentifier: 
   weaponType: 1
-  damage: 10
+  damage: 12
   fireRate: 0.2
   applyStatusEffect: 1
   overrideAttackSound: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
     pitchMax: 0
     maxDistance: 0
     minDistance: 0
+    spatialBlend: 0
   projectile: {fileID: 1455745088827195291, guid: 346db18c1138e324196b5e1fa78788c3, type: 3}
   projectileConfig:
     speed: 400
@@ -43,3 +44,4 @@ MonoBehaviour:
       pitchMax: 1.1
       maxDistance: 15
       minDistance: 5
+      spatialBlend: 0

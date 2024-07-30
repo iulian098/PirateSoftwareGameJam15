@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_R_Flash
   m_EditorClassIdentifier: 
   weaponType: 1
-  damage: 10
+  damage: 5
   fireRate: 0.2
   applyStatusEffect: 3
   overrideAttackSound: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
     pitchMax: 0
     maxDistance: 0
     minDistance: 0
+    spatialBlend: 0
   projectile: {fileID: 1455745088827195291, guid: d8d14786e0a9b35408c21c2e3115a6d2, type: 3}
   projectileConfig:
     speed: 400

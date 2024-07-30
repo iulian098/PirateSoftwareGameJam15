@@ -28,10 +28,11 @@ public class Vampire_BossEnemy : BossEnemy
         base.Start();
         changePositionTimer = changePositionTime;
         rangeAttackTimer = rangeAttackTime;
+        HealthComponent.OnDied += OnDied;
     }
 
     protected override void FixedUpdate() {
-        if (IsDead || Target == null) return;
+        if (IsDead || Target == null || !Activated) return;
 
         if(changePositionTimer > 0)
             changePositionTimer -= Time.deltaTime;
@@ -66,6 +67,32 @@ public class Vampire_BossEnemy : BossEnemy
 
 
         }
+    }
+
+    private void OnDied() {
+        isDead = true;
+
+        Instantiate(InGameManager.Instance.InGameData.DeathVFX, transform.position, Quaternion.identity);
+
+        List<DropData> droppedItems = new List<DropData>();
+        foreach (var item in enemyData.Drops) {
+            int drop = UnityEngine.Random.Range(0, 101);
+            if (drop <= item.chance) {
+                droppedItems.Add(item);
+            }
+        }
+
+        if (droppedItems.Count > 0) {
+            ItemDrop dropObj = Instantiate(InGameManager.Instance.InGameData.DropPrefab, transform.position, Quaternion.identity);
+            dropObj.Init(droppedItems);
+        }
+
+        if (bossHealthBar != null) {
+            bossHealthBar.gameObject.SetActive(false);
+        }
+
+        Destroy(gameObject);
+
     }
 
     private void OnDrawGizmosSelected() {

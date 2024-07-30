@@ -4,22 +4,43 @@ using UnityEngine;
 
 public class BossEnemy : Enemy
 {
-    Dictionary<string, object> customData = new Dictionary<string, object>();
-    List<Timer> timers = new List<Timer>();
+    protected UI_HealthBar bossHealthBar;
+    protected Dictionary<string, object> customData = new Dictionary<string, object>();
     bool activated;
 
-    public bool Activated { get => activated; set => activated = value; }
+    public bool Activated {
+        get => activated;
+        set {
+            if (value)
+                bossHealthBar.gameObject.SetActive(true);
+            activated = value;
+        }
+    }
 
     protected override void Start() {
-        base.Start();
+        lastX = transform.position.x;
+        spriteXScale = characterSprite.transform.localScale.x;
+
+        healthComponent.MaxHealth = enemyData.Health;
+        bossHealthBar = UIManager.Instance.EnemyHealthBarManager.BossHealthBar;
+        bossHealthBar.Init(healthComponent.MaxHealth);
+        bossHealthBar.SetValue(healthComponent.MaxHealth, healthComponent.Health);
+        HealthComponent.OnHealthChanged += bossHealthBar.SetValue;
+        HealthComponent.OnDamageReceived += OnDamageReceived;
     }
+
+    private void OnDamageReceived(int dmg) {
+        UIManager.Instance.DamageNumberManager.ShowText($"-{dmg}",
+            false,
+            Camera.main.WorldToScreenPoint(transform.position)
+            );
+    }
+
 
     protected override void FixedUpdate() {
         if (IsDead || Target == null) return;
 
         base.FixedUpdate();
-        foreach (var timer in timers)
-            timer.Tick();
     }
 
     public object GetCustomData(string key) {

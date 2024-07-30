@@ -6,8 +6,12 @@ public class EnemyHealthBarManager : MonoBehaviour
 {
     [SerializeField] UI_EnemyHealthBar healthBarPrefab;
     [SerializeField] Transform healthBarParent;
+    [SerializeField] UI_HealthBar bossHealthBar;
+
     PoolingSystem<UI_EnemyHealthBar> healthBarPool;
     List<UI_EnemyHealthBar> healthBarList = new List<UI_EnemyHealthBar>();
+
+    public UI_HealthBar BossHealthBar => bossHealthBar;
 
     private void Start() {
         healthBarPool = new PoolingSystem<UI_EnemyHealthBar>(healthBarPrefab, 5, healthBarParent);

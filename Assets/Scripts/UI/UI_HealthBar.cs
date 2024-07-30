@@ -31,8 +31,11 @@ public class UI_HealthBar : MonoBehaviour
     }
 
     public void Init(int maxVal) {
-        maxWidth = newFillBar.rectTransform.sizeDelta.x;
+        if(maxWidth == -1)
+            maxWidth = newFillBar.rectTransform.sizeDelta.x;
         maxValue = maxVal;
+        newFillBar.rectTransform.sizeDelta = new Vector2(maxWidth, newFillBar.rectTransform.sizeDelta.y);
+
     }
 
     public void SetValue(int oldVal, int newVal) {

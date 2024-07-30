@@ -8,7 +8,7 @@ public class Enemy : Character {
     [SerializeField] protected EnemyData enemyData;
     [SerializeField] protected EnemyState enemyState;
     [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] SpriteRenderer characterSprite;
+    [SerializeField] protected SpriteRenderer characterSprite;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Collider2D collider;
     [SerializeField] float aggroRange;
@@ -25,9 +25,9 @@ public class Enemy : Character {
     int waypointIndex;
     float waypointTimer;
     float attackTime;
-    float lastX;
-    float spriteXScale;
-    bool isDead;
+    protected float lastX;
+    protected float spriteXScale;
+    protected bool isDead;
     bool waypointReached;
     Vector3 targetScale;
     Vector3 targetMovePosition;
@@ -41,8 +41,8 @@ public class Enemy : Character {
     public float AttackRate => enemyData.AttackRate;
     public int Damage => enemyData.Damage;
     public bool IsDead => isDead;
-    public bool IsInAttackRange => Vector2.Distance(target.transform.position, transform.position) < attackRange;
-    public float TargetDistance => Vector2.Distance(target.transform.position, transform.position);
+    public bool IsInAttackRange => Target != null && Vector2.Distance(target.transform.position, transform.position) < attackRange;
+    public float TargetDistance => Target == null ? float.MaxValue : Vector2.Distance(target.transform.position, transform.position);
 
     public Animator Anim => anim;
 

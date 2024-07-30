@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Weapon_R_Rock
   m_EditorClassIdentifier: 
   weaponType: 1
-  damage: 10
-  fireRate: 0.5
+  damage: 5
+  fireRate: 0.4
   applyStatusEffect: 0
   overrideAttackSound: 0
   attackSound:
@@ -26,6 +26,7 @@ MonoBehaviour:
     pitchMax: 0
     maxDistance: 0
     minDistance: 0
+    spatialBlend: 0
   projectile: {fileID: 7201156788935363923, guid: 32fa30f5bcc644b49a3b0da3e3ddd6b9, type: 3}
   projectileConfig:
     speed: 400

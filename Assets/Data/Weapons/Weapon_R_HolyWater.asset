@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponType: 1
   damage: 10
   fireRate: 0.2
-  applyStatusEffect: 0
+  applyStatusEffect: 5
   overrideAttackSound: 0
   attackSound:
     name: 
@@ -26,6 +26,7 @@ MonoBehaviour:
     pitchMax: 0
     maxDistance: 0
     minDistance: 0
+    spatialBlend: 0
   projectile: {fileID: 750408821989439722, guid: 2b8b738318a36b447a62ee71f86e99c2, type: 3}
   projectileConfig:
     speed: 400
@@ -43,3 +44,4 @@ MonoBehaviour:
       pitchMax: 1
       maxDistance: 15
       minDistance: 5
+      spatialBlend: 0

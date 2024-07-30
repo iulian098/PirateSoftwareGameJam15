@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_R_Acid
   m_EditorClassIdentifier: 
   weaponType: 1
-  damage: 10
+  damage: 12
   fireRate: 0.2
   applyStatusEffect: 2
   overrideAttackSound: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
     pitchMax: 0
     maxDistance: 0
     minDistance: 0
+    spatialBlend: 0
   projectile: {fileID: 3604982827460289569, guid: f76b8b8a1592d6e4eb3644a9253c31eb, type: 3}
   projectileConfig:
     speed: 400
@@ -43,3 +44,4 @@ MonoBehaviour:
       pitchMax: 1.1
       maxDistance: 15
       minDistance: 5
+      spatialBlend: 0

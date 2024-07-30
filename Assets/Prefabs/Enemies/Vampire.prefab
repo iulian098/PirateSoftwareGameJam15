@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72ca54440dc1a04eba2a4a829983714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 100
   dieParticles: {fileID: 5004927951362411662, guid: d2cd50c3dd5eafe40b98b9d4e7b29410, type: 3}
 --- !u!114 &6360136406782407614
 MonoBehaviour:
@@ -323,7 +323,7 @@ MonoBehaviour:
   characterSprite: {fileID: 8779629403141926588}
   rb: {fileID: 364164063471454641}
   collider: {fileID: 7346479288893093820}
-  aggroRange: 6
+  aggroRange: 11.92
   attackRange: 0.8
   healthBarOffset: {x: 0, y: 0.4, z: 0}
   playerLayerMask:

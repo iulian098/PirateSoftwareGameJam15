@@ -6,6 +6,7 @@ public class BossRoomManager : MonoBehaviour
 {
     [SerializeField] BossEnemy boss;
     [SerializeField] BossDoor[] doors;
+    [SerializeField] Collider2D triggerColl;
     [SerializeField] string dialog;
     [SerializeField] string bossBeatenDialog;
     [SerializeField] string playerLostDialog;
@@ -13,13 +14,14 @@ public class BossRoomManager : MonoBehaviour
     Player player;
     bool bossActivated;
 
-    private void OnTriggerEnter(Collider other) {
-        if (!other.CompareTag("Player") || bossActivated) return;
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (!collision.CompareTag("Player") || bossActivated) return;
 
         if (dialog != string.Empty)
-            DialogSystem.DialogSystem.Instance.ShowDialog(dialog, onDialogEnd: () => BeginFight(other));
+            DialogSystem.DialogSystem.Instance.ShowDialog(dialog, onDialogEnd: () => BeginFight(collision));
         else
-            BeginFight(other);
+            BeginFight(collision);
+
     }
 
     private void OnDestroy() {
@@ -31,13 +33,14 @@ public class BossRoomManager : MonoBehaviour
 
     }
 
-    void BeginFight(Collider playerColl) {
+    void BeginFight(Collider2D playerColl) {
         player = playerColl.GetComponent<Player>();
         bossActivated = true;
         boss.Activated = true;
         boss.SetPlayerTarget(player);
         boss.HealthComponent.OnDied += ShowBeatenDialog;
         player.HealthComponent.OnDied += PlayerBeatenDialog;
+        triggerColl.enabled = false;
         foreach (var door in doors)
             door.Close();
 

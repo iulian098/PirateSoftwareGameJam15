@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Weapon_M_Axe
   m_EditorClassIdentifier: 
   weaponType: 2
-  damage: 5
-  fireRate: 0.3
+  damage: 20
+  fireRate: 1
   applyStatusEffect: 0
   overrideAttackSound: 1
   attackSound:
@@ -29,5 +29,6 @@ MonoBehaviour:
     pitchMax: 1.05
     maxDistance: 15
     minDistance: 5
+    spatialBlend: 0
   range: 0.5
   attackVfx: {fileID: -2816402475671136974, guid: cba391485367b034c82512f8ff6b962d, type: 3}

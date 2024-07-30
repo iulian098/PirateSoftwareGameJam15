@@ -222,3 +222,18 @@ MonoBehaviour:
       onShow:
         m_PersistentCalls:
           m_Calls: []
+  - name: VampireEnter
+    dialogs:
+    - characterName: Vampire
+      text: "Another straggler invades my domain.\r\nAh, no matter. I shall remove
+        you myself.\r"
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: VampireBeat
+    dialogs:
+    - characterName: Vampire
+      text: "Gahh... you have not seen the last of me!\r"
+      onShow:
+        m_PersistentCalls:
+          m_Calls: []
