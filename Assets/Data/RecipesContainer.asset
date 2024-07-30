@@ -33,9 +33,4 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d1ea734f4e899e84fb415c1ff17453d5, type: 2}
     - {fileID: 11400000, guid: 9daef13179bfd3a4fa9983237181e574, type: 2}
     amounts: 0a00000014000000
-  - result: {fileID: 11400000, guid: 9daef13179bfd3a4fa9983237181e574, type: 2}
-    items:
-    - {fileID: 0}
-    - {fileID: 0}
-    amounts: 0a00000014000000
   unlocked: 0001010101

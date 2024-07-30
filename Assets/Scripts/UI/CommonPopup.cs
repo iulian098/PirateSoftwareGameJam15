@@ -22,15 +22,13 @@ public class CommonPopup : MonoSingleton<CommonPopup>
         this.cancelButtonText.text = cancelButtonText;
         cancelButton.gameObject.SetActive(showCancel);
 
-        if (okButton != null && okAction != null) {
-            okButton.onClick.RemoveAllListeners();
+        okButton.onClick.RemoveAllListeners();
+        if (okButton != null && okAction != null)
             okButton.onClick.AddListener(okAction);
-        }
 
-        if(cancelButton != null && cancelAction != null) {
-            cancelButton.onClick.RemoveAllListeners();
+        cancelButton.onClick.RemoveAllListeners();
+        if(cancelButton != null && cancelAction != null)
             cancelButton.onClick.AddListener(cancelAction);
-        }
     }
 
     public void Hide() {
