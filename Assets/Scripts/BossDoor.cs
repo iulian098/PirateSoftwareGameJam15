@@ -10,6 +10,8 @@ public class BossDoor : MonoBehaviour, IInteractable
     [SerializeField] GameObject opened;
     [SerializeField] GameObject closed;
     [SerializeField] string interactDialog;
+    [SerializeField] string closingGateAudio;
+    [SerializeField] string openingGateAudio;
 
     private void Start() {
         if (interactDialog == string.Empty)
@@ -21,12 +23,14 @@ public class BossDoor : MonoBehaviour, IInteractable
         opened.SetActive(false);
         closed.SetActive(true);
         coll.enabled = true;
+        SoundManager.Instance.PlaySound(transform.position, closingGateAudio);
     }
 
     public void Open() {
         opened.SetActive(true);
         closed.SetActive(false);
         coll.enabled = false;
+        SoundManager.Instance.PlaySound(transform.position, openingGateAudio);
     }
 
     public void OnInteract() {

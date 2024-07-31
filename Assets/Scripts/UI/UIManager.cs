@@ -58,6 +58,7 @@ public class UIManager : MonoSingleton<UIManager>
     }
 
     public void GoToMainMenu() {
+        GlobalData.isPaused = false;
         SceneManager.LoadScene(0);
     }
 }

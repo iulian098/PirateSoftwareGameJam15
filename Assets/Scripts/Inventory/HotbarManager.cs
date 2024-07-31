@@ -53,6 +53,8 @@ public class HotbarManager : MonoSingleton<HotbarManager>
                     consumableSlot.SetItem(null);
             }
         }
+        activeSlot = inventoryContainer.HotbarSelectedIndex;
+        OnSlotClicked(activeSlot);
         hotbarConsumable = InGameManager.Instance.PlayerInput.actions["ConsumableSlot"];
         consumableSlot.OnClickAction += UseConsumable;
         inventoryContainer.OnInventoryUpdated += UpdateUI;
@@ -192,6 +194,9 @@ public class HotbarManager : MonoSingleton<HotbarManager>
                     else
                         overSlot.SetItem(selectedSlot.Item);
                     inventoryContainer.HotbarIDs[overSlotIndex] = selectedSlot.Item.ID;
+                    if (overSlot.SlotIndex == activeSlot) {
+                        InventorySystem.Instance.OnEquipItem(overSlot.Item.ID);
+                    }
 
                     Clear();
                 }else if(selectedSlot.Item.Type == Enum_ItemType.Consumable) {
@@ -205,6 +210,7 @@ public class HotbarManager : MonoSingleton<HotbarManager>
                         inventoryContainer.ConsumableID = selectedSlot.Item.ID;
                     }
                 }
+
             }
 
 

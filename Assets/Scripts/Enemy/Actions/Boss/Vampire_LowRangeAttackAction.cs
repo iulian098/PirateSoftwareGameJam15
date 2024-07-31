@@ -12,6 +12,7 @@ namespace PluggableAI {
                 controller.Target.HealthComponent.ReceiveDamage(controller.Damage);
                 controller.Anim.Play(LowRangeAttackHash);
                 controller.AttackTime = controller.AttackRate;
+                SoundManager.Instance.PlaySound(controller.transform.position, "MeleeSwordAttack");
             }
         }
     }

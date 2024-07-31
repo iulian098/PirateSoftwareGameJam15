@@ -12,3 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b2e208867e2e148b0c7389258942fd, type: 3}
   m_Name: Vampire_A_RangedAttack
   m_EditorClassIdentifier: 
+  attackSound:
+    name: 
+    clip:
+    - {fileID: 8300000, guid: 28482f50a72ae4344a7bc0ab71de628b, type: 3}
+    volumeMin: 0.4
+    volumeMax: 0.4
+    pitchMin: 1
+    pitchMax: 1
+    maxDistance: 15
+    minDistance: 5
+    spatialBlend: 1

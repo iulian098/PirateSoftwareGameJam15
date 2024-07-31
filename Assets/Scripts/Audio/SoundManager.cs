@@ -36,6 +36,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     }
 
     public AudioSource PlaySound(Vector2 position, string soundName) {
+        if (soundName == string.Empty) return null;
         SoundData data = soundsContainer.GetSound(soundName);
         if (data == null) return null;
         AudioClip clip = data.clip.Length > 1 ? data.clip[Random.Range(0, data.clip.Length)] : data.clip[0];

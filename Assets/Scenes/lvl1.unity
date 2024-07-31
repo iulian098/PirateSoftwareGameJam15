@@ -2942,6 +2942,8 @@ MonoBehaviour:
   opened: {fileID: 112339801}
   closed: {fileID: 227782737}
   interactDialog: 
+  closingGateAudio: MetalGateClose
+  openingGateAudio: MetalGateOpen
 --- !u!61 &415589120
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3184,6 +3186,8 @@ MonoBehaviour:
   opened: {fileID: 391554112}
   closed: {fileID: 211246110}
   interactDialog: 
+  closingGateAudio: MetalGateClose
+  openingGateAudio: MetalGateOpen
 --- !u!61 &433978346
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -108315,6 +108319,8 @@ MonoBehaviour:
   opened: {fileID: 720045240476489379}
   closed: {fileID: 555082140}
   interactDialog: 
+  closingGateAudio: MetalGateClose
+  openingGateAudio: MetalGateOpen
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

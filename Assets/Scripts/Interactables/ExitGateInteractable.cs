@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitGateInteractable : MonoBehaviour, IInteractable
 {
+    [SerializeField] int creditsScene;
     public void OnInteract() {
         CommonPopup.Instance.Show("Are you sure you wanna leave? You did not obtain the plant you were looking for.", ShowDialog, "Yes", true, cancelButtonText: "No");
     }
@@ -14,6 +16,6 @@ public class ExitGateInteractable : MonoBehaviour, IInteractable
     }
 
     void ShowCredits() {
-        Debug.LogError("Not yet implemented");
+        SceneManager.LoadScene("Credits");
     }
 }

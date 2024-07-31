@@ -53,6 +53,7 @@ MonoBehaviour:
   opened: {fileID: 8160671717127447626}
   closed: {fileID: 5435649512796324307}
   noItemDialogName: LockedGate
+  openAudio: MetalGateOpen
 --- !u!61 &2568418947372839093
 BoxCollider2D:
   m_ObjectHideFlags: 0
