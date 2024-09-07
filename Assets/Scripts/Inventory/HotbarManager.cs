@@ -209,6 +209,7 @@ public class HotbarManager : MonoSingleton<HotbarManager>
                             overSlot.SetItem(selectedSlot.Item);
                         inventoryContainer.ConsumableID = selectedSlot.Item.ID;
                     }
+                    Clear();
                 }
 
             }
