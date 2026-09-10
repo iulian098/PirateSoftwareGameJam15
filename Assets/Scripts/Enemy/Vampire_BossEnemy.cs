@@ -63,9 +63,7 @@ public class Vampire_BossEnemy : BossEnemy
                 proj.transform.localScale = scale;
             }
 
-            proj.Init(gameObject, aimDirTransform.up, batWeapon, batWeapon.Damage);
-
-
+            proj.Init(this, aimDirTransform.up, batWeapon, batWeapon.Damage);
         }
     }
 

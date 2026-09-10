@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour
         if (isRanged) {
             RangeWeaponData rangeWeaponData = weaponData as RangeWeaponData;
             Projectile proj = Instantiate(rangeWeaponData.Projectile, shootingPoint.position, shootingPoint.rotation);
-            proj.Init(character.gameObject, shootingPoint.right, rangeWeaponData, weaponData.Damage);
+            proj.Init(character, shootingPoint.right, rangeWeaponData, weaponData.Damage);
         }
         else {
             MeleeWeaponData meleeWeaponData = weaponData as MeleeWeaponData;

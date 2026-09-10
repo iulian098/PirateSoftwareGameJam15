@@ -112,10 +112,13 @@ public class Enemy : Character {
     protected virtual void FixedUpdate() {
         if (isDead) return;
 
-        int detected = Physics2D.OverlapCircle(transform.position, aggroRange, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PlayerMask, useLayerMask = true }, detectedColliders);
-        if (detected > 0 && target == null && detectedColliders != null && detectedColliders.Length > 0)
-            if (detectedColliders[0].TryGetComponent<Player>(out var player))
-                target = player;
+        if (target == null)
+        {
+            int detected = Physics2D.OverlapCircle(transform.position, aggroRange, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PlayerMask, useLayerMask = true }, detectedColliders);
+            if (detected > 0 && target == null && detectedColliders != null && detectedColliders.Length > 0)
+                if (detectedColliders[0].TryGetComponent<Player>(out var player))
+                    target = player;
+        }
 
         if(target != null && TargetDistance > aggroRange + 2) {
             target = null;
@@ -137,8 +140,6 @@ public class Enemy : Character {
 
         if(healthBar != null)
             healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + healthBarOffset);
-
-
 
         ChangeSpriteDirection();
 
@@ -201,7 +202,7 @@ public class Enemy : Character {
         agent.SetDestination(position);
     }
 
-    public override void ReceiveDamage(WeaponData weaponData) {
+    public override void ReceiveDamage(WeaponData weaponData, Character source = null) {
 
         int tempDamage = weaponData.Damage;
 
@@ -218,6 +219,17 @@ public class Enemy : Character {
         if (tempDamage < 0) tempDamage = 0;
 
         healthComponent.ReceiveDamage(tempDamage);
+
+        if (source.GetType().Equals(typeof(Player)))
+            target = (Player)source;
+    }
+
+    public override void ReceiveDamage(int damage, Character source = null)
+    {
+        base.ReceiveDamage(damage, source);
+
+        if(source.GetType().Equals(typeof(Player)))
+            target = (Player)source;
     }
 
     public void Clear() {
