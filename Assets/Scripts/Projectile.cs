@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -12,7 +9,6 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject hitVFX;
     [SerializeField] Rigidbody2D rb;
 
-    int damage;
     Vector2 startPos;
     RangeWeaponData weaponData;
     GameObject caster;
@@ -20,7 +16,6 @@ public class Projectile : MonoBehaviour
     public void Init(GameObject caster, Vector2 forceDirection, int damage)
     {
         startPos = transform.position;
-        this.damage = damage;
         rb.AddForce(forceDirection * speed);
         this.caster = caster;
     }
@@ -31,7 +26,6 @@ public class Projectile : MonoBehaviour
         maxDistance = weaponData.ProjectileConfig.maxDistance;
         hitVFX = weaponData.ProjectileConfig.hitVFX;
         startPos = transform.position;
-        this.damage = damage;
         this.caster = caster;
         rb.AddForce(forceDirection * speed);
     }

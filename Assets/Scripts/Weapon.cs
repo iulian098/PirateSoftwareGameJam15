@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -51,10 +49,12 @@ public class Weapon : MonoBehaviour
         character.Animator.SetTrigger("Attack");
 
         if (isRanged) {
-            Projectile proj = Instantiate((weaponData as RangeWeaponData).Projectile, shootingPoint.position, shootingPoint.rotation);
-            proj.Init(character.gameObject, shootingPoint.right, (weaponData as RangeWeaponData), weaponData.Damage);
+            RangeWeaponData rangeWeaponData = weaponData as RangeWeaponData;
+            Projectile proj = Instantiate(rangeWeaponData.Projectile, shootingPoint.position, shootingPoint.rotation);
+            proj.Init(character.gameObject, shootingPoint.right, rangeWeaponData, weaponData.Damage);
         }
         else {
+            MeleeWeaponData meleeWeaponData = weaponData as MeleeWeaponData;
             raycastHit = Physics2D.Raycast(shootingPoint.position,
                 shootingPoint.right,
                 (weaponData as MeleeWeaponData).Range,
@@ -63,7 +63,7 @@ public class Weapon : MonoBehaviour
             if(raycastHit.collider != null && raycastHit.collider.TryGetComponent<HealthComponent>(out var healthComp)){
                 healthComp.ReceiveDamage(weaponData);
             }
-            VFX vfx = VFXManager.ShowVFX((weaponData as MeleeWeaponData).AttackVFX.VFXName, shootingPoint.position, shootingPoint.rotation);
+            VFX vfx = VFXManager.ShowVFX(meleeWeaponData.AttackVFX.VFXName, shootingPoint.position, shootingPoint.rotation);
             if((character as Player).AttacksController.FacingRight) {
                 Vector3 newScale = vfx.transform.localScale;
                 newScale.y = vfx.DefaultScale.y;
