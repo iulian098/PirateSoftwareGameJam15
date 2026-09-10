@@ -81,8 +81,8 @@ public class Enemy : Character {
         enemyState.enabled = false;
         agent.enabled = false;
         anim.SetBool("Dead", true);
-        rb.isKinematic = true;
-        rb.velocity = Vector3.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.linearVelocity = Vector3.zero;
         collider.isTrigger = true;
         healthComponent.enabled = false;
         collider.enabled = false;
@@ -227,7 +227,7 @@ public class Enemy : Character {
         enemyState.enabled = true;
         agent.enabled = true;
         anim.SetBool("Dead", false);
-        rb.isKinematic = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
         collider.isTrigger = false;
         healthComponent.enabled = true;
         characterSprite.gameObject.SetActive(true);

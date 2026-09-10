@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
 
     protected virtual void Start() { }
 
-    public void ReceiveDamage(int damage) {
+    public virtual void ReceiveDamage(int damage) {
         healthComponent.ReceiveDamage(damage);
     }
 

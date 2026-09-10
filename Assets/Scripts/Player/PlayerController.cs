@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Movement(Vector2 direction) {
-        rb.velocity = direction * speed;
+        rb.linearVelocity = direction * speed;
     }
 
 }
