@@ -13,11 +13,10 @@ public class Chest : MonoBehaviour, IInteractable
     List<DropData> droppedItems = new List<DropData>();
     bool isOpen;
 
-    public void OnInteract() {
-        if (!isOpen)
-            OpenChest();
-        else
-            Collect();
+    public void OnInteract()
+    {
+        OpenChest();
+        Collect();
     }
 
     void OpenChest(){
