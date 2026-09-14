@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -21,7 +22,19 @@ public class InGameManager : MonoSingleton<InGameManager>
     public EventSystem EventSystem => eventSystem;
 
     private void Start() {
+        SaveSystem.Instance.LoadGameData();
         inventoryAction = playerInput.actions["Inventory"];
+        playerInput.onActionTriggered += OnActionTriggered;
+    }
+
+    private void OnDestroy()
+    {
+        playerInput.onActionTriggered -= OnActionTriggered;
+    }
+
+    private void OnActionTriggered(InputAction.CallbackContext context)
+    {
+        Debug.Log(context.control.device.ToString());
     }
 
     private void Update() {

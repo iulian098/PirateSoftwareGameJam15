@@ -16,7 +16,8 @@ public class SaveSystem : MonoSingleton<SaveSystem>
     [SerializeField] RecipesContainer recipesContainer;
     [SerializeField] GameObject continueButtonObj;
 
-    JsonSerializerSettings jsonSettings = new JsonSerializerSettings() {
+    JsonSerializerSettings jsonSettings = new JsonSerializerSettings()
+    {
         MaxDepth = null,
         CheckAdditionalContent = true
     };
@@ -33,44 +34,58 @@ public class SaveSystem : MonoSingleton<SaveSystem>
         DontDestroyOnLoad(this);
     }
 
-    private void Start() {
+    private void Start()
+    {
         Init();
     }
 
-    public void NewGame() {
+    public void NewGame()
+    {
         if (File.Exists(filePath))
             CommonPopup.Instance.Show("Are you sure you want to start a new game?", BeginNewGame, "Yes", true, cancelButtonText: "No");
         else
             BeginNewGame();
     }
 
-    void BeginNewGame() {
+    void BeginNewGame()
+    {
         saveFile = new SaveFile();
+        SaveFile();
         LoadGameData();
-        saveGameCoroutine = StartCoroutine(SaveGameCoroutine());
+        if(saveGameCoroutine == null)
+            saveGameCoroutine = StartCoroutine(SaveGameCoroutine());
         OnNewGameBegin?.Invoke();
     }
 
-    public void ContinueGame() {
+    public void ContinueGame()
+    {
         saveFile = LoadFile();
 
         LoadGameData();
     }
 
-    public void Init() {
+    public void Init()
+    {
         filePath = Path.Combine(Application.persistentDataPath, FILE_NAME);
 
-        continueButtonObj.SetActive(File.Exists(filePath));
+        if (continueButtonObj != null)
+            continueButtonObj.SetActive(File.Exists(filePath));
     }
 
-    IEnumerator SaveGameCoroutine() {
-        yield return new WaitForSeconds(5);
-        SaveFile();
-        saveGameCoroutine = StartCoroutine(SaveGameCoroutine());
+
+    IEnumerator SaveGameCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(5);
+            SaveFile();
+        }
     }
 
-     void LoadGameData() {
-        if (saveFile == null) {
+    public void LoadGameData()
+    {
+        if (saveFile == null)
+        {
             Debug.LogError("[SaveSystem] No save file found, creating new one");
             saveFile = new SaveFile();
         }
@@ -85,10 +100,11 @@ public class SaveSystem : MonoSingleton<SaveSystem>
         OnSaveFileLoaded?.Invoke();
 
         Debug.Log("[SaveSystem] Save File Loaded");
-    } 
+    }
 
     [ContextMenu("ClearSave")]
-    void ClearSave() {
+    void ClearSave()
+    {
         filePath = Path.Combine(Application.persistentDataPath, FILE_NAME);
 
         if (File.Exists(filePath))
@@ -97,47 +113,59 @@ public class SaveSystem : MonoSingleton<SaveSystem>
         PlayerPrefs.Save();
     }
 
-    SaveFile LoadFile() {
+    SaveFile LoadFile()
+    {
         SaveFile file;
 
         string data;
-        
-        if (File.Exists(filePath)) {
-            try {
-                using (var reader = new StreamReader(filePath)) {
+
+        if (File.Exists(filePath))
+        {
+            try
+            {
+                using (var reader = new StreamReader(filePath))
+                {
                     data = reader.ReadToEnd();
                     file = JsonConvert.DeserializeObject(data, typeof(SaveFile), jsonSettings) as SaveFile;
                 }
                 Debug.Log("[SaveSystem] Save file loaded");
             }
-            catch (IOException ex) {
+            catch (IOException ex)
+            {
                 Debug.LogError(ex.Message);
                 file = new SaveFile();
                 Debug.Log("[SaveSystem] Created new save file");
             }
         }
-        else {
+        else
+        {
             file = new SaveFile();
             Debug.Log("[SaveSystem] Created new save file");
         }
-        
+
         return file;
     }
 
-    void SaveFile() {
+    public void SaveFile()
+    {
         saveFile.saveDate = DateTime.UtcNow;
 
-        if (stopSaving) {
+        if (stopSaving)
+        {
             Debug.Log("[SaveSystem] Save disabled");
             return;
         }
 
-        try {
-            using (StreamWriter sw = new StreamWriter(filePath)) {
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
                 string data = JsonConvert.SerializeObject(saveFile, jsonSettings);
                 sw.Write(data);
             }
-        }catch(IOException ex) {
+        }
+        catch (IOException ex)
+        {
             Debug.LogError(ex.Message);
         }
 

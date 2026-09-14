@@ -11,7 +11,7 @@ public class TeleporterInteractable : MonoBehaviour, IInteractable {
     }
 
     void GoToLevel() {
-        UserManager.playerData.SetInt("LastLevel", levelIndex);
+        UserManager.PlayerData.SetInt("LastLevel", levelIndex);
         SceneManager.LoadScene(levelIndex);
     }
 }
