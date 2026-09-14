@@ -32,7 +32,7 @@ public class Player : Character
         Physics2D.OverlapCircle(transform.position, pickupRadius, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PickupMask | InGameManager.Instance.InGameData.InteractableMask, useLayerMask = true, useTriggers = true }, colls);
         if (colls.Length > 0 && colls[0] != null) {
             if((InGameManager.Instance.InGameData.InteractableMask & (1 << colls[0].gameObject.layer)) != 0)
-                UIManager.Instance.ShowInfoText( InfoTextStrings.UseString);
+                UIManager.Instance.ShowInfoText(InfoTextStrings.UseString);
             else if((InGameManager.Instance.InGameData.PickupMask & (1 << colls[0].gameObject.layer)) != 0)
                 UIManager.Instance.ShowInfoText(InfoTextStrings.PickupString);
 

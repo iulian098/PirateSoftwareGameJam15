@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventorySystem : MonoSingleton<InventorySystem>
@@ -79,8 +75,8 @@ public class InventorySystem : MonoSingleton<InventorySystem>
             MouseHelper.Instance.OnDrag += Drag;
             MouseHelper.Instance.OnDrop += hotbarManager.Drop;
             MouseHelper.Instance.OnDrop += Drop;
-
         }
+
         GlobalData.isPaused = true;
         handImage.gameObject.SetActive(true);
         contents.SetActive(true);
@@ -95,6 +91,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
             MouseHelper.Instance.OnDrag -= hotbarManager.Drop;
             MouseHelper.Instance.OnDrop -= Drop;
         }
+
         GlobalData.isPaused = false;
         handImage.gameObject.SetActive(false);
         ItemDragIcon.Hide();
@@ -104,42 +101,6 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     }
 
     public bool AddItem(ItemData item, int amount) {
-        /*int result = inventoryContainer.AddItem(item, amount);
-
-        if (result != -1) {
-            OnItemAdded?.Invoke(item);
-            slots[result].SetItem(item, amount);
-        }
-
-        return result != -1 ? true : false;*/
-
-        //Auto Combine
-        /*for(int i = 0; i < inventoryContainer.ItemsIDs.Count; i++) {
-            if(inventoryContainer.ItemsIDs[i] == item.ID && item.MaxStack > 1 && inventoryContainer.Amounts[i] < item.MaxStack) {
-                if (inventoryContainer.Amounts[i] + amount <= item.MaxStack) {
-                    inventoryContainer.Amounts[i] += amount;
-                }
-                else {
-                    int toAdd = item.MaxStack - amount;
-                    inventoryContainer.Amounts[i] += toAdd;
-                   // amount -= toAdd;
-                    //AddItem(item, amount);
-                }
-            }
-            else if (inventoryContainer.ItemsIDs[i] == 0){
-                inventoryContainer.ItemsIDs[i] = item.ID;
-                if (amount <= item.MaxStack)
-                    inventoryContainer.Amounts[i] = amount;
-                else {
-                    inventoryContainer.Amounts[i] = item.MaxStack;
-                    //amount -= item.MaxStack;
-                    //AddItem(item, amount);
-                }
-
-                return true;
-            }
-        }*/
-
         int itemIndex = -1;
         for (int i = 0; i < inventoryContainer.ItemsIDs.Count; i++) {
             if (inventoryContainer.ItemsIDs[i] == item.ID) {
@@ -173,6 +134,8 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         slots[itemIndex].UpdateItem(inventoryContainer, itemsContainer);
         UIManager.Instance.ShowPickupInfo(item, amount);
 
+        HotbarManager.Instance.AddItem(item);
+
         return true;
 
     }
@@ -200,13 +163,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     }
 
     public void Drag(UI_Slot slot) {
-        /*UIManager.Instance.ItemInfo.Hide();
-        isDrag = true;
-        selectedSlot = slot;
-        selectedSlotIndex = slot.SlotIndex;
-        if (selectedSlot.Item == null) return;
-        ItemDragIcon.Show(slot.Item.Icon);
-        HotbarManager.Instance.SetDisabled(slot.Item.Type != Enum_ItemType.Equipment);*/
+        
     }
 
     public void Drop() {
@@ -219,42 +176,11 @@ public class InventorySystem : MonoSingleton<InventorySystem>
             return;
         }
 
-        //Combine items
-        /*if(overSlot.Item == selectedSlot.Item) {
-            if (inventoryContainer.Amounts[overSlotIndex] < overSlot.Item.MaxStack) {
-                if (inventoryContainer.Amounts[overSlotIndex] + inventoryContainer.Amounts[selectedSlotIndex] < overSlot.Item.MaxStack) {
-                    inventoryContainer.Amounts[overSlotIndex] += inventoryContainer.Amounts[selectedSlotIndex];
-                    inventoryContainer.Amounts[selectedSlotIndex] = 0;
-                    inventoryContainer.ItemsIDs[selectedSlotIndex] = 0;
-                }
-                else {
-                    int toAdd = overSlot.Item.MaxStack - inventoryContainer.Amounts[overSlotIndex];
-                    inventoryContainer.Amounts[overSlotIndex] += toAdd;
-                    inventoryContainer.Amounts[selectedSlotIndex] -= toAdd;
-                }
-            }
-
-            selectedSlot.UpdateItem(inventoryContainer, itemsContainer);
-            overSlot.UpdateItem(inventoryContainer, itemsContainer);
-            return;
-        }*/
-
         inventoryContainer.SwapItems(overSlotIndex, selectedSlotIndex);
 
         selectedSlot.UpdateItem(inventoryContainer, itemsContainer);
         overSlot.UpdateItem(inventoryContainer, itemsContainer);
-        /*overSlot.SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[overSlotIndex]), inventoryContainer.Amounts[overSlotIndex]);
-        selectedSlot.SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[selectedSlotIndex]), inventoryContainer.Amounts[selectedSlotIndex]);*/
 
-        /*ItemData aux = items[overSlotIndex];
-
-        items[overSlotIndex] = items[selectedSlotIndex];
-        items[selectedSlotIndex] = aux;
-
-        overSlot.SetItem(items[overSlotIndex]);
-        selectedSlot.SetItem(items[selectedSlotIndex]);
-
-        Debug.Log($"[Inventory] On Item Dropped {selectedSlot.name} - {overSlot.name}");*/
         if(overSlot.Item != null)
             UIManager.Instance.ItemInfo.Show(overSlot.Item, overSlot.transform.position - new Vector3(0, (overSlot.transform as RectTransform).sizeDelta.y / 2, 0));
         

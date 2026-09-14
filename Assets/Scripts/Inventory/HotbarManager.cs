@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,8 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     ItemDragIcon ItemDragIcon => UIManager.Instance.ItemDragIcon;
 
     InputAction[] hotbarActions;
+    InputAction nextHotbarItem;
+    InputAction prevHotbarItem;
     InputAction hotbarConsumable;
 
     private void Start() {
@@ -59,16 +62,24 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         consumableSlot.OnClickAction += UseConsumable;
         inventoryContainer.OnInventoryUpdated += UpdateUI;
         slots[inventoryContainer.HotbarSelectedIndex].OnClick();
+
+        nextHotbarItem = InGameManager.Instance.PlayerInput.actions["NextHotbarItem"];
+        prevHotbarItem = InGameManager.Instance.PlayerInput.actions["PrevHotbarItem"];
+
+        nextHotbarItem.started += SelectNextSlot;
+        prevHotbarItem.started += SelectPrevSlot;
     }
 
     private void OnDestroy() {
         inventoryContainer.OnInventoryUpdated -= UpdateUI;
-        //consumableSlot.OnClickAction -= UseConsumable;
         consumableSlot.Clear();
 
         foreach (var slot in slots) {
             slot.Clear();
         }
+
+        nextHotbarItem.started -= SelectNextSlot;
+        prevHotbarItem.started -= SelectPrevSlot;
     }
 
     private void OnSlotClicked(int index) {
@@ -78,6 +89,53 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         activeSlot = index;
         slots[activeSlot].SetSelected(true);
         inventoryContainer.HotbarSelectedIndex = index;
+    }
+
+    private void SelectPrevSlot(InputAction.CallbackContext context)
+    {
+        if (selectedSlotIndex == -1)
+            selectedSlotIndex = 0;
+        else if (selectedSlotIndex < 0)
+            selectedSlotIndex = slots.Length - 1;
+        else
+            selectedSlotIndex--;
+
+        int loopCount = 0;
+
+        while (slots[selectedSlotIndex].Item == null)
+        {
+            selectedSlotIndex--;
+            if (selectedSlotIndex < 0)
+                selectedSlotIndex = slots.Length - 1;
+            loopCount++;
+            if (loopCount == slots.Length - 1)
+                return;
+        }
+
+        slots[selectedSlotIndex].OnClick();
+    }
+
+    private void SelectNextSlot(InputAction.CallbackContext context)
+    {
+        if (selectedSlotIndex == -1)
+            selectedSlotIndex = 0;
+        else if (selectedSlotIndex > slots.Length - 1)
+            selectedSlotIndex = 0;
+        else
+            selectedSlotIndex++;
+
+        int loopCount = 0;
+        while (slots[selectedSlotIndex].Item == null)
+        {
+            selectedSlotIndex++;
+            if (selectedSlotIndex > slots.Length - 1)
+                selectedSlotIndex = 0;
+            loopCount++;
+            if (loopCount == slots.Length - 1)
+                return;
+        }
+
+        slots[selectedSlotIndex].OnClick();
     }
 
     private void Update() {
@@ -93,6 +151,21 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         }
         if (hotbarConsumable.WasPerformedThisFrame())
             consumableSlot.OnClick();
+    }
+
+    public void AddItem(ItemData item)
+    {
+        var emptySlot = Array.Find(slots, x => x.Item == null || x.Item.ID == item.ID);
+        if(emptySlot != null && item.Type == Enum_ItemType.Equipment)
+        {
+            var itemIndex = inventoryContainer.ItemsIDs.IndexOf(item.ID);
+            var amount = inventoryContainer.Amounts[itemIndex];
+            emptySlot.SetItem(item, amount);
+            if (emptySlot.SlotIndex == activeSlot && item.Type == Enum_ItemType.Equipment)
+                InventorySystem.Instance.OnEquipItem(item.ID);
+
+            inventoryContainer.HotbarIDs[emptySlot.SlotIndex] = item.ID;
+        }
     }
 
     public void UpdateUI() {
@@ -175,9 +248,12 @@ public class HotbarManager : MonoSingleton<HotbarManager>
 
     public void Drop() {
         ItemDragIcon.Hide();
+
         if (selectedSlot == null && overSlot != null) {
+
             selectedSlot = InventorySystem.Instance.SelectedSlot;
             selectedSlotIndex = InventorySystem.Instance.SelectedSlotIndex;
+
             if (selectedSlot != null && selectedSlot.Item != null && overSlot != null) {
                 if (selectedSlot.Item.Type == Enum_ItemType.Equipment) {
                     int alreadyExistsIndex = inventoryContainer.HotbarIDs.IndexOf(selectedSlot.Item.ID);
