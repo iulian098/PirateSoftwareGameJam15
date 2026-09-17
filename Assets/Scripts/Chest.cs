@@ -11,7 +11,6 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] GameObject vfx;
 
     List<DropData> droppedItems = new List<DropData>();
-    bool isOpen;
 
     public void OnInteract()
     {
@@ -20,7 +19,6 @@ public class Chest : MonoBehaviour, IInteractable
     }
 
     void OpenChest(){
-        isOpen = true;
         spriteRenderer.sprite = openSprite;
         vfx.SetActive(true);
 
@@ -34,13 +32,11 @@ public class Chest : MonoBehaviour, IInteractable
     }
 
     void Collect() {
-        foreach (var item in droppedItems) {
+        foreach (var item in droppedItems)
             InventorySystem.Instance.AddItem(item.item, item.amount);
-                //UIManager.Instance.ShowPickupInfo(item.item, item.amount);
-        }
-        foreach (var recipe in unlockRecipes) {
+
+        foreach (var recipe in unlockRecipes)
             InGameManager.Instance.RecipesContainer.UnlockRecipe(recipe);
-        }
 
         gameObject.layer = 0;
         vfx.SetActive(false);
