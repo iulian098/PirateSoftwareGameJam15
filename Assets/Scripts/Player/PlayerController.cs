@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
-        if (player.IsDead) return;
+        if (player.IsDead || GlobalData.isPaused) return;
         movementVector = movementAction.ReadValue<Vector2>();
 
         anim.SetBool(RunHash, movementVector.magnitude > 0.1f);

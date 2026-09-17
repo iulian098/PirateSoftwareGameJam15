@@ -25,7 +25,7 @@ public class Player : Character
         useAction = playerInput.actions["Use"];
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if (GlobalData.isPaused) return;
 
         Collider2D[] colls = new Collider2D[1];
