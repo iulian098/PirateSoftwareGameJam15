@@ -1,16 +1,38 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 namespace DialogSystem {
     public class DialogBox : MonoBehaviour {
         [SerializeField] TMP_Text characterName;
         [SerializeField] TMP_Text text;
+
+        InputAction anyKeyAction;
         DialogSystem dialogSystem;
         Dialog dialog;
         int dialogIndex = 0;
+        bool isOpen = false;
 
         public void Init(DialogSystem dialogSystem) {
             this.dialogSystem = dialogSystem;
+            if(anyKeyAction == null)
+            {
+                anyKeyAction = InGameManager.Instance.PlayerInput.actions["AnyKey"];
+                anyKeyAction.started += AnyKeyAction_started;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if(anyKeyAction != null)
+                anyKeyAction.started -= AnyKeyAction_started;
+        }
+
+        private void AnyKeyAction_started(InputAction.CallbackContext obj)
+        {
+            if (!isOpen) 
+                return;
+            ShowNext();
         }
 
         public void ShowBox(Dialog dialog) {
@@ -22,6 +44,7 @@ namespace DialogSystem {
             text.text = dialog.Dialogs[dialogIndex].Text;
             dialog.Dialogs[dialogIndex].onShow?.Invoke();
             dialogSystem.OnDialogStart?.Invoke();
+            isOpen = true;
         }
 
         public void ShowNext() {
@@ -40,6 +63,7 @@ namespace DialogSystem {
 
         public void HideBox() {
             gameObject.SetActive(false);
+            isOpen = false;
         }
     }
 }
