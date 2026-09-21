@@ -33,14 +33,13 @@ public class UI_PotionSlot : UI_Slot
     }
 
     public override void OnPointerEnter(PointerEventData eventData) {
-        InventorySystem.Instance.SetOverSlot(this);
+        base.OnPointerEnter(eventData);
         if(Item != null && !InventorySystem.Instance.IsDrag)
             UIManager.Instance.ItemInfo.Show(Item, transform.position - new Vector3(0, (transform as RectTransform).sizeDelta.y / 2, 0));
     }
 
     public override void OnPointerExit(PointerEventData eventData) {
-
-        InventorySystem.Instance.SetOverSlot(null);
+        base.OnPointerExit(eventData);
         UIManager.Instance.ItemInfo.Hide();
     }
 }

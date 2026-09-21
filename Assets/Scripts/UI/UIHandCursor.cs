@@ -17,6 +17,11 @@ public class UIHandCursor : MonoSingleton<UIHandCursor>
         handImage.sprite = handSprites[(int)type];
     }
 
+    public void SetPosition(Vector3 position)
+    {
+        handImage.rectTransform.position = position;
+    }
+
     public void Show()
     {
         Cursor.visible = false;

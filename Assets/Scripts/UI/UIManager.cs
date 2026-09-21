@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,7 +18,8 @@ public class UIManager : MonoSingleton<UIManager>, IKeyIcon
     [SerializeField] InGameMenu inGameMenu;
 
 
-    Queue<UIPanel> activePanelsQueue = new Queue<UIPanel>();
+    List<UIPanel> activePanelsQueue = new List<UIPanel>();
+    Dictionary<Type, UIPanel> activePanelsDictionary = new Dictionary<Type, UIPanel>();
 
     public UI_HealthBar PlayerHealthBar => playerHealthBar;
     public EnemyHealthBarManager EnemyHealthBarManager => enemyHealthBarManager;
@@ -81,7 +83,7 @@ public class UIManager : MonoSingleton<UIManager>, IKeyIcon
         SceneManager.LoadScene(0);
     }
 
-    public void ShowPanel(UIPanel panel)
+    public void ShowPanel<T>(T panel, bool activatePanel = true) where T : UIPanel
     {
         if (activePanelsQueue.Contains(panel))
         {
@@ -91,17 +93,45 @@ public class UIManager : MonoSingleton<UIManager>, IKeyIcon
         else
         {
             panel.Show();
-            activePanelsQueue.Enqueue(panel);
+            if (activatePanel)
+                panel.gameObject.SetActive(true);
+            activePanelsQueue.Add(panel);
+            activePanelsDictionary.Add(panel.GetType(), panel);
         }
     }
 
-    public void HideLastPanel()
+    public void HidePanel<T>(Type panel, bool deactivatePanel = true)
+    {
+        if(activePanelsDictionary.TryGetValue(typeof(T), out UIPanel existingPanel))
+        {
+            activePanelsQueue.Remove(existingPanel);
+            activePanelsDictionary.Remove(typeof(T));
+            existingPanel.Hide();
+            if (deactivatePanel)
+                existingPanel.gameObject.SetActive(false);
+        }
+    }
+
+    public void HideLastPanel(bool deactivatePanel = true)
     {
         if (activePanelsQueue.Count == 0)
             return;
 
-        var lastPanel = activePanelsQueue.Dequeue();
+        var lastPanel = activePanelsQueue[0];
         lastPanel.Hide();
+
+        if (deactivatePanel)
+            lastPanel.gameObject.SetActive(false);
+
+        activePanelsDictionary.Remove(lastPanel.GetType());
+        activePanelsQueue.RemoveAt(0);
+    }
+
+    public UIPanel GetPanel<T>(Type panel)
+    {
+        if (activePanelsDictionary.TryGetValue(typeof(T), out var foundPanel))
+            return foundPanel;
+        return null;
     }
 
     public void DeviceChanged(InputDeviceType deviceType)

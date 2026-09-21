@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 
 public class MouseHelper : MonoSingleton<MouseHelper>
 {
-
     [SerializeField] InputSystemUIInputModule uiInputModule;
 
     Vector2 mouseStartPos;
@@ -41,9 +38,7 @@ public class MouseHelper : MonoSingleton<MouseHelper>
             mouseStartPos = uiInputModule.point.action.ReadValue<Vector2>();
             mouseDown = true;
         }
-
-        if(mouseDown)
-            mousePos = uiInputModule.point.action.ReadValue<Vector2>();
+        mousePos = uiInputModule.point.action.ReadValue<Vector2>();
 
         if (mouseDown && !Dragging && Vector2.Distance(mousePos, mouseStartPos) > 0.02f)
             Dragging = true;

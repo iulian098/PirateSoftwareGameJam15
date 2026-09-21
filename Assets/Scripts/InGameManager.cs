@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -35,14 +34,5 @@ public class InGameManager : MonoSingleton<InGameManager>
     private void OnActionTriggered(InputAction.CallbackContext context)
     {
         Debug.Log(context.control.device.ToString());
-    }
-
-    private void Update() {
-        if (inventoryAction.WasPerformedThisFrame()) {
-            if (!InventorySystem.Instance.IsOpen)
-                InventorySystem.Instance.Show();
-            else
-                InventorySystem.Instance.Hide();
-        }
     }
 }

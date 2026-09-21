@@ -286,41 +286,7 @@ public class HotbarManager : MonoSingleton<HotbarManager>
             selectedSlot = InventorySystem.Instance.DraggedSlot;
             selectedSlotIndex = InventorySystem.Instance.DraggedSlotIndex;
 
-            if (selectedSlot != null && selectedSlot.Item != null && overSlot != null) {
-                if (selectedSlot.Item.Type == Enum_ItemType.Equipment) {
-                    int alreadyExistsIndex = inventoryContainer.HotbarIDs.IndexOf(selectedSlot.Item.ID);
-                    if (alreadyExistsIndex != -1) {
-                        inventoryContainer.HotbarIDs[alreadyExistsIndex] = 0;
-                        slots[alreadyExistsIndex].SetItem(null);
-                    }
-
-                    int itemIndex = inventoryContainer.ItemsIDs.IndexOf(selectedSlot.Item.ID);
-                    if (itemIndex != -1) {
-                        int itemAmount = inventoryContainer.Amounts[itemIndex];
-                        overSlot.SetItem(selectedSlot.Item, itemAmount);
-                    }
-                    else
-                        overSlot.SetItem(selectedSlot.Item);
-                    inventoryContainer.HotbarIDs[overSlotIndex] = selectedSlot.Item.ID;
-                    if (overSlot.SlotIndex == activeSlot) {
-                        InventorySystem.Instance.OnEquipItem(overSlot.Item.ID);
-                    }
-
-                    Clear();
-                }else if(selectedSlot.Item.Type == Enum_ItemType.Consumable) {
-                    if (overSlot == consumableSlot) {
-                        int itemIndex = inventoryContainer.ItemsIDs.IndexOf(selectedSlot.Item.ID);
-                        if (itemIndex != -1) {
-                            int itemAmount = inventoryContainer.Amounts[itemIndex];
-                            overSlot.SetItem(selectedSlot.Item, itemAmount);
-                        }else
-                            overSlot.SetItem(selectedSlot.Item);
-                        inventoryContainer.ConsumableID = selectedSlot.Item.ID;
-                    }
-                    Clear();
-                }
-
-            }
+            Drop(selectedSlot);
 
 
             return;
@@ -359,6 +325,60 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         }
 
         Clear();
+    }
+
+    public void Drop(UI_Slot sourceSlot)
+    {
+        if (sourceSlot == null) return;
+
+        selectedSlot = sourceSlot;
+        selectedSlotIndex = sourceSlot.SlotIndex;
+
+        if (selectedSlot != null && selectedSlot.Item != null && overSlot != null)
+        {
+            if (selectedSlot.Item.Type == Enum_ItemType.Equipment)
+            {
+                int alreadyExistsIndex = inventoryContainer.HotbarIDs.IndexOf(selectedSlot.Item.ID);
+                if (alreadyExistsIndex != -1)
+                {
+                    inventoryContainer.HotbarIDs[alreadyExistsIndex] = 0;
+                    slots[alreadyExistsIndex].SetItem(null);
+                }
+
+                int itemIndex = inventoryContainer.ItemsIDs.IndexOf(selectedSlot.Item.ID);
+                if (itemIndex != -1)
+                {
+                    int itemAmount = inventoryContainer.Amounts[itemIndex];
+                    overSlot.SetItem(selectedSlot.Item, itemAmount);
+                }
+                else
+                    overSlot.SetItem(selectedSlot.Item);
+                inventoryContainer.HotbarIDs[overSlotIndex] = selectedSlot.Item.ID;
+                if (overSlot.SlotIndex == activeSlot)
+                {
+                    InventorySystem.Instance.OnEquipItem(overSlot.Item.ID);
+                }
+
+                Clear();
+            }
+            else if (selectedSlot.Item.Type == Enum_ItemType.Consumable)
+            {
+                if (overSlot == consumableSlot)
+                {
+                    int itemIndex = inventoryContainer.ItemsIDs.IndexOf(selectedSlot.Item.ID);
+                    if (itemIndex != -1)
+                    {
+                        int itemAmount = inventoryContainer.Amounts[itemIndex];
+                        overSlot.SetItem(selectedSlot.Item, itemAmount);
+                    }
+                    else
+                        overSlot.SetItem(selectedSlot.Item);
+                    inventoryContainer.ConsumableID = selectedSlot.Item.ID;
+                }
+                Clear();
+            }
+
+        }
     }
 
     public void UseConsumable(int itemID) {

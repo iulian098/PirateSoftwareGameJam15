@@ -1,103 +1,55 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class InventorySystem : MonoSingleton<InventorySystem>
 {
+    public delegate void OnItemAdded(ItemData item, int itemIndex, int amount);
+    public delegate void OnItemRemoved(ItemData item, int itemIndex);
+
     [SerializeField] HotbarManager hotbarManager;
-    [SerializeField] UI_Slot slotPrefab;
-    [SerializeField] Transform slotsContainer;
     [SerializeField] ItemsContainer itemsContainer;
     [SerializeField] InventoryContainer inventoryContainer;
-    [SerializeField] GameObject contents;
-    [SerializeField] Transform handTransform;
-    [SerializeField] Image handImage;
-    [SerializeField] Sprite[] handSprites;
+    [SerializeField] InventoryUI inventoryUI;
 
-    [SerializeField] AudioClip itemDragClip;
-    [SerializeField] AudioClip itemDropClip;
-
-    [SerializeField] UI_Slot[] slots;
-    public Action<ItemData> OnItemAdded;
-
-    UI_Slot selectedSlot;
-    int selectedSlotIndex;
-
-    UI_Slot overSlot;
-    int overSlotIndex;
+    public event OnItemAdded OnItemAddedCallback;
+    InputAction inventoryAction;
+    UI_Slot draggedSlot;
+    int draggedSlotIndex;
 
     bool isDrag;
-    ItemDragIcon ItemDragIcon => UIManager.Instance.ItemDragIcon;
     public InventoryContainer InventoryContainer => inventoryContainer;
-    public UI_Slot SelectedSlot => selectedSlot;
-    public int SelectedSlotIndex => selectedSlotIndex;
-    public bool IsOpen => contents.activeSelf;
+    public UI_Slot DraggedSlot => draggedSlot;
+    public int DraggedSlotIndex => draggedSlotIndex;
     public bool IsDrag => isDrag;
 
     private void Start() {
-        slots = new UI_Slot[inventoryContainer.ItemsIDs.Count];
-        for (int i = 0; i < inventoryContainer.ItemsIDs.Count; i++) {
-            slots[i] = Instantiate(slotPrefab, slotsContainer);
-        }
-
-        inventoryContainer.OnInventoryUpdated += UpdateInventory;
-        for (int i = 0; i < slots.Length; i++) {
-            int tmp = i;
-            slots[i].SetSlotIndex(tmp);
-            slots[i].SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[i]), inventoryContainer.Amounts[i]);
-        }
-        handImage.gameObject.SetActive(false);
-
         foreach (var item in inventoryContainer.InInventoryByDefault) {
             if (!inventoryContainer.ItemsIDs.Contains(item.ID))
                 inventoryContainer.AddItem(item, 1);
         }
+
+        inventoryAction = InGameManager.Instance.PlayerInput.actions["Inventory"];
+
     }
 
-    private void OnDestroy() {
-        inventoryContainer.OnInventoryUpdated -= UpdateInventory;
-    }
-
-    private void Update() {
-        if (IsOpen) {
-            handTransform.position = InGameManager.Instance.PlayerInput.actions["AimDirection"].ReadValue<Vector2>();
-            if (isDrag && handImage.sprite != handSprites[1])
-                handImage.sprite = handSprites[1];
-            else if (!isDrag && handImage.sprite != handSprites[0])
-                handImage.sprite = handSprites[0];
+    private void Update()
+    {
+        if (inventoryAction.WasPerformedThisFrame())
+        {
+            if (UIManager.Instance.GetPanel<InventoryUI>(typeof(InventoryUI)) != null)
+                UIManager.Instance.HidePanel<InventoryUI>(typeof(InventoryUI));
+            else
+                UIManager.Instance.ShowPanel(inventoryUI);
         }
-
     }
 
     public void Show() {
-        if (!contents.activeSelf) {
-            MouseHelper.Instance.OnDrag += hotbarManager.Drag;
-            MouseHelper.Instance.OnDrag += Drag;
-            MouseHelper.Instance.OnDrop += hotbarManager.Drop;
-            MouseHelper.Instance.OnDrop += Drop;
-        }
-
-        GlobalData.isPaused = true;
-        handImage.gameObject.SetActive(true);
-        contents.SetActive(true);
-        Cursor.visible = false;
-
+        inventoryUI.Show();
     }
 
     public void Hide() {
-        if (contents.activeSelf) {
-            MouseHelper.Instance.OnDrag -= hotbarManager.Drag;
-            MouseHelper.Instance.OnDrag -= Drag;
-            MouseHelper.Instance.OnDrag -= hotbarManager.Drop;
-            MouseHelper.Instance.OnDrop -= Drop;
-        }
-
-        GlobalData.isPaused = false;
-        handImage.gameObject.SetActive(false);
-        ItemDragIcon.Hide();
+        UIManager.Instance.HidePanel<InventoryUI>(typeof(InventoryUI));
         UIManager.Instance.ItemInfo.Hide();
-        contents.SetActive(false);
-        Cursor.visible = true;
     }
 
     public bool AddItem(ItemData item, int amount) {
@@ -125,13 +77,16 @@ public class InventorySystem : MonoSingleton<InventorySystem>
             inventoryContainer.Amounts.Add(amount);
             UIManager.Instance.ShowPickupInfo(item, amount);
 
+            OnItemAddedCallback?.Invoke(item, inventoryContainer.ItemsIDs[inventoryContainer.ItemsIDs.Count - 1], amount);
             return true;
         }
 
         if(inventoryContainer.ItemsIDs[itemIndex] == 0)
             inventoryContainer.ItemsIDs[itemIndex] = item.ID; 
         inventoryContainer.Amounts[itemIndex] += amount;
-        slots[itemIndex].UpdateItem(inventoryContainer, itemsContainer);
+
+        OnItemAddedCallback?.Invoke(item, itemIndex, itemIndex);
+
         UIManager.Instance.ShowPickupInfo(item, amount);
 
         HotbarManager.Instance.AddItem(item);
@@ -144,66 +99,14 @@ public class InventorySystem : MonoSingleton<InventorySystem>
         inventoryContainer.RemoveItem(item.ID, amount);
     }
 
-    public void SetOverSlot(UI_Slot slot) {
-        overSlot = slot;
-        overSlotIndex = slot == null ? -1 : slot.SlotIndex;
-    }
-
-    public void Drag() {
-        UIManager.Instance.ItemInfo.Hide();
-        if (overSlot == null) return;
-        isDrag = true;
-        selectedSlot = overSlot;
-        selectedSlotIndex = overSlot.SlotIndex;
-        if (selectedSlot.Item == null) return;
-        ItemDragIcon.Show(overSlot.Item.Icon);
-        HotbarManager.Instance.SetDisabled(overSlot.Item.Type != Enum_ItemType.Equipment);
-        HotbarManager.Instance.SetConsumableDisabled(overSlot.Item.Type != Enum_ItemType.Consumable);
-        SoundManager.Instance.PlaySound(transform.position, "ItemDrag");
-    }
-
-    public void Drag(UI_Slot slot) {
-        
-    }
-
-    public void Drop() {
-        isDrag = false;
-        ItemDragIcon.Hide();
-        HotbarManager.Instance.SetDisabled(false);
-        HotbarManager.Instance.SetConsumableDisabled(false);
-        if (selectedSlot == null || overSlot == null || selectedSlot == overSlot) {
-            Clear();
-            return;
-        }
-
-        inventoryContainer.SwapItems(overSlotIndex, selectedSlotIndex);
-
-        selectedSlot.UpdateItem(inventoryContainer, itemsContainer);
-        overSlot.UpdateItem(inventoryContainer, itemsContainer);
-
-        if(overSlot.Item != null)
-            UIManager.Instance.ItemInfo.Show(overSlot.Item, overSlot.transform.position - new Vector3(0, (overSlot.transform as RectTransform).sizeDelta.y / 2, 0));
-        
-        SoundManager.Instance.PlaySound(transform.position, "ItemDrop");
-
-
-        Clear();
-    }
-
-    public void UpdateInventory() {
-        for (int i = 0; i < slots.Length; i++) {
-            slots[i].SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[i]), inventoryContainer.Amounts[i]);
-        }
+    public void SetDraggingSlot(UI_Slot slot)
+    {
+        draggedSlot = slot;
+        draggedSlotIndex = slot != null ? slot.SlotIndex : -1;
     }
 
     public void OnEquipItem(int itemId) {
         EquipmentItemData item = itemsContainer.GetItemByID(itemId) as EquipmentItemData;
         InGameManager.Instance.Player.EquipWeapon(item.WeaponData, item);
     }
-
-    void Clear() {
-        selectedSlot = null;
-        selectedSlotIndex = -1;
-    }
-
 }
