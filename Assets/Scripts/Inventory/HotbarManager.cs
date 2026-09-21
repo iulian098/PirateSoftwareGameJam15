@@ -25,12 +25,77 @@ public class HotbarManager : MonoSingleton<HotbarManager>
 
     private void Start() {
         hotbarActions = new InputAction[slots.Length];
-        for (int i = 0; i < slots.Length; i++) {
+
+        InitHotbarData();
+
+        activeSlot = inventoryContainer.HotbarSelectedIndex;
+        OnSlotClicked(activeSlot);
+        hotbarConsumable = InGameManager.Instance.PlayerInput.actions["ConsumableSlot"];
+
+        consumableSlot.OnClickAction += UseConsumable;
+        inventoryContainer.OnInventoryUpdated += UpdateUI;
+
+        slots[inventoryContainer.HotbarSelectedIndex].OnClick();
+
+        nextHotbarItem = InGameManager.Instance.PlayerInput.actions["NextHotbarItem"];
+        prevHotbarItem = InGameManager.Instance.PlayerInput.actions["PrevHotbarItem"];
+
+        nextHotbarItem.started += SelectNextSlot;
+        prevHotbarItem.started += SelectPrevSlot;
+
+        InputDeviceManager.Instance.OnDeviceChanged += OnDeviceChanged;
+    }
+
+    private void OnDestroy() {
+        consumableSlot.Clear();
+
+        foreach (var slot in slots) {
+            slot.Clear();
+        }
+
+        inventoryContainer.OnInventoryUpdated -= UpdateUI;
+
+        nextHotbarItem.started -= SelectNextSlot;
+        prevHotbarItem.started -= SelectPrevSlot;
+
+
+        InputDeviceManager.Instance.OnDeviceChanged += OnDeviceChanged;
+    }
+
+    private void OnDeviceChanged(InputDeviceType type)
+    {
+        switch (type)
+        {
+            case InputDeviceType.KeyboardAndMouse:
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    slots[i].KeybindContainer.SetActive(true);
+                    slots[i].UpdateKeybind(type);
+                }
+                break;
+            case InputDeviceType.Gamepad:
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    slots[i].KeybindContainer.SetActive(i == activeSlot);
+                    slots[i].UpdateKeybind(type);
+                }
+                break;
+            default:
+                break;
+        }
+        consumableSlot.UpdateKeybind(type);
+    }
+
+    private void InitHotbarData()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
             int tmp = i;
             slots[i].SetSlotIndex(tmp);
 
             EquipmentItemData item = itemsContainer.GetItemByID(inventoryContainer.HotbarIDs[i]) as EquipmentItemData;
-            if (item != null) {
+            if (item != null)
+            {
                 int amountIndex = inventoryContainer.ItemsIDs.IndexOf(item.ID);
                 if (amountIndex == -1)
                     slots[i].SetItem(null);
@@ -40,46 +105,26 @@ public class HotbarManager : MonoSingleton<HotbarManager>
             else
                 slots[i].SetItem(null);
             slots[i].OnClickAction += InventorySystem.Instance.OnEquipItem;
-            slots[i].OnSelected += OnSlotClicked;
+            slots[i].OnClicked += OnSlotClicked;
 
             hotbarActions[i] = InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)];
         }
-        if(inventoryContainer.ConsumableID == 0)
+
+        if (inventoryContainer.ConsumableID == 0)
             consumableSlot.SetItem(null);
-        else {
+        else
+        {
             ConsumableItemData item = itemsContainer.GetItemByID(inventoryContainer.ConsumableID) as ConsumableItemData;
-            if(item != null) {
+            if (item != null)
+            {
                 int amountIndex = inventoryContainer.ItemsIDs.IndexOf(item.ID);
-                if(amountIndex != -1)
+                if (amountIndex != -1)
                     consumableSlot.SetItem(item, inventoryContainer.Amounts[amountIndex]);
                 else
                     consumableSlot.SetItem(null);
             }
         }
-        activeSlot = inventoryContainer.HotbarSelectedIndex;
-        OnSlotClicked(activeSlot);
-        hotbarConsumable = InGameManager.Instance.PlayerInput.actions["ConsumableSlot"];
-        consumableSlot.OnClickAction += UseConsumable;
-        inventoryContainer.OnInventoryUpdated += UpdateUI;
-        slots[inventoryContainer.HotbarSelectedIndex].OnClick();
 
-        nextHotbarItem = InGameManager.Instance.PlayerInput.actions["NextHotbarItem"];
-        prevHotbarItem = InGameManager.Instance.PlayerInput.actions["PrevHotbarItem"];
-
-        nextHotbarItem.started += SelectNextSlot;
-        prevHotbarItem.started += SelectPrevSlot;
-    }
-
-    private void OnDestroy() {
-        inventoryContainer.OnInventoryUpdated -= UpdateUI;
-        consumableSlot.Clear();
-
-        foreach (var slot in slots) {
-            slot.Clear();
-        }
-
-        nextHotbarItem.started -= SelectNextSlot;
-        prevHotbarItem.started -= SelectPrevSlot;
     }
 
     private void OnSlotClicked(int index) {
@@ -93,49 +138,52 @@ public class HotbarManager : MonoSingleton<HotbarManager>
 
     private void SelectPrevSlot(InputAction.CallbackContext context)
     {
-        if (selectedSlotIndex == -1)
-            selectedSlotIndex = 0;
-        else if (selectedSlotIndex < 0)
-            selectedSlotIndex = slots.Length - 1;
+        int tmpSlotIndex = activeSlot;
+
+        if (tmpSlotIndex == -1)
+            tmpSlotIndex = 0;
+        else if (tmpSlotIndex - 1 < 0)
+            tmpSlotIndex = slots.Length - 1;
         else
-            selectedSlotIndex--;
+            tmpSlotIndex--;
 
         int loopCount = 0;
 
-        while (slots[selectedSlotIndex].Item == null)
+        while (slots[tmpSlotIndex].Item == null)
         {
-            selectedSlotIndex--;
-            if (selectedSlotIndex < 0)
-                selectedSlotIndex = slots.Length - 1;
+            tmpSlotIndex--;
+            if (tmpSlotIndex < 0)
+                tmpSlotIndex = slots.Length - 1;
             loopCount++;
             if (loopCount == slots.Length - 1)
                 return;
         }
-
-        slots[selectedSlotIndex].OnClick();
+        OnSlotClicked(tmpSlotIndex);
+        slots[activeSlot].OnClick();
     }
 
     private void SelectNextSlot(InputAction.CallbackContext context)
     {
-        if (selectedSlotIndex == -1)
-            selectedSlotIndex = 0;
-        else if (selectedSlotIndex > slots.Length - 1)
-            selectedSlotIndex = 0;
+        int tmpSlotIndex = activeSlot;
+        if (tmpSlotIndex == -1)
+            tmpSlotIndex = 0;
+        else if (tmpSlotIndex + 1 > slots.Length - 1)
+            tmpSlotIndex = 0;
         else
-            selectedSlotIndex++;
+            tmpSlotIndex++;
 
         int loopCount = 0;
-        while (slots[selectedSlotIndex].Item == null)
+        while (slots[tmpSlotIndex].Item == null)
         {
-            selectedSlotIndex++;
-            if (selectedSlotIndex > slots.Length - 1)
-                selectedSlotIndex = 0;
+            tmpSlotIndex++;
+            if (tmpSlotIndex > slots.Length - 1)
+                tmpSlotIndex = 0;
             loopCount++;
             if (loopCount == slots.Length - 1)
                 return;
         }
-
-        slots[selectedSlotIndex].OnClick();
+        OnSlotClicked(tmpSlotIndex);
+        slots[activeSlot].OnClick();
     }
 
     private void Update() {
@@ -170,24 +218,8 @@ public class HotbarManager : MonoSingleton<HotbarManager>
 
     public void UpdateUI() {
         
-        foreach (var slot in slots) {
-            /*if (slot.Item == null) continue;
-
-            int itemIndex = inventoryContainer.ItemsIDs.IndexOf(slot.Item.ID);
-            if (itemIndex == -1) {
-                slot.SetItem(null);
-                continue;
-            }
-            int amount = inventoryContainer.Amounts[itemIndex];
-
-            if (amount == 0)
-                slot.SetItem(null);
-            else
-                slot.SetItem(slot.Item, amount);
-
-            slot.UpdateUI();*/
+        foreach (var slot in slots)
             UpdateSlot(slot);
-        }
 
         UpdateSlot(consumableSlot);
     }
@@ -233,7 +265,7 @@ public class HotbarManager : MonoSingleton<HotbarManager>
 
         if (selectedSlot.Item == null) return;
 
-        ItemDragIcon.Show(selectedSlot.Item.Icon);
+        ItemDragIcon.Show(selectedSlot.Item.Icon, MouseHelper.Instance.MousePos);
     }
 
     public void Drag() {
@@ -243,7 +275,7 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         selectedSlotIndex = overSlot.SlotIndex;
 
         if (selectedSlot.Item == null) return;
-        ItemDragIcon.Show(selectedSlot.Item.Icon);
+        ItemDragIcon.Show(selectedSlot.Item.Icon, MouseHelper.Instance.MousePos);
     }
 
     public void Drop() {
@@ -251,8 +283,8 @@ public class HotbarManager : MonoSingleton<HotbarManager>
 
         if (selectedSlot == null && overSlot != null) {
 
-            selectedSlot = InventorySystem.Instance.SelectedSlot;
-            selectedSlotIndex = InventorySystem.Instance.SelectedSlotIndex;
+            selectedSlot = InventorySystem.Instance.DraggedSlot;
+            selectedSlotIndex = InventorySystem.Instance.DraggedSlotIndex;
 
             if (selectedSlot != null && selectedSlot.Item != null && overSlot != null) {
                 if (selectedSlot.Item.Type == Enum_ItemType.Equipment) {
