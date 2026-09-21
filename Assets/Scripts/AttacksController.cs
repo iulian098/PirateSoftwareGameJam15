@@ -30,7 +30,7 @@ public class AttacksController : MonoBehaviour
         if (GlobalData.isPaused) return;
         if (InGameManager.Instance.EventSystem.IsPointerOverGameObject()) return;
 
-        if(Gamepad.current != null)
+        if(InputDeviceManager.Instance.CurrentDeviceType == InputDeviceType.Gamepad)
         {
             if (aimDirectionControllerAction.ReadValue<Vector2>().sqrMagnitude > 0.01f)
                 aimDirection = aimDirectionControllerAction.ReadValue<Vector2>().normalized;
