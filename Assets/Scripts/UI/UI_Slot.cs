@@ -1,12 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class UI_Slot : MonoBehaviour
+public abstract class UI_Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IDropHandler, ISelectHandler
 {
     [SerializeField] protected Image iconImage;
+
+    public event Action<UI_Slot> OnSlotSelected;
+    public event Action<UI_Slot> OnSlotPointerEnter;
+    public event Action<UI_Slot> OnSlotPointerExit;
+    public event Action<UI_Slot> OnSlotDrag;
+    public event Action<UI_Slot> OnSlotDrop;
 
     protected int slotIndex;
     protected ItemData item;
@@ -37,11 +42,30 @@ public abstract class UI_Slot : MonoBehaviour
 
     public virtual void UpdateUI() {}
 
-    public virtual void OnDrag(BaseEventData eventData) { }
-    public virtual void OnEndDrag(BaseEventData eventData){ }
-    public virtual void OnDrop(BaseEventData eventData){ }
-    public virtual void OnPointerEnter(BaseEventData eventData){ }
-    public virtual void OnPointerExit(BaseEventData eventData){ }
-
     public virtual void Clear() { }
+
+    public virtual void OnPointerEnter(PointerEventData eventData)
+    {
+        OnSlotPointerEnter?.Invoke(this);
+    }
+
+    public virtual void OnPointerExit(PointerEventData eventData)
+    {
+        OnSlotPointerExit?.Invoke(this);
+    }
+
+    public virtual void OnDrag(PointerEventData eventData)
+    {
+        OnSlotDrag?.Invoke(this);
+    }
+
+    public virtual void OnDrop(PointerEventData eventData)
+    {
+        OnSlotDrop?.Invoke(this);
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        OnSlotSelected?.Invoke(this);
+    }
 }

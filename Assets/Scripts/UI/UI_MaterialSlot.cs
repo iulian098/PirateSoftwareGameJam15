@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -37,6 +35,4 @@ public class UI_MaterialSlot : UI_Slot
     public void SetAvailable(bool available) {
         iconImage.color = available ? normalColor : fadeColor;
     }
-
-
 }

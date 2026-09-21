@@ -8,9 +8,14 @@ public class UI_HotbarSlot : UI_Slot
     [SerializeField] TMP_Text amountText;
     [SerializeField] GameObject selectedObj;
     [SerializeField] GameObject disabledObj;
+    [SerializeReference] KeyIcon[] keybindIcons;
+    [SerializeField] GameObject keybindContainer;
 
     public Action<int> OnClickAction;
-    public Action<int> OnSelected;
+    public Action<int> OnClicked;
+
+    public KeyIcon[] KeybindIcons => keybindIcons;
+    public GameObject KeybindContainer => keybindContainer;
 
     public override void SetItem(ItemData item) {
         base.SetItem(item);
@@ -42,6 +47,14 @@ public class UI_HotbarSlot : UI_Slot
         amountText.text = $"x{amount}";
     }
 
+    public void UpdateKeybind(InputDeviceType type)
+    {
+        foreach (var keybind in keybindIcons)
+        {
+            keybind.DeviceChanged(type);
+        }
+    }
+
     public void SetSelected(bool selected) {
         selectedObj.SetActive(selected);
     }
@@ -50,11 +63,11 @@ public class UI_HotbarSlot : UI_Slot
         disabledObj.SetActive(disabled);
     }
 
-    public override void OnPointerEnter(BaseEventData eventData) {
+    public override void OnPointerEnter(PointerEventData eventData) {
         HotbarManager.Instance.SetOverSlot(this);
     }
 
-    public override void OnPointerExit(BaseEventData eventData) {
+    public override void OnPointerExit(PointerEventData eventData) {
         HotbarManager.Instance.SetOverSlot(null);
     }
 
@@ -62,11 +75,11 @@ public class UI_HotbarSlot : UI_Slot
         Debug.Log($"Hotbar slot {slotIndex} clicked");
         if (item == null) return;
         OnClickAction?.Invoke(item.ID);
-        OnSelected?.Invoke(slotIndex);
+        OnClicked?.Invoke(slotIndex);
     }
 
     public override void Clear() {
         OnClickAction = null;
-        OnSelected = null;
+        OnClicked = null;
     }
 }
