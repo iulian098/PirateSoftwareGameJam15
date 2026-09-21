@@ -8,17 +8,18 @@ public class ItemDragIcon : MonoBehaviour
     [SerializeField] Image itemIcon;
     [SerializeField] GameObject itemDragObject;
 
-    private void Update() {
-        transform.position = MouseHelper.Instance.MousePos;
-    }
-
-    public void Show(Sprite icon) {
-        transform.position = MouseHelper.Instance.MousePos;
+    public void Show(Sprite icon, Vector3 startPosition) {
+        transform.position = startPosition;
         itemIcon.sprite = icon;
         itemDragObject.SetActive(true);
     }
 
     public void Hide() {
         itemDragObject.SetActive(false);
+    }
+
+    public void UpdatePosition(Vector3 position)
+    {
+        transform.position = position;
     }
 }

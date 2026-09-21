@@ -93,6 +93,9 @@ public class RecipesManager : MonoBehaviour
     }
 
     public void SetMaxAmount() {
+        if (selectedRecipe == null)
+            return;
+
         List<int> amounts = new List<int>();
 
         for (int i = 0; i < materialsSlots.Length; i++) {

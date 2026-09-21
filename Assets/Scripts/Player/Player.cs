@@ -11,8 +11,12 @@ public class Player : Character
 
     InputAction useAction;
     bool isDead;
+    Collider2D detectedDrop;
+
     public bool IsDead => isDead;
+
     PlayerInput playerInput => InGameManager.Instance.PlayerInput;
+
     public AttacksController AttacksController => attacksController;
 
     protected override void Start() {
@@ -25,25 +29,32 @@ public class Player : Character
         useAction = playerInput.actions["Use"];
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         if (GlobalData.isPaused) return;
 
         Collider2D[] colls = new Collider2D[1];
         Physics2D.OverlapCircle(transform.position, pickupRadius, new ContactFilter2D() { layerMask = InGameManager.Instance.InGameData.PickupMask | InGameManager.Instance.InGameData.InteractableMask, useLayerMask = true, useTriggers = true }, colls);
-        if (colls.Length > 0 && colls[0] != null) {
-            if((InGameManager.Instance.InGameData.InteractableMask & (1 << colls[0].gameObject.layer)) != 0)
+        if (colls.Length > 0 && colls[0] != null)
+        {
+            if ((InGameManager.Instance.InGameData.InteractableMask & (1 << colls[0].gameObject.layer)) != 0)
                 UIManager.Instance.ShowInfoText(InfoTextStrings.UseString);
-            else if((InGameManager.Instance.InGameData.PickupMask & (1 << colls[0].gameObject.layer)) != 0)
+            else if ((InGameManager.Instance.InGameData.PickupMask & (1 << colls[0].gameObject.layer)) != 0)
                 UIManager.Instance.ShowInfoText(InfoTextStrings.PickupString);
 
-            if (useAction.WasPerformedThisFrame()) {
-                if (colls[0].TryGetComponent(out IInteractable drop))
-                    drop.OnInteract();
-            }
+            detectedDrop = colls[0];
         }
-        else {
+        else
+        {
+            detectedDrop = null;
             UIManager.Instance.HideInfo();
         }
+    }
+
+    private void Update()
+    {
+        if (detectedDrop != null && useAction.WasPerformedThisFrame() && detectedDrop.TryGetComponent(out IInteractable drop))
+            drop.OnInteract();
     }
 
     private void OnDied() {
