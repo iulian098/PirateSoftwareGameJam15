@@ -6,7 +6,6 @@ public class UIHandCursor : MonoSingleton<UIHandCursor>
     public enum SpriteType
     {
         Normal,
-        Click,
         Drag
     }
 
