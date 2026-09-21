@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoSingleton<UIManager>
+public class UIManager : MonoSingleton<UIManager>, IKeyIcon
 {
     [SerializeField] UI_HealthBar playerHealthBar;
     [SerializeField] EnemyHealthBarManager enemyHealthBarManager;
@@ -17,6 +16,9 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] GameObject deathScreen;
     [SerializeField] InGameMenu inGameMenu;
 
+
+    Queue<UIPanel> activePanelsQueue = new Queue<UIPanel>();
+
     public UI_HealthBar PlayerHealthBar => playerHealthBar;
     public EnemyHealthBarManager EnemyHealthBarManager => enemyHealthBarManager;
     public UI_DamageNumberManager DamageNumberManager => damageNumberManager;
@@ -25,6 +27,7 @@ public class UIManager : MonoSingleton<UIManager>
     public ItemPickupInfo ItemPickupInfo => itemPickupInfo;
 
     InputAction backAction;
+    string currentText;
 
     private void Start() {
         backAction = InGameManager.Instance.PlayerInput.actions["Back"];
@@ -32,10 +35,22 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Update() {
         if (backAction.WasPerformedThisFrame()) {
-            if (inGameMenu.IsActive)
-                inGameMenu.Hide();
+            if (activePanelsQueue.Count == 0)
+            {
+                if (inGameMenu.IsActive)
+                {
+                    HideLastPanel();
+                }
+                else
+                {
+                    ShowPanel(inGameMenu);
+                    Cursor.visible = true;
+                }
+            }
             else
-                inGameMenu.Show();
+            {
+                HideLastPanel();
+            }
         }
     }
 
@@ -44,7 +59,11 @@ public class UIManager : MonoSingleton<UIManager>
     }
 
     public void ShowInfoText(string info) {
-        infoText.text = info;
+        currentText = info;
+        var keyBindData = UIKeyIconManager.Instance.GetActionIconText(InGameManager.Instance.PlayerInput.actions["Use"]);
+
+        infoText.text = currentText.Replace("{Key}", keyBindData);
+
         infoText.gameObject.SetActive(true);
     }
 
@@ -60,5 +79,33 @@ public class UIManager : MonoSingleton<UIManager>
     public void GoToMainMenu() {
         GlobalData.isPaused = false;
         SceneManager.LoadScene(0);
+    }
+
+    public void ShowPanel(UIPanel panel)
+    {
+        if (activePanelsQueue.Contains(panel))
+        {
+            Debug.LogError($"{panel.name} already exists");
+            return;
+        }
+        else
+        {
+            panel.Show();
+            activePanelsQueue.Enqueue(panel);
+        }
+    }
+
+    public void HideLastPanel()
+    {
+        if (activePanelsQueue.Count == 0)
+            return;
+
+        var lastPanel = activePanelsQueue.Dequeue();
+        lastPanel.Hide();
+    }
+
+    public void DeviceChanged(InputDeviceType deviceType)
+    {
+        
     }
 }
