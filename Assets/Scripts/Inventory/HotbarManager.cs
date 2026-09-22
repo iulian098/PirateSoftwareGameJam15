@@ -1,5 +1,7 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class HotbarManager : MonoSingleton<HotbarManager>
@@ -79,6 +81,8 @@ public class HotbarManager : MonoSingleton<HotbarManager>
                     slots[i].KeybindContainer.SetActive(i == activeSlot);
                     slots[i].UpdateKeybind(type);
                 }
+
+                EventSystem.current.SetSelectedGameObject(null);
                 break;
             default:
                 break;
@@ -106,6 +110,9 @@ public class HotbarManager : MonoSingleton<HotbarManager>
                 slots[i].SetItem(null);
             slots[i].OnClickAction += InventorySystem.Instance.OnEquipItem;
             slots[i].OnClicked += OnSlotClicked;
+            slots[i].OnSlotSelected += OnSlotSelected;
+            slots[i].OnSlotPointerEnter += OnSlotPointerEnter;
+            slots[i].OnSlotPointerExit += OnSlotPointerExit;
 
             hotbarActions[i] = InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)];
         }
@@ -127,6 +134,16 @@ public class HotbarManager : MonoSingleton<HotbarManager>
 
     }
 
+    private void OnSlotPointerEnter(UI_Slot slot)
+    {
+        SetOverSlot(slot);
+    }
+
+    private void OnSlotPointerExit(UI_Slot slot)
+    {
+        SetOverSlot(null);
+    }
+
     private void OnSlotClicked(int index) {
         if (GlobalData.isPaused) return;
         if (activeSlot != -1)
@@ -134,6 +151,27 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         activeSlot = index;
         slots[activeSlot].SetSelected(true);
         inventoryContainer.HotbarSelectedIndex = index;
+    }
+
+    private void OnSlotSelected(UI_Slot slot)
+    {
+        if (InputDeviceManager.Instance.CurrentDeviceType == InputDeviceType.KeyboardAndMouse)
+            return;
+
+        overSlot = slot;
+        overSlotIndex = slot.SlotIndex;
+
+        if (InventorySystem.Instance.IsDrag)
+        {
+            ItemDragIcon.UpdatePosition(overSlot.transform.position + new Vector3(1, 1, 0));
+        }
+        else
+        {
+            if (slot.Item != null)
+                UIManager.Instance.ItemInfo.Show(slot.Item, slot.transform.position - new Vector3(0, (slot.transform as RectTransform).sizeDelta.y / 2, 0));
+            else
+                UIManager.Instance.ItemInfo.Hide();
+        }
     }
 
     private void SelectPrevSlot(InputAction.CallbackContext context)
@@ -187,7 +225,18 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     }
 
     private void Update() {
-        if (GlobalData.isPaused) return;
+
+        if (InventorySystem.Instance.IsInventoryOpen && InputDeviceManager.Instance.CurrentDeviceType == InputDeviceType.Gamepad)
+        {
+            if (!InventorySystem.Instance.IsDrag && InGameManager.Instance.PlayerInput.actions["ConsumableSlot"].WasPressedThisFrame())
+                Drag(selectedSlot);
+
+            if (InventorySystem.Instance.IsDrag && InGameManager.Instance.PlayerInput.actions["Use"].WasPressedThisFrame())
+                Drop();
+        }
+
+        if (GlobalData.isPaused || InventorySystem.Instance.IsInventoryOpen) return;
+
         for (int i = 0; i < slots.Length; i++) {
             if (hotbarActions[i].WasPerformedThisFrame()) { 
                 slots[i].OnClick();
@@ -260,6 +309,9 @@ public class HotbarManager : MonoSingleton<HotbarManager>
     }
 
     public void Drag(UI_Slot slot) {
+        if (slot == null)
+            return;
+
         selectedSlot = slot;
         selectedSlotIndex = slot.SlotIndex;
 
@@ -409,5 +461,4 @@ public class HotbarManager : MonoSingleton<HotbarManager>
         overSlot = null;
         overSlotIndex = -1;
     }
-
 }

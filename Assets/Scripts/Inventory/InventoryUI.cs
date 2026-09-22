@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
 public class InventoryUI : UIPanel
 {
@@ -23,6 +24,8 @@ public class InventoryUI : UIPanel
     int overSlotIndex;
 
     bool isDrag;
+    bool isInitialized;
+
     ItemDragIcon ItemDragIcon => UIManager.Instance.ItemDragIcon;
     public InventoryContainer InventoryContainer => inventoryContainer;
     public UI_Slot DraggedSlot => draggedSlot;
@@ -32,7 +35,6 @@ public class InventoryUI : UIPanel
 
     private void Start()
     {
-        InitSlots();
         inventoryContainer.OnInventoryUpdated += UpdateInventory;
     }
 
@@ -43,6 +45,7 @@ public class InventoryUI : UIPanel
 
     public override void Show()
     {
+        InitSlots();
         if (!contents.activeSelf)
         {
             MouseHelper.Instance.OnDrag += HotbarManager.Instance.Drag;
@@ -72,12 +75,20 @@ public class InventoryUI : UIPanel
         }
 
         GlobalData.isPaused = false;
-        UIHandCursor.Instance.Hide();
-        ItemDragIcon.Hide();
-        UIManager.Instance.ItemInfo.Hide();
-        contents.SetActive(false);
         Cursor.visible = true;
         selectedSlot = null;
+        draggedSlot = null;
+        draggedSlotIndex = -1;
+        InventorySystem.Instance.SetDraggingSlot(null);
+
+
+        contents.SetActive(false);
+        ItemDragIcon.Hide();
+        UIHandCursor.Instance.Hide();
+        UIManager.Instance.ItemInfo.Hide();
+        HotbarManager.Instance.SetDisabled(false);
+        HotbarManager.Instance.SetConsumableDisabled(false);
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void Update()
@@ -106,6 +117,7 @@ public class InventoryUI : UIPanel
 
     void InitSlots()
     {
+        if (isInitialized) return;
         slots = new UI_Slot[inventoryContainer.ItemsIDs.Count];
         for (int i = 0; i < inventoryContainer.ItemsIDs.Count; i++)
         {
@@ -120,18 +132,30 @@ public class InventoryUI : UIPanel
             slots[i].OnSlotPointerEnter += OnSlotPointerEnter;
             slots[i].OnSlotPointerExit += OnSlotPointerExit;
         }
+
+        isInitialized = true;
     }
 
     private void OnSlotPointerEnter(UI_Slot slot)
     {
         overSlot = slot;
         overSlotIndex = slot == null ? -1 : slot.SlotIndex;
+
+        if (InputDeviceManager.Instance.CurrentDeviceType == InputDeviceType.KeyboardAndMouse)
+        {
+            if (slot.Item != null && !IsDrag)
+                UIManager.Instance.ItemInfo.Show(slot.Item, slot.transform.position - new Vector3(0, (slot.transform as RectTransform).sizeDelta.y / 2, 0));
+        }
     }
 
     private void OnSlotPointerExit(UI_Slot slot)
     {
         overSlot = null;
         overSlotIndex = -1;
+
+        if (InputDeviceManager.Instance.CurrentDeviceType == InputDeviceType.KeyboardAndMouse)
+            UIManager.Instance.ItemInfo.Hide();
+
     }
 
     private void OnItemAdded(ItemData item, int itemIndex, int amount)
@@ -156,6 +180,14 @@ public class InventoryUI : UIPanel
 
         if (isDrag)
             ItemDragIcon.UpdatePosition(overSlot.transform.position + new Vector3(1, 1, 0));
+
+        if (!isDrag)
+        {
+            if (slot.Item != null)
+                UIManager.Instance.ItemInfo.Show(slot.Item, slot.transform.position - new Vector3(0, (slot.transform as RectTransform).sizeDelta.y / 2, 0));
+            else
+                UIManager.Instance.ItemInfo.Hide();
+        }
     }
 
     public void SetOverSlot(UI_Slot slot)
@@ -235,7 +267,6 @@ public class InventoryUI : UIPanel
             UIManager.Instance.ItemInfo.Show(overSlot.Item, overSlot.transform.position - new Vector3(0, (overSlot.transform as RectTransform).sizeDelta.y / 2, 0));
 
         SoundManager.Instance.PlaySound(transform.position, "ItemDrop");
-
 
         Clear();
     }

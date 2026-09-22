@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoSingleton<UIManager>, IKeyIcon
+public class UIManager : MonoSingleton<UIManager>, IDeviceChanged
 {
     [SerializeField] UI_HealthBar playerHealthBar;
     [SerializeField] EnemyHealthBarManager enemyHealthBarManager;

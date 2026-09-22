@@ -9,8 +9,8 @@ public class UIKeyIconManager : MonoSingleton<UIKeyIconManager>
     [SerializeField] GamepadKeyIcons gamepadKeyIcons;
 
     InputDeviceManager inputDeviceManager;
-    Dictionary<InputDeviceType, HashSet<IKeyIcon>> registeredObjects = new Dictionary<InputDeviceType, HashSet<IKeyIcon>>();
-    HashSet<IKeyIcon> registeredObjectGlobal = new HashSet<IKeyIcon>();
+    Dictionary<InputDeviceType, HashSet<IDeviceChanged>> registeredObjects = new Dictionary<InputDeviceType, HashSet<IDeviceChanged>>();
+    HashSet<IDeviceChanged> registeredObjectGlobal = new HashSet<IDeviceChanged>();
 
     private void Start()
     {
@@ -44,20 +44,20 @@ public class UIKeyIconManager : MonoSingleton<UIKeyIconManager>
         }
     }
 
-    public void RegisterObject(IKeyIcon obj)
+    public void RegisterObject(IDeviceChanged obj)
     {
         registeredObjectGlobal.Add(obj);
     }
 
-    public void RegisterObject(IKeyIcon obj, InputDeviceType device)
+    public void RegisterObject(IDeviceChanged obj, InputDeviceType device)
     {
         if(registeredObjects.ContainsKey(device))
             registeredObjects[device].Add(obj);
         else
-            registeredObjects.Add(device, new HashSet<IKeyIcon>() { obj });
+            registeredObjects.Add(device, new HashSet<IDeviceChanged>() { obj });
     }
 
-    public void UnregisterObject(IKeyIcon obj)
+    public void UnregisterObject(IDeviceChanged obj)
     {
         foreach (var item in registeredObjects)
         {
@@ -66,7 +66,7 @@ public class UIKeyIconManager : MonoSingleton<UIKeyIconManager>
         }
     }
 
-    public void UnregisterObject(IKeyIcon obj, InputDeviceType device)
+    public void UnregisterObject(IDeviceChanged obj, InputDeviceType device)
     {
         if (registeredObjects.ContainsKey(device))
             registeredObjects[device].Remove(obj);

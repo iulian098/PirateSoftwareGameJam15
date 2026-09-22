@@ -20,7 +20,8 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     public InventoryContainer InventoryContainer => inventoryContainer;
     public UI_Slot DraggedSlot => draggedSlot;
     public int DraggedSlotIndex => draggedSlotIndex;
-    public bool IsDrag => isDrag;
+    public bool IsDrag { get => isDrag; set => isDrag = value; }
+    public bool IsInventoryOpen => inventoryUI.IsOpen;
 
     private void Start() {
         foreach (var item in inventoryContainer.InInventoryByDefault) {
@@ -103,6 +104,7 @@ public class InventorySystem : MonoSingleton<InventorySystem>
     {
         draggedSlot = slot;
         draggedSlotIndex = slot != null ? slot.SlotIndex : -1;
+        IsDrag = slot != null;
     }
 
     public void OnEquipItem(int itemId) {

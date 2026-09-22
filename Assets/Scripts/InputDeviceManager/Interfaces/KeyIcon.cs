@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class KeyIcon : MonoBehaviour, IKeyIcon
+public abstract class KeyIcon : MonoBehaviour, IDeviceChanged
 {
     [SerializeField] bool autoRegister = true;
 
