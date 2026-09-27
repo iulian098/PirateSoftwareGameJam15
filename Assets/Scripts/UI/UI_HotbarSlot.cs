@@ -57,6 +57,8 @@ public class UI_HotbarSlot : UI_Slot
 
     public void SetSelected(bool selected) {
         selectedObj.SetActive(selected);
+        if (InputDeviceManager.Instance.CurrentDeviceType == InputDeviceType.Gamepad)
+            KeybindContainer.SetActive(selected);
     }
 
     public void SetDisabled(bool disabled) {

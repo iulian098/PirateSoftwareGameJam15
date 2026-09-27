@@ -3,11 +3,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class UI_Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IDropHandler, ISelectHandler
+public abstract class UI_Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IDropHandler, ISelectHandler, IDeselectHandler
 {
     [SerializeField] protected Image iconImage;
 
     public event Action<UI_Slot> OnSlotSelected;
+    public event Action<UI_Slot> OnSlotDeselected;
     public event Action<UI_Slot> OnSlotPointerEnter;
     public event Action<UI_Slot> OnSlotPointerExit;
     public event Action<UI_Slot> OnSlotDrag;
@@ -67,5 +68,10 @@ public abstract class UI_Slot : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnSelect(BaseEventData eventData)
     {
         OnSlotSelected?.Invoke(this);
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        OnSlotDeselected?.Invoke(this);
     }
 }

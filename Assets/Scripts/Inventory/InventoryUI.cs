@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEditor.Progress;
 
 public class InventoryUI : UIPanel
 {
@@ -129,8 +127,10 @@ public class InventoryUI : UIPanel
             slots[i].SetSlotIndex(tmp);
             slots[i].SetItem(itemsContainer.GetItemByID(inventoryContainer.ItemsIDs[i]), inventoryContainer.Amounts[i]);
             slots[i].OnSlotSelected += OnSlotSelected;
+            slots[i].OnSlotDeselected += OnSlotDeselected;
             slots[i].OnSlotPointerEnter += OnSlotPointerEnter;
             slots[i].OnSlotPointerExit += OnSlotPointerExit;
+
         }
 
         isInitialized = true;
@@ -188,6 +188,16 @@ public class InventoryUI : UIPanel
             else
                 UIManager.Instance.ItemInfo.Hide();
         }
+    }
+
+    private void OnSlotDeselected(UI_Slot slot)
+    {
+        if (InputDeviceManager.Instance.CurrentDeviceType == InputDeviceType.KeyboardAndMouse || selectedSlot != slot)
+            return;
+
+        selectedSlot = null;
+        overSlot = null;
+        overSlotIndex = -1;
     }
 
     public void SetOverSlot(UI_Slot slot)

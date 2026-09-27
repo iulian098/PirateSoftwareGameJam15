@@ -117,6 +117,8 @@ public class HotbarManager : MonoSingleton<HotbarManager>
             hotbarActions[i] = InGameManager.Instance.PlayerInput.actions["Hotbar" + (i + 1)];
         }
 
+        consumableSlot.OnSlotSelected += OnSlotSelected;
+
         if (inventoryContainer.ConsumableID == 0)
             consumableSlot.SetItem(null);
         else

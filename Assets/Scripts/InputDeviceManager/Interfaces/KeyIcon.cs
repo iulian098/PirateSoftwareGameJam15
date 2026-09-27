@@ -16,5 +16,10 @@ public abstract class KeyIcon : MonoBehaviour, IDeviceChanged
             UIKeyIconManager.Instance.UnregisterObject(this);
     }
 
+    private void Start()
+    {
+        DeviceChanged(InputDeviceManager.Instance.CurrentDeviceType);
+    }
+
     public abstract void DeviceChanged(InputDeviceType deviceType);
 }

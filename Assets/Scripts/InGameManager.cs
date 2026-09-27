@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InGameManager : MonoSingleton<InGameManager>
 {
@@ -24,6 +26,12 @@ public class InGameManager : MonoSingleton<InGameManager>
         SaveSystem.Instance.LoadGameData();
         inventoryAction = playerInput.actions["Inventory"];
         playerInput.onActionTriggered += OnActionTriggered;
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    private void OnSceneChanged(Scene arg0, Scene arg1)
+    {
+        GlobalData.isPaused = false;
     }
 
     private void OnDestroy()
