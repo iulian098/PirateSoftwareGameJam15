@@ -26,10 +26,14 @@ public class CommonPopup : MonoSingleton<CommonPopup>
         cancelButton.gameObject.SetActive(showCancel);
 
         okButton.onClick.RemoveAllListeners();
+        okButton.onClick.AddListener(Hide);
         if (okButton != null && okAction != null)
+        {
             okButton.onClick.AddListener(okAction);
+        }
 
         cancelButton.onClick.RemoveAllListeners();
+        cancelButton.onClick.AddListener(Hide);
         if(cancelButton != null && cancelAction != null)
             cancelButton.onClick.AddListener(cancelAction);
     }
