@@ -19,6 +19,8 @@ public class SoundManager : MonoSingleton<SoundManager>
     public static void PlaySound(Vector2 position, SoundData data) {
         if (data.clip.Length == 0) return;
         AudioClip clip = data.clip.Length > 1 ? data.clip[Random.Range(0, data.clip.Length)] : data.clip[0];
+        if (clip == null)
+            return;
         GameObject go = new GameObject(data.clip != null ? clip.name : "New AudioSource");
         go.transform.position = position;
         AudioSource audioSource = go.AddComponent<AudioSource>();
@@ -40,6 +42,9 @@ public class SoundManager : MonoSingleton<SoundManager>
         SoundData data = soundsContainer.GetSound(soundName);
         if (data == null) return null;
         AudioClip clip = data.clip.Length > 1 ? data.clip[Random.Range(0, data.clip.Length)] : data.clip[0];
+        if (clip == null)
+            return null;
+
         GameObject go = new GameObject(data.clip != null ? clip.name : "New AudioSource");
         go.transform.position = position;
         AudioSource audioSource = go.AddComponent<AudioSource>();

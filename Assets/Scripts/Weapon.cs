@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -12,6 +10,7 @@ public class Weapon : MonoBehaviour
     Character character;
     ItemData itemData;
     RaycastHit2D raycastHit;
+    Collider2D[] detectedColliders;
 
     public void Init(Character character) {
         this.character = character;
@@ -51,19 +50,14 @@ public class Weapon : MonoBehaviour
         character.Animator.SetTrigger("Attack");
 
         if (isRanged) {
-            Projectile proj = Instantiate((weaponData as RangeWeaponData).Projectile, shootingPoint.position, shootingPoint.rotation);
-            proj.Init(character.gameObject, shootingPoint.right, (weaponData as RangeWeaponData), weaponData.Damage);
+            RangeWeaponData rangeWeaponData = weaponData as RangeWeaponData;
+            Projectile proj = Instantiate(rangeWeaponData.Projectile, shootingPoint.position, shootingPoint.rotation);
+            proj.Init(character, shootingPoint.right, rangeWeaponData, weaponData.Damage);
         }
         else {
-            raycastHit = Physics2D.Raycast(shootingPoint.position,
-                shootingPoint.right,
-                (weaponData as MeleeWeaponData).Range,
-                InGameManager.Instance.InGameData.EnemyMask | InGameManager.Instance.InGameData.BreakableObjectMask | InGameManager.Instance.InGameData.InteractableMask
-                );
-            if(raycastHit.collider != null && raycastHit.collider.TryGetComponent<HealthComponent>(out var healthComp)){
-                healthComp.ReceiveDamage(weaponData);
-            }
-            VFX vfx = VFXManager.ShowVFX((weaponData as MeleeWeaponData).AttackVFX.VFXName, shootingPoint.position, shootingPoint.rotation);
+            MeleeWeaponData meleeWeaponData = weaponData as MeleeWeaponData;
+            CollisionDetection(meleeWeaponData);
+            VFX vfx = VFXManager.ShowVFX(meleeWeaponData.AttackVFX.VFXName, shootingPoint.position, shootingPoint.rotation);
             if((character as Player).AttacksController.FacingRight) {
                 Vector3 newScale = vfx.transform.localScale;
                 newScale.y = vfx.DefaultScale.y;
@@ -78,5 +72,37 @@ public class Weapon : MonoBehaviour
         }
 
         fireRateTimer = weaponData.FireRate;
+    }
+
+    void CollisionDetection(MeleeWeaponData weaponData)
+    {
+        if (weaponData.CollisionDetectionType == CollisionDetectionType.Raycast)
+        {
+            raycastHit = Physics2D.Raycast(shootingPoint.position,
+                shootingPoint.right,
+                weaponData.Range,
+                InGameManager.Instance.InGameData.EnemyMask | InGameManager.Instance.InGameData.BreakableObjectMask | InGameManager.Instance.InGameData.InteractableMask
+                );
+            if (raycastHit.collider != null && raycastHit.collider.TryGetComponent<HealthComponent>(out var healthComp))
+            {
+                healthComp.ReceiveDamage(weaponData);
+            }
+        }
+        else
+        {
+            detectedColliders = Physics2D.OverlapCircleAll(shootingPoint.position + (shootingPoint.right * weaponData.Range / 2f),
+                weaponData.Range,
+                InGameManager.Instance.InGameData.EnemyMask | InGameManager.Instance.InGameData.BreakableObjectMask | InGameManager.Instance.InGameData.InteractableMask,
+                -100, 100
+                );
+            for (int i = 0; i < detectedColliders.Length; i++)
+            {
+                if (detectedColliders[i].TryGetComponent<HealthComponent>(out var healthComp))
+                {
+                    healthComp.ReceiveDamage(weaponData);
+                }
+            }
+        }
+
     }
 }

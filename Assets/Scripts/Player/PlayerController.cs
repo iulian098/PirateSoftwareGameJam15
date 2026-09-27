@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     InputAction movementAction;
 
-    internal void Init(Player player) {
+    public void Init(Player player) {
         this.player = player;
     }
 
@@ -30,9 +28,8 @@ public class PlayerController : MonoBehaviour
         movementAction = playerInput.actions["Movement"];
     }
 
-    // Update is called once per frame
     void Update() {
-        if (player.IsDead) return;
+        if (player.IsDead || GlobalData.isPaused) return;
         movementVector = movementAction.ReadValue<Vector2>();
 
         anim.SetBool(RunHash, movementVector.magnitude > 0.1f);
@@ -67,7 +64,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Movement(Vector2 direction) {
-        rb.velocity = direction * speed;
+        rb.linearVelocity = direction * speed;
     }
 
 }

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55822dd5203c51344928a3680dbf7f29, type: 3}
+  m_Name: GamepadKeyIcons
+  m_EditorClassIdentifier: Assembly-CSharp::GamepadKeyIcons
+  icons:
+  - deviceType: 0
+    icons: []
+  - deviceType: 1
+    icons:
+    - inputPath: buttonNorth
+      icon: {fileID: 21300000, guid: edb2bd207cce8c34da64c1cfcb89d1ac, type: 3}
+      spriteName: tilemap_7
+    - inputPath: buttonSouth
+      icon: {fileID: 21300000, guid: f1b1d869e9cb5224ca13fc47a2c0cfb1, type: 3}
+      spriteName: tilemap_4
+    - inputPath: buttonWest
+      icon: {fileID: 21300000, guid: ab26c721df81dca499744aa7cbb9d16e, type: 3}
+      spriteName: tilemap_6
+    - inputPath: buttonEast
+      icon: {fileID: 21300000, guid: 479e1c3f0aea2874b9753f63c0c9bc33, type: 3}
+      spriteName: tilemap_5
+    - inputPath: leftShoulder
+      icon: {fileID: 21300000, guid: 5824d59161cea5b45aa73cb1349790a6, type: 3}
+      spriteName: tilemap_146
+    - inputPath: rightShoulder
+      icon: {fileID: 21300000, guid: 893fd854cdca80a45a3be309b3305065, type: 3}
+      spriteName: tilemap_147
+    - inputPath: leftTrigger
+      icon: {fileID: 21300000, guid: ff43a769f2ed0994eae9061d8bcea17b, type: 3}
+      spriteName: tilemap_148
+    - inputPath: rightTrigger
+      icon: {fileID: 21300000, guid: dced3a0d913d6364baa8691bf3ee9b1e, type: 3}
+      spriteName: tilemap_149

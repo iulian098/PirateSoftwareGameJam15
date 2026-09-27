@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 
 public class VFXManager : MonoBehaviour {
@@ -20,8 +18,11 @@ public class VFXManager : MonoBehaviour {
             return null;
         }
 
-        if (!pools.TryGetValue(vfxName, out var vfxPool)) {
-            pools.Add(vfxName, new PoolingSystem<VFX>(vfx, 1, parent));
+        PoolingSystem<VFX> vfxPool = null;
+
+        if (!pools.TryGetValue(vfxName, out vfxPool)) {
+            vfxPool = new PoolingSystem<VFX>(vfx, 1, parent);
+            pools.Add(vfxName, vfxPool);
         }
 
         VFX shownVFX = vfxPool.Get(position, rotation);

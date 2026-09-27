@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class VFXContainer : ScriptableObject
 {
     [SerializeField] VFX[] vfxs;
 
-    public Dictionary<string, VFX> vfxDictionary = new Dictionary<string, VFX>();
+    private Dictionary<string, VFX> vfxDictionary = new Dictionary<string, VFX>();
 
     public Dictionary<string, VFX> VFX_Dictionary {
         get {

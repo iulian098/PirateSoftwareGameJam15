@@ -7,10 +7,10 @@ using UnityEngine;
 public class PlayerData
 {
     [SerializeField, JsonProperty] string playerName;
-    [SerializeField, JsonProperty] Dictionary<string, int> ints = new Dictionary<string, int>();
-    [SerializeField, JsonProperty] Dictionary<string, float> floats = new Dictionary<string, float>();
-    [SerializeField, JsonProperty] Dictionary<string, string> strings = new Dictionary<string, string>();
-    [SerializeField, JsonProperty] Dictionary<string, bool> bools = new Dictionary<string, bool>();
+    [JsonProperty] Dictionary<string, int> ints = new Dictionary<string, int>();
+    [JsonProperty] Dictionary<string, float> floats = new Dictionary<string, float>();
+    [JsonProperty] Dictionary<string, string> strings = new Dictionary<string, string>();
+    [JsonProperty] Dictionary<string, bool> bools = new Dictionary<string, bool>();
 
     [JsonIgnore] public Action<string> OnValueChanged;
     [JsonIgnore] public string PlayerName {

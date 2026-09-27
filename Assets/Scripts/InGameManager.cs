@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InGameManager : MonoSingleton<InGameManager>
 {
@@ -21,15 +23,24 @@ public class InGameManager : MonoSingleton<InGameManager>
     public EventSystem EventSystem => eventSystem;
 
     private void Start() {
+        SaveSystem.Instance.LoadGameData();
         inventoryAction = playerInput.actions["Inventory"];
+        playerInput.onActionTriggered += OnActionTriggered;
+        SceneManager.activeSceneChanged += OnSceneChanged;
     }
 
-    private void Update() {
-        if (inventoryAction.WasPerformedThisFrame()) {
-            if (!InventorySystem.Instance.IsOpen)
-                InventorySystem.Instance.Show();
-            else
-                InventorySystem.Instance.Hide();
-        }
+    private void OnSceneChanged(Scene arg0, Scene arg1)
+    {
+        GlobalData.isPaused = false;
+    }
+
+    private void OnDestroy()
+    {
+        playerInput.onActionTriggered -= OnActionTriggered;
+    }
+
+    private void OnActionTriggered(InputAction.CallbackContext context)
+    {
+        Debug.Log(context.control.device.ToString());
     }
 }

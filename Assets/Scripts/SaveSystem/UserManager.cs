@@ -1,10 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public static class UserManager
 {
-    public static PlayerData playerData;
+    static PlayerData playerData;
+
+    public static PlayerData PlayerData
+    {
+        get
+        {
+            if (playerData == null)
+                playerData = new PlayerData();
+            return playerData;
+        }
+    }
 
     public static void SetPlayerData(PlayerData data) {
         playerData = data;

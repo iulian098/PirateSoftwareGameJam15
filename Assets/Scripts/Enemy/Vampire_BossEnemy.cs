@@ -50,7 +50,7 @@ public class Vampire_BossEnemy : BossEnemy
 
     public IEnumerator SpawnBats(int amount) {
         for (int i = 0; i < amount; i++) {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.3f);
             aimDirection = (target.transform.position - transform.position).normalized;
             aimDirTransform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1), aimDirection);
 
@@ -63,9 +63,7 @@ public class Vampire_BossEnemy : BossEnemy
                 proj.transform.localScale = scale;
             }
 
-            proj.Init(gameObject, aimDirTransform.up, batWeapon, batWeapon.Damage);
-
-
+            proj.Init(this, aimDirTransform.up, batWeapon, batWeapon.Damage);
         }
     }
 

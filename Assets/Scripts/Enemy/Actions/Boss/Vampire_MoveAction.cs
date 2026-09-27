@@ -6,13 +6,14 @@ namespace PluggableAI {
     [CreateAssetMenu(fileName = "Vampire_MoveAction", menuName = "PluggableAI/Actions/Vampire/Move Attack")]
     public class Vampire_MoveAction : Action {
         public override void Act(Enemy controller) {
-            float upDist = controller.transform.position.y + Physics2D.Raycast(controller.transform.position, Vector2.up, 10, LayerMask.GetMask("Default")).distance;
-            float downDist = controller.transform.position.y - Physics2D.Raycast(controller.transform.position, -Vector2.up, 10, LayerMask.GetMask("Default")).distance;
-            float rightDist = controller.transform.position.x + Physics2D.Raycast(controller.transform.position, Vector2.right, 10, LayerMask.GetMask("Default")).distance;
-            float leftDist = controller.transform.position.y - Physics2D.Raycast(controller.transform.position, Vector2.left, 10, LayerMask.GetMask("Default")).distance;
+            //float upDist = controller.transform.position.y + Physics2D.Raycast(controller.transform.position, Vector2.up, 10, LayerMask.GetMask("Default")).distance;
+            //float downDist = controller.transform.position.y - Physics2D.Raycast(controller.transform.position, -Vector2.up, 10, LayerMask.GetMask("Default")).distance;
+            //float rightDist = controller.transform.position.x + Physics2D.Raycast(controller.transform.position, Vector2.right, 10, LayerMask.GetMask("Default")).distance;
+            //float leftDist = controller.transform.position.x - Physics2D.Raycast(controller.transform.position, Vector2.left, 10, LayerMask.GetMask("Default")).distance;
 
-            controller.SetTargetLocation(controller.transform.position + new Vector3(Random.Range(-leftDist, rightDist), Random.Range(-downDist, upDist)));
-
+            //controller.SetTargetLocation(controller.transform.position + new Vector3(Random.Range(-leftDist, rightDist), Random.Range(-downDist, upDist)));
+            Vector3 targetPosition = controller.Waypoints[Random.Range(0, controller.Waypoints.Length)].position;
+            controller.SetTargetLocation(targetPosition);
             (controller as Vampire_BossEnemy).ChangePositionTimer = (controller as Vampire_BossEnemy).ChangePositionTime;
         }
     }

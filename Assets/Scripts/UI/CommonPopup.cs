@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CommonPopup : MonoSingleton<CommonPopup>
@@ -16,6 +17,8 @@ public class CommonPopup : MonoSingleton<CommonPopup>
     [SerializeField] TMP_Text cancelButtonText;
 
     public void Show(string bodyText, UnityAction okAction = null, string okButtonText = "OK", bool showCancel = false, UnityAction cancelAction = null, string cancelButtonText = "Cancel") {
+        GlobalData.isPaused = true;
+        EventSystem.current.SetSelectedGameObject(okButton.gameObject);
         contents.SetActive(true);
         body.text = bodyText;
         this.okButtonText.text = okButtonText;
@@ -23,15 +26,20 @@ public class CommonPopup : MonoSingleton<CommonPopup>
         cancelButton.gameObject.SetActive(showCancel);
 
         okButton.onClick.RemoveAllListeners();
+        okButton.onClick.AddListener(Hide);
         if (okButton != null && okAction != null)
+        {
             okButton.onClick.AddListener(okAction);
+        }
 
         cancelButton.onClick.RemoveAllListeners();
+        cancelButton.onClick.AddListener(Hide);
         if(cancelButton != null && cancelAction != null)
             cancelButton.onClick.AddListener(cancelAction);
     }
 
     public void Hide() {
         contents.SetActive(false);
+        GlobalData.isPaused = false;
     }
 }
